@@ -26,7 +26,8 @@
                 android:layout_height="@dimen/abc_text_size_display_4_material"
                 android:id="@+id/imageButtonClassic1"
                 android:background="@drawable/button_classic_1"
-                android:clickable="false" />
+                android:clickable="false"
+                android:onClick="onClickClassic1" />
 
             <ImageButton
                 android:layout_width="@dimen/abc_text_size_display_4_material"
