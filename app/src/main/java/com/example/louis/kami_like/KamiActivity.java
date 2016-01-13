@@ -44,19 +44,22 @@ public class KamiActivity extends Activity {
     }
 
     /** info */
-    public void onClickInfo(View view) {
+    public void onClickInfo(View view)
+    {
         Intent intent = new Intent(this, InfoActivity.class);
         startActivity(intent);
     }
 
     /** classic puzzles */
-    public void onClickClassicPuzzles(View view) {
+    public void onClickClassicPuzzles(View view)
+    {
         Intent intent = new Intent(this, ClassicPuzzlesActivity.class);
         startActivity(intent);
     }
 
     /** premium puzzles */
-    public void onClickPremiumPuzzles(View view) {
+    public void onClickPremiumPuzzles(View view)
+    {
 
     }
 }

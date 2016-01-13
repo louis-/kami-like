@@ -1,6 +1,7 @@
 package com.example.louis.kami_like;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +19,7 @@ public class ClassicPuzzlesActivity extends Activity {
     /** info */
     public void onClickClassic1(View view)
     {
-        finish();
+        Intent intent = new Intent(this, GameActivity.class);
+        startActivity(intent);
     }
 }
