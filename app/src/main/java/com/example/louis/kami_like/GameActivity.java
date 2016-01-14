@@ -12,10 +12,13 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.Window;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 public class GameActivity extends Activity implements SurfaceHolder.Callback
 {
+    GameGrid _grid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -26,6 +29,8 @@ public class GameActivity extends Activity implements SurfaceHolder.Callback
         SurfaceView surfaceView = (SurfaceView)findViewById(R.id.surfaceView);
         surfaceView.getHolder().addCallback(this);
         surfaceView.setWillNotDraw(false);
+
+        _grid = new GameGrid();
     }
 
     @Override
@@ -34,36 +39,20 @@ public class GameActivity extends Activity implements SurfaceHolder.Callback
     @Override
     public void surfaceChanged(SurfaceHolder holder, int frmt, int w, int h)
     {
-        tryDrawing(holder);
+        surfaceCreated(holder);
     }
 
     @Override
     public void surfaceCreated(SurfaceHolder holder)
     {
-        tryDrawing(holder);
-    }
+        //findViewById(R.id.surfaceView).setBackgroundColor(Color.WHITE);
 
-    protected void onDraw(Canvas canvas)
-    {
-        canvas.drawRGB(255, 0, 255);
-    }
-
-    private void tryDrawing(SurfaceHolder holder)
-    {
         Canvas canvas = holder.lockCanvas();
-        if (canvas == null)
+        if (canvas != null)
         {
-        }
-        else
-        {
-            drawMyStuff(canvas);
+            _grid.draw(canvas);
             holder.unlockCanvasAndPost(canvas);
         }
-    }
-
-    private void drawMyStuff(final Canvas canvas)
-    {
-        canvas.drawRGB(128, 255, 0);
     }
 
     public void showToast(String msg)
