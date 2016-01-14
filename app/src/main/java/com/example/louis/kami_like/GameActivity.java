@@ -63,7 +63,7 @@ public class GameActivity extends Activity implements SurfaceHolder.Callback
 
     private void drawMyStuff(final Canvas canvas)
     {
-        canvas.drawRGB(255, 128, 128);
+        canvas.drawRGB(128, 255, 0);
     }
 
     public void showToast(String msg)
