@@ -45,8 +45,6 @@ public class GameActivity extends Activity implements SurfaceHolder.Callback
     @Override
     public void surfaceCreated(SurfaceHolder holder)
     {
-        //findViewById(R.id.surfaceView).setBackgroundColor(Color.WHITE);
-
         Canvas canvas = holder.lockCanvas();
         if (canvas != null)
         {
