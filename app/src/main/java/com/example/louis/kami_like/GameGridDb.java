@@ -26,7 +26,7 @@ public class GameGridDb
             grid = new GameGrid();
 
         }
-        return null;
+        return grid;
     }
 
     //

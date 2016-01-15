@@ -14,7 +14,6 @@ public class GameGrid
 
     // drawing data
     private int[] _colors;
-
     private int[][] _grid;
     private Paint _paint;
 
@@ -30,7 +29,8 @@ public class GameGrid
         this._colors = _colors;
     }
 
-    public void set_grid(int[][] _grid) {
+    public void set_grid(int[][] _grid)
+    {
         this._grid = _grid;
     }
 
