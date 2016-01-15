@@ -9,14 +9,13 @@ import android.graphics.Paint;
  */
 public class GameGrid
 {
+    private static final int _lines = 16;
+    private static final int _columns = 10;
+
     // drawing data
     private int[] _colors;
 
-    // grid data
-    private static final int _lines = 16;
-    private static final int _columns = 10;
     private int[][] _grid;
-
     private Paint _paint;
 
     //
@@ -26,11 +25,13 @@ public class GameGrid
         _paint = new Paint();
     }
 
-    GameGrid(int[][] init_grid)
+    public void set_colors(int[] _colors)
     {
-        _grid = new int[_lines][_columns];
-        _grid = init_grid;
-        _paint = new Paint();
+        this._colors = _colors;
+    }
+
+    public void set_grid(int[][] _grid) {
+        this._grid = _grid;
     }
 
     //

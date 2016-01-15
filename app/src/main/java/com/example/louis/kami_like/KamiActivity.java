@@ -13,12 +13,16 @@ import android.content.Intent;
 import android.view.Window;
 import android.view.WindowManager;
 
-public class KamiActivity extends Activity {
+public class KamiActivity extends Activity
+{
+    private GameGridDb _gameGridDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kami);
+
+        _gameGridDb = new GameGridDb(this);
     }
 
     @Override
