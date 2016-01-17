@@ -33,13 +33,15 @@
                 android:layout_width="@dimen/abc_text_size_display_4_material"
                 android:layout_height="@dimen/abc_text_size_display_4_material"
                 android:id="@+id/imageButtonClassic2"
-                android:background="@drawable/button_classic_2" />
+                android:background="@drawable/button_classic_2"
+                android:onClick="onClickClassic2" />
 
             <ImageButton
                 android:layout_width="@dimen/abc_text_size_display_4_material"
                 android:layout_height="@dimen/abc_text_size_display_4_material"
                 android:id="@+id/imageButtonClassic3"
-                android:background="@drawable/button_classic_3" />
+                android:background="@drawable/button_classic_3"
+                android:onClick="onClickClassic3" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

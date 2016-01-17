@@ -10,3 +10,4 @@
     <include layout="@layout/content_kami" />
 
 </android.support.design.widget.CoordinatorLayout>
+

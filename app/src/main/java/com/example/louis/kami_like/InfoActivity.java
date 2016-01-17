@@ -8,7 +8,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-public class InfoActivity extends Activity {
+public class InfoActivity extends Activity
+{
 
     @Override
     protected void onCreate(Bundle savedInstanceState)

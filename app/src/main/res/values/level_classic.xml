@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
         <string name="classic_title">Classic puzzles</string>
+
         <string name="classic_1_color_1">darkpurple</string>
         <string name="classic_1_color_2">darkblue</string>
         <string name="classic_1_color_3">darkorange"</string>
         <integer name="classic_1_3stars">1</integer>
         <integer name="classic_1_2stars">2</integer>
-        <string name="classic_1_grid">1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</string>
+        <string name="classic_1_grid">0000000000000000000000000000000000000000000000000000000000000000000000000000000011111111111111111111111111111111111111111111111111111111111111111111111111111111</string>
+
+        <string name="classic_2_color_1">darkpurple</string>
+        <string name="classic_2_color_2">darkblue</string>
+        <string name="classic_2_color_3">darkorange"</string>
+        <integer name="classic_2_3stars">1</integer>
+        <integer name="classic_2_2stars">2</integer>
+        <string name="classic_2_grid">0000000000000000000000000000000011111100001111110000111111000011111100001111110000111111000011111100001111110000111111000011111100000000000000000000000000000000</string>
+
+        <string name="classic_3_color_1">darkpurple</string>
+        <string name="classic_3_color_2">darkblue</string>
+        <string name="classic_3_color_3">darkorange"</string>
+        <integer name="classic_3_3stars">1</integer>
+        <integer name="classic_3_2stars">2</integer>
+        <string name="classic_3_grid">0000000000000000000000000000000011111100001111110000111111000022222200002222220000222222000022222200001111110000111111000011111100000000000000000000000000000000</string>
 </resources>

@@ -25,10 +25,26 @@ public class ClassicPuzzlesActivity extends Activity {
     /** info */
     public void onClickClassic1(View view)
     {
+        createView(view, "classic_1");
+    }
+
+    public void onClickClassic2(View view)
+    {
+        createView(view, "classic_2");
+    }
+
+    public void onClickClassic3(View view)
+    {
+        createView(view, "classic_3");
+    }
+
+    //
+    private void createView(View view, String level)
+    {
         Intent intent = new Intent(this, GameActivity.class);
 
         Bundle bundle = new Bundle();
-        bundle.putString("level", "classic_1");
+        bundle.putString("level", level);
         intent.putExtras(bundle);
 
         startActivity(intent);

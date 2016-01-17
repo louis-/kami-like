@@ -30,12 +30,12 @@ public class GameGridDb
                     getColor(getString(level + "_color_2")),
                     getColor(getString(level + "_color_3"))};
 
-            String[] boxes = getString(level + "_grid").split(",");
+            String boxes = getString(level + "_grid");
             grid._grid = new int[grid._lines][grid._columns];
             if (grid._grid != null)
                 for(int i = 0; i < grid._lines; i++)
                     for(int j = 0; j < grid._columns; j++)
-                        grid._grid[i][j] = Integer.parseInt(boxes[i*grid._columns+j]);
+                        grid._grid[i][j] = Character.getNumericValue(boxes.charAt(i*grid._columns+j))-Character.getNumericValue('0');
         }
         return grid;
     }
