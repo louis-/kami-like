@@ -4,7 +4,7 @@
         <string name="classic_1_color_1">darkpurple</string>
         <string name="classic_1_color_2">darkblue</string>
         <string name="classic_1_color_3">darkorange"</string>
-        <string name="classic_1_3stars">1</string>
-        <string name="classic_1_2stars">2</string>
+        <integer name="classic_1_3stars">1</integer>
+        <integer name="classic_1_2stars">2</integer>
         <string name="classic_1_grid">1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</string>
 </resources>

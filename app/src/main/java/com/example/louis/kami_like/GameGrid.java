@@ -9,12 +9,12 @@ import android.graphics.Paint;
  */
 public class GameGrid
 {
-    private static final int _lines = 16;
-    private static final int _columns = 10;
+    public static final int _lines = 16;
+    public static final int _columns = 10;
 
     // drawing data
-    private int[] _colors;
-    private int[][] _grid;
+    public int[] _colors;
+    public int[][] _grid;
     private Paint _paint;
 
     //
@@ -22,16 +22,6 @@ public class GameGrid
     {
         _grid = new int[_lines][_columns];
         _paint = new Paint();
-    }
-
-    public void set_colors(int[] _colors)
-    {
-        this._colors = _colors;
-    }
-
-    public void set_grid(int[][] _grid)
-    {
-        this._grid = _grid;
     }
 
     //
@@ -66,7 +56,7 @@ public class GameGrid
 
         // fill
         _paint.setStyle(Paint.Style.FILL);
-        _paint.setColor(Color.RED);
+        _paint.setColor(color);
         canvas.drawRect(x, y, x + square_side_x, y + square_side_y, _paint);
 
         // stroke
@@ -87,6 +77,6 @@ public class GameGrid
         _paint.setColor(Color.BLACK);
         for (int i = 0; i < _lines; i++)
             for (int j = 0; j < _columns; j++)
-                drawBox(canvas, i, j, 0);
+                drawBox(canvas, i, j, _colors[_grid[i][j]]);
     }
 }

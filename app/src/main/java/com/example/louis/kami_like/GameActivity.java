@@ -12,6 +12,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -24,13 +25,21 @@ public class GameActivity extends Activity implements SurfaceHolder.Callback
     {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_game);
 
+        //
         SurfaceView surfaceView = (SurfaceView)findViewById(R.id.surfaceView);
         surfaceView.getHolder().addCallback(this);
         surfaceView.setWillNotDraw(false);
 
-        _grid = new GameGrid();
+        //
+        Bundle bundle = getIntent().getExtras();
+        GameGridDb gameGridDb = new GameGridDb(this);
+        _grid = gameGridDb.makeGameGrid(bundle.getString("level"));
     }
 
     @Override
