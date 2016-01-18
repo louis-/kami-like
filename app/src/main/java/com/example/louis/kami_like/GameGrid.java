@@ -14,14 +14,32 @@ public class GameGrid
 
     // drawing data
     public int[] _colors;
-    public int[][] _grid;
     private Paint _paint;
+
+    // current game
+    public int[][] _grid;
+    public int _currentColor = 0;
+    public int _currentTurn = 0;
 
     //
     GameGrid()
     {
         _grid = new int[GRID_LINES][GRID_COLS];
         _paint = new Paint();
+    }
+
+    public void playAt(int currentScreenWidth, int currentScreenHeight, float pixelX, float pixelY)
+    {
+        int line;
+        int column;
+
+        line = (int)((pixelY / (float)currentScreenHeight) * (float)GRID_LINES);
+        column = (int)((pixelX / (float)currentScreenWidth) * (float)GRID_COLS);
+
+        if (line>=0 && line<GRID_LINES && column>=0 && column<GRID_COLS)
+        {
+            _grid[line][column] = _currentColor;
+        }
     }
 
     //

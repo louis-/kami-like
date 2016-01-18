@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -19,6 +20,8 @@ import android.widget.Toast;
 public class GameActivity extends Activity implements SurfaceHolder.Callback
 {
     GameGrid _grid;
+    int _currentScreenWidth;
+    int _currentScreenHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -48,6 +51,8 @@ public class GameActivity extends Activity implements SurfaceHolder.Callback
     @Override
     public void surfaceChanged(SurfaceHolder holder, int frmt, int w, int h)
     {
+        _currentScreenWidth = w;
+        _currentScreenHeight = h;
         surfaceCreated(holder);
     }
 
@@ -60,6 +65,20 @@ public class GameActivity extends Activity implements SurfaceHolder.Callback
             _grid.draw(canvas);
             holder.unlockCanvasAndPost(canvas);
         }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event)
+    {
+        if(event.getActionMasked() == MotionEvent.ACTION_DOWN)
+        {
+            // first, play
+            _grid.playAt(_currentScreenWidth, _currentScreenHeight, event.getX(), event.getY());
+
+            // then refresh view
+            surfaceCreated(((SurfaceView)findViewById(R.id.surfaceView)).getHolder());
+        }
+        return super.onTouchEvent(event);
     }
 
     public void showToast(String msg)
