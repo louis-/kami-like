@@ -37,23 +37,4 @@ public class KamiActivity extends Activity
         getMenuInflater().inflate(R.menu.menu_kami, menu);
         return true;
     }
-
-    /** info */
-    public void onClickInfo(View view)
-    {
-        Intent intent = new Intent(this, InfoActivity.class);
-        startActivity(intent);
-    }
-
-    /** classic puzzles */
-    public void onClickClassicPuzzles(View view)
-    {
-        Intent intent = new Intent(this, ClassicPuzzlesActivity.class);
-        startActivity(intent);
-    }
-
-    /** premium puzzles */
-    public void onClickPremiumPuzzles(View view)
-    {
-    }
 }

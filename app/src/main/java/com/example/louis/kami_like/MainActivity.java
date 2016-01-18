@@ -33,11 +33,10 @@ public class MainActivity extends FragmentActivity
     CollectionPagerAdapter _CollectionPagerAdapter;
     ViewPager _ViewPager;
 
-    static final int kami_panel = 0;
-    static final int kami_panel = 0;
-    static final int kami_panel = 0;
-    static final int kami_panel = 0;
-    static final int max_panels = 3;
+    public static final int INFO = 0;
+    public static final int KAMI = 1;
+    public static final int CLASSIC = 2;
+    public static final int NB_PANELS = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -53,11 +52,31 @@ public class MainActivity extends FragmentActivity
         // Set up the ViewPager, attaching the adapter.
         _ViewPager = (ViewPager) findViewById(R.id.pager);
         _ViewPager.setAdapter(_CollectionPagerAdapter);
+
+        //
+        _ViewPager.setCurrentItem(KAMI);
     }
 
-    public static class CollectionPagerAdapter extends FragmentStatePagerAdapter
+    @Override
+    public void onBackPressed()
     {
-        public CollectionPagerAdapter(FragmentManager fm) {
+        if (_ViewPager.getCurrentItem() == KAMI)
+        {
+            // If the user is currently looking at the first step, allow the system to handle the
+            // Back button. This calls finish() on this activity and pops the back stack.
+            super.onBackPressed();
+        }
+        else
+        {
+            // Otherwise, select the previous step.
+            _ViewPager.setCurrentItem(KAMI);
+        }
+    }
+
+     public static class CollectionPagerAdapter extends FragmentStatePagerAdapter
+    {
+        public CollectionPagerAdapter(FragmentManager fm)
+        {
             super(fm);
         }
 
@@ -74,7 +93,7 @@ public class MainActivity extends FragmentActivity
         @Override
         public int getCount()
         {
-            return max_panels;
+            return NB_PANELS;
         }
 
         @Override
@@ -91,8 +110,8 @@ public class MainActivity extends FragmentActivity
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            View rootView;
-            switch(getArguments().getInt(ObjectFragment.ARG_OBJECT))
+            View rootView = null;
+            switch(getArguments().getInt(ARG_OBJECT))
             {
                 case KAMI:
                     rootView = inflater.inflate(R.layout.activity_kami, container, false);
@@ -112,5 +131,56 @@ public class MainActivity extends FragmentActivity
                     */
             return rootView;
         }
+    }
+
+    /** Kami activity callbacks
+     *
+     */
+
+    /** info */
+    public void onClickInfo(View view)
+    {
+        _ViewPager.setCurrentItem(INFO);
+    }
+
+    /** classic puzzles */
+    public void onClickClassicPuzzles(View view)
+    {
+        _ViewPager.setCurrentItem(CLASSIC);
+    }
+
+    /** premium puzzles */
+    public void onClickPremiumPuzzles(View view)
+    {
+    }
+
+    /** Classic Puzzles activity callbacks
+     *
+     */
+    /** */
+    public void onClickClassic1(View view)
+    {
+        createGameView(view, "classic_1");
+    }
+
+    public void onClickClassic2(View view)
+    {
+        createGameView(view, "classic_2");
+    }
+
+    public void onClickClassic3(View view)
+    {
+        createGameView(view, "classic_3");
+    }
+
+    private void createGameView(View view, String level)
+    {
+        Intent intent = new Intent(this, GameActivity.class);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("level", level);
+        intent.putExtras(bundle);
+
+        startActivity(intent);
     }
 }

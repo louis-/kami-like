@@ -31,11 +31,11 @@ public class GameGridDb
                     getColor(getString(level + "_color_3"))};
 
             String boxes = getString(level + "_grid");
-            grid._grid = new int[grid._lines][grid._columns];
+            grid._grid = new int[grid.GRID_LINES][grid.GRID_COLS];
             if (grid._grid != null)
-                for(int i = 0; i < grid._lines; i++)
-                    for(int j = 0; j < grid._columns; j++)
-                        grid._grid[i][j] = Character.getNumericValue(boxes.charAt(i*grid._columns+j))-Character.getNumericValue('0');
+                for(int i = 0; i < grid.GRID_LINES; i++)
+                    for(int j = 0; j < grid.GRID_COLS; j++)
+                        grid._grid[i][j] = Character.getNumericValue(boxes.charAt(i*grid.GRID_COLS+j))-Character.getNumericValue('0');
         }
         return grid;
     }

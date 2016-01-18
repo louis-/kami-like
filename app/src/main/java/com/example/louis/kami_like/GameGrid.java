@@ -9,8 +9,8 @@ import android.graphics.Paint;
  */
 public class GameGrid
 {
-    public static final int _lines = 16;
-    public static final int _columns = 10;
+    public static final int GRID_LINES = 16;
+    public static final int GRID_COLS = 10;
 
     // drawing data
     public int[] _colors;
@@ -20,7 +20,7 @@ public class GameGrid
     //
     GameGrid()
     {
-        _grid = new int[_lines][_columns];
+        _grid = new int[GRID_LINES][GRID_COLS];
         _paint = new Paint();
     }
 
@@ -37,17 +37,17 @@ public class GameGrid
         float y;
 
         // squares
-        //if (((float)_lines / (float)_columns) > (height / width))
-        //    square_side_x = height / _lines;
+        //if (((float)GRID_LINES / (float)GRID_COLS) > (height / width))
+        //    square_side_x = height / GRID_LINES;
         //else
-        //    square_side_x = width / _columns;
+        //    square_side_x = width / GRID_COLS;
         //square_side_y = square_side_x;
-        //margin_left = (width - (_columns * square_side_x)) / 2;
-        //margin_top = (height - (_lines * square_side_y)) / 2;
+        //margin_left = (width - (GRID_COLS * square_side_x)) / 2;
+        //margin_top = (height - (GRID_LINES * square_side_y)) / 2;
 
         // filling rects
-        square_side_x = width / _columns;
-        square_side_y = height / _lines;
+        square_side_x = width / GRID_COLS;
+        square_side_y = height / GRID_LINES;
         margin_left = 0;
         margin_top = 0;
 
@@ -75,8 +75,8 @@ public class GameGrid
         // grid
         _paint.setStyle(Paint.Style.STROKE);
         _paint.setColor(Color.BLACK);
-        for (int i = 0; i < _lines; i++)
-            for (int j = 0; j < _columns; j++)
+        for (int i = 0; i < GRID_LINES; i++)
+            for (int j = 0; j < GRID_COLS; j++)
                 drawBox(canvas, i, j, _colors[_grid[i][j]]);
     }
 }

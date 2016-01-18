@@ -22,9 +22,4 @@ public class InfoActivity extends Activity
 
         setContentView(R.layout.activity_info);
     }
-
-    /** info */
-    public void onClickInfoOk(View view) {
-        finish();
-    }
 }
