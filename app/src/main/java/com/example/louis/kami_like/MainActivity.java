@@ -23,7 +23,9 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.view.ViewPager;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by louis on 17/01/16.
@@ -118,6 +120,14 @@ public class MainActivity extends FragmentActivity
                     break;
                 case INFO:
                     rootView = inflater.inflate(R.layout.activity_info, container, false);
+                    Button buttonInfo = (Button)container.findViewById(R.id.buttonInfo);
+                    buttonInfo.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v)
+                        {
+                            Toast.makeText(getActivity().getApplicationContext(), "info", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                     break;
                 case CLASSIC:
                     rootView = inflater.inflate(R.layout.activity_classic_puzzles, container, false);
