@@ -24,6 +24,7 @@ import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.view.ViewPager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -120,77 +121,58 @@ public class MainActivity extends FragmentActivity
                     break;
                 case INFO:
                     rootView = inflater.inflate(R.layout.activity_info, container, false);
+
+                    // click button Info
                     Button buttonInfo = (Button)container.findViewById(R.id.buttonInfo);
-                    buttonInfo.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v)
+                    buttonInfo.setOnClickListener(new View.OnClickListener()
                         {
-                            Toast.makeText(getActivity().getApplicationContext(), "info", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                            @Override
+                            public void onClick(View v)
+                            {
+                                ((MainActivity)getActivity())._ViewPager.setCurrentItem(INFO);
+                            }
+                        });
                     break;
                 case CLASSIC:
                     rootView = inflater.inflate(R.layout.activity_classic_puzzles, container, false);
+
+                    // click button classic
+                    Button button = (Button)container.findViewById(R.id.buttonClassicPuzzles);
+                    button.setOnClickListener(new View.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(View v)
+                        {
+                            ((MainActivity)getActivity())._ViewPager.setCurrentItem(CLASSIC);
+                        }
+                    });
+
+                    // click game buttons
+                    /*
+                    _imageButtonClassic1 = (ImageButton)container.findViewById(R.id.imageButtonClassic1);
+                    _imageButtonClassic1.setOnClickListener(new ImageButton.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(View v)
+                        {
+                            createGameView(_imageButtonClassic1, "classic_1");
+                        }
+                    });
+                    */
                     break;
             }
-            /*
-            View rootView = inflater.inflate(R.layout.fragment_collection_object, container, false);
-            Bundle args = getArguments();
-            ((TextView) rootView.findViewById(android.R.id.text1)).setText(
-                    Integer.toString(args.getInt(ARG_OBJECT)));
-                    */
             return rootView;
         }
-    }
 
-    /** Kami activity callbacks
-     *
-     */
+        private void createGameView(View view, String level)
+        {
+            Intent intent = new Intent(getActivity(), GameActivity.class);
 
-    /** info */
-    public void onClickInfo(View view)
-    {
-        _ViewPager.setCurrentItem(INFO);
-    }
+            Bundle bundle = new Bundle();
+            bundle.putString("level", level);
+            intent.putExtras(bundle);
 
-    /** classic puzzles */
-    public void onClickClassicPuzzles(View view)
-    {
-        _ViewPager.setCurrentItem(CLASSIC);
-    }
-
-    /** premium puzzles */
-    public void onClickPremiumPuzzles(View view)
-    {
-    }
-
-    /** Classic Puzzles activity callbacks
-     *
-     */
-    /** */
-    public void onClickClassic1(View view)
-    {
-        createGameView(view, "classic_1");
-    }
-
-    public void onClickClassic2(View view)
-    {
-        createGameView(view, "classic_2");
-    }
-
-    public void onClickClassic3(View view)
-    {
-        createGameView(view, "classic_3");
-    }
-
-    private void createGameView(View view, String level)
-    {
-        Intent intent = new Intent(this, GameActivity.class);
-
-        Bundle bundle = new Bundle();
-        bundle.putString("level", level);
-        intent.putExtras(bundle);
-
-        startActivity(intent);
-    }
+            startActivity(intent);
+        }
+     }
 }
