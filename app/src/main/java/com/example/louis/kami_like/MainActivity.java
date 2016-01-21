@@ -48,12 +48,14 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        // fullscreen
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        _CollectionPagerAdapter = new CollectionPagerAdapter(getSupportFragmentManager());
+        // no navigation bar
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
 
         // Set up the ViewPager, attaching the adapter.
+        _CollectionPagerAdapter = new CollectionPagerAdapter(getSupportFragmentManager());
         _ViewPager = (ViewPager) findViewById(R.id.pager);
         _ViewPager.setAdapter(_CollectionPagerAdapter);
 
