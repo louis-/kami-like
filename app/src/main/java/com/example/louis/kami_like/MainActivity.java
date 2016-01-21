@@ -31,7 +31,7 @@ import android.widget.Toast;
 /**
  * Created by louis on 17/01/16.
  */
-public class MainActivity extends FragmentActivity
+public class MainActivity extends FragmentActivity implements View.OnClickListener
 {
     CollectionPagerAdapter _CollectionPagerAdapter;
     ViewPager _ViewPager;
@@ -76,7 +76,16 @@ public class MainActivity extends FragmentActivity
         }
     }
 
-     public static class CollectionPagerAdapter extends FragmentStatePagerAdapter
+    public void onClick(View view)
+    {
+        switch (view.getId())
+        {
+            case  R.id.buttonInfo:
+                _ViewPager.setCurrentItem(INFO);
+                break;
+        }
+    }
+    public static class CollectionPagerAdapter extends FragmentStatePagerAdapter
     {
         public CollectionPagerAdapter(FragmentManager fm)
         {
@@ -109,6 +118,7 @@ public class MainActivity extends FragmentActivity
     public static class ObjectFragment extends Fragment
     {
         public static final String ARG_OBJECT = "object";
+        public static ImageButton _imageButtonClassic1;
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -123,6 +133,9 @@ public class MainActivity extends FragmentActivity
                     rootView = inflater.inflate(R.layout.activity_info, container, false);
 
                     // click button Info
+                    Button button = (Button)getActivity().findViewById(R.id.buttonInfo);
+                    button.setOnClickListener((MainActivity)getActivity());
+                    /*
                     Button buttonInfo = (Button)container.findViewById(R.id.buttonInfo);
                     buttonInfo.setOnClickListener(new View.OnClickListener()
                         {
@@ -132,10 +145,12 @@ public class MainActivity extends FragmentActivity
                                 ((MainActivity)getActivity())._ViewPager.setCurrentItem(INFO);
                             }
                         });
+                        */
                     break;
                 case CLASSIC:
                     rootView = inflater.inflate(R.layout.activity_classic_puzzles, container, false);
 
+                    /*
                     // click button classic
                     Button button = (Button)container.findViewById(R.id.buttonClassicPuzzles);
                     button.setOnClickListener(new View.OnClickListener()
@@ -148,7 +163,6 @@ public class MainActivity extends FragmentActivity
                     });
 
                     // click game buttons
-                    /*
                     _imageButtonClassic1 = (ImageButton)container.findViewById(R.id.imageButtonClassic1);
                     _imageButtonClassic1.setOnClickListener(new ImageButton.OnClickListener()
                     {
