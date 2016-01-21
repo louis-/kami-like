@@ -4,6 +4,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
+import java.util.ArrayList;
+import java.util.Vector;
+
 /**
  * Created by louis on 14/01/16.
  */
@@ -28,17 +31,62 @@ public class GameGrid
         _paint = new Paint();
     }
 
-    public void playAt(int currentScreenWidth, int currentScreenHeight, float pixelX, float pixelY)
+    public void playAt(int currentScreenWidth, int currentScreenHeight, float pixelX, float pixelY, int colrep)
     {
         int line;
         int column;
+        int colcible;
+
+        int[] lline = new int[GRID_LINES * GRID_COLS];
+        int[] lcol = new int[GRID_LINES * GRID_COLS];
+        int lindex = -1;
 
         line = (int)((pixelY / (float)currentScreenHeight) * (float)GRID_LINES);
         column = (int)((pixelX / (float)currentScreenWidth) * (float)GRID_COLS);
 
-        if (line>=0 && line<GRID_LINES && column>=0 && column<GRID_COLS)
+        if (line>=0 && line<GRID_LINES && column>=0 && column<GRID_COLS && _grid[line][column] != colrep)
         {
-            _grid[line][column] = _currentColor;
+            colcible = _grid[line][column];
+            lindex++;
+            lline[lindex] = line;
+            lcol[lindex] = column;
+            //_grid[line][column] = _currentColor;
+            while(lindex>=0)
+            {
+                line = lline[lindex];
+                column = lcol[lindex];
+                _grid[line][column] = colrep;
+                lindex--;
+
+                // north
+                if (line>0 && _grid[line-1][column]==colcible)
+                {
+                    lindex++;
+                    lline[lindex] = line-1;
+                    lcol[lindex] = column;
+                }
+                // south
+                if (line<(GRID_LINES-1) && _grid[line+1][column]==colcible)
+                {
+                    lindex++;
+                    lline[lindex] = line+1;
+                    lcol[lindex] = column;
+                }
+                // east
+                if (column<(GRID_COLS-1) && _grid[line][column+1]==colcible)
+                {
+                    lindex++;
+                    lline[lindex] = line;
+                    lcol[lindex] = column+1;
+                }
+                // west
+                if (column>0 && _grid[line][column-1]==colcible)
+                {
+                    lindex++;
+                    lline[lindex] = line;
+                    lcol[lindex] = column-1;
+                }
+            }
         }
     }
 

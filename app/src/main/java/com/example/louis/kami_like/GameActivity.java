@@ -73,7 +73,7 @@ public class GameActivity extends Activity implements SurfaceHolder.Callback
         if(event.getActionMasked() == MotionEvent.ACTION_DOWN)
         {
             // first, play
-            _grid.playAt(_currentScreenWidth, _currentScreenHeight, event.getX(), event.getY());
+            _grid.playAt(_currentScreenWidth, _currentScreenHeight, event.getX(), event.getY(), 0);
 
             // then refresh view
             surfaceCreated(((SurfaceView)findViewById(R.id.surfaceView)).getHolder());

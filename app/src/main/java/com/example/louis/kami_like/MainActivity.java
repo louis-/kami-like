@@ -39,7 +39,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     public static final int INFO = 0;
     public static final int KAMI = 1;
     public static final int CLASSIC = 2;
-    public static final int NB_PANELS = 3;
+    public static final int NB_VIEWS = 3;
+    public static final int DEFAULT_VIEW_AT_STARTUP = KAMI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -56,8 +57,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         _ViewPager = (ViewPager) findViewById(R.id.pager);
         _ViewPager.setAdapter(_CollectionPagerAdapter);
 
-        //
-        _ViewPager.setCurrentItem(KAMI);
+        // Default view at startup
+        _ViewPager.setCurrentItem(DEFAULT_VIEW_AT_STARTUP);
     }
 
     @Override
@@ -71,7 +72,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         }
         else
         {
-            // Otherwise, select the previous step.
+            // Otherwise, select KAMI
             _ViewPager.setCurrentItem(KAMI);
         }
     }
@@ -80,11 +81,25 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     {
         switch (view.getId())
         {
-            case  R.id.buttonInfo:
-                _ViewPager.setCurrentItem(INFO);
-                break;
+            case  R.id.buttonInfo: _ViewPager.setCurrentItem(INFO); break;
+            case  R.id.buttonClassicPuzzles: _ViewPager.setCurrentItem(CLASSIC); break;
+            case  R.id.imageButtonClassic1: createGameView("classic_1"); break;
+            case  R.id.imageButtonClassic2: createGameView("classic_2"); break;
+            case  R.id.imageButtonClassic3: createGameView("classic_3"); break;
         }
     }
+
+    private void createGameView(String level)
+    {
+        Intent intent = new Intent(this, GameActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("level", level);
+        intent.putExtras(bundle);
+
+        startActivity(intent);
+    }
+
+    //
     public static class CollectionPagerAdapter extends FragmentStatePagerAdapter
     {
         public CollectionPagerAdapter(FragmentManager fm)
@@ -105,7 +120,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         @Override
         public int getCount()
         {
-            return NB_PANELS;
+            return NB_VIEWS;
         }
 
         @Override
@@ -124,6 +139,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             View rootView = null;
+            Button button;
             switch(getArguments().getInt(ARG_OBJECT))
             {
                 case KAMI:
@@ -131,62 +147,28 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                     break;
                 case INFO:
                     rootView = inflater.inflate(R.layout.activity_info, container, false);
-
-                    // click button Info
-                    Button button = (Button)getActivity().findViewById(R.id.buttonInfo);
+                    button = (Button)getActivity().findViewById(R.id.buttonInfo);
                     button.setOnClickListener((MainActivity)getActivity());
-                    /*
-                    Button buttonInfo = (Button)container.findViewById(R.id.buttonInfo);
-                    buttonInfo.setOnClickListener(new View.OnClickListener()
-                        {
-                            @Override
-                            public void onClick(View v)
-                            {
-                                ((MainActivity)getActivity())._ViewPager.setCurrentItem(INFO);
-                            }
-                        });
-                        */
                     break;
                 case CLASSIC:
                     rootView = inflater.inflate(R.layout.activity_classic_puzzles, container, false);
+                    button = (Button)getActivity().findViewById(R.id.buttonClassicPuzzles);
+                    button.setOnClickListener((MainActivity) getActivity());
 
-                    /*
-                    // click button classic
-                    Button button = (Button)container.findViewById(R.id.buttonClassicPuzzles);
-                    button.setOnClickListener(new View.OnClickListener()
+                    int[] buttons = {
+                            R.id.imageButtonClassic1, R.id.imageButtonClassic2, R.id.imageButtonClassic3
+                    };
+                    for (int i : buttons)
                     {
-                        @Override
-                        public void onClick(View v)
+                        ImageButton iButton = (ImageButton)rootView.findViewById(i);
+                        if (iButton != null)
                         {
-                            ((MainActivity)getActivity())._ViewPager.setCurrentItem(CLASSIC);
+                            iButton.setOnClickListener((MainActivity) getActivity());
                         }
-                    });
-
-                    // click game buttons
-                    _imageButtonClassic1 = (ImageButton)container.findViewById(R.id.imageButtonClassic1);
-                    _imageButtonClassic1.setOnClickListener(new ImageButton.OnClickListener()
-                    {
-                        @Override
-                        public void onClick(View v)
-                        {
-                            createGameView(_imageButtonClassic1, "classic_1");
-                        }
-                    });
-                    */
+                    }
                     break;
             }
             return rootView;
-        }
-
-        private void createGameView(View view, String level)
-        {
-            Intent intent = new Intent(getActivity(), GameActivity.class);
-
-            Bundle bundle = new Bundle();
-            bundle.putString("level", level);
-            intent.putExtras(bundle);
-
-            startActivity(intent);
         }
      }
 }

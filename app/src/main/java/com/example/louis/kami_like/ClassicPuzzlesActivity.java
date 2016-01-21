@@ -10,8 +10,8 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-public class ClassicPuzzlesActivity extends Activity {
-
+public class ClassicPuzzlesActivity extends Activity
+{
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
