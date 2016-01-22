@@ -13,7 +13,7 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-public class ClassicPuzzlesActivity extends Activity implements SurfaceHolder.Callback
+public class ClassicPuzzlesActivity extends Activity
 {
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -25,32 +25,5 @@ public class ClassicPuzzlesActivity extends Activity implements SurfaceHolder.Ca
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_classic_puzzles);
-
-        GameGridDb gameGridDb = new GameGridDb(this);
-        _grid = gameGridDb.makeGameGrid("classic_3");
-
-        SurfaceView surfaceView = (SurfaceView)findViewById(R.id.surfaceView2);
-        //surfaceView.getHolder().addCallback(this);
-        surfaceCreated(surfaceView.getHolder());
-    }
-
-    @Override
-    public void surfaceDestroyed(SurfaceHolder holder) { }
-
-    @Override
-    public void surfaceChanged(SurfaceHolder holder, int frmt, int w, int h)
-    {
-        surfaceCreated(holder);
-    }
-
-    @Override
-    public void surfaceCreated(SurfaceHolder holder)
-    {
-        Canvas canvas = holder.lockCanvas();
-        if (canvas != null)
-        {
-            _grid.draw(canvas);
-            holder.unlockCanvasAndPost(canvas);
-        }
     }
 }

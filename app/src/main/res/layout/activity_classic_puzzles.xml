@@ -41,9 +41,11 @@
                 android:background="@drawable/button_classic_3"/>
         </LinearLayout>
 
-        <SurfaceView
-            android:layout_width="100dp"
-            android:layout_height="160dp"
-            android:id="@+id/surfaceView2" />
+        <Button
+            android:layout_width="@dimen/box_size"
+            android:layout_height="@dimen/box_size"
+            android:text="New Button"
+            android:id="@+id/button"
+            android:layout_gravity="center_horizontal" />
     </LinearLayout>
 </RelativeLayout>
