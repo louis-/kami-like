@@ -19,7 +19,7 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <ImageButton
                 android:layout_width="@dimen/abc_text_size_display_4_material"
@@ -40,5 +40,10 @@
                 android:id="@+id/imageButtonClassic3"
                 android:background="@drawable/button_classic_3"/>
         </LinearLayout>
+
+        <SurfaceView
+            android:layout_width="100dp"
+            android:layout_height="160dp"
+            android:id="@+id/surfaceView2" />
     </LinearLayout>
 </RelativeLayout>

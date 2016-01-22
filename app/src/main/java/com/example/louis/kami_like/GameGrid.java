@@ -15,6 +15,11 @@ public class GameGrid
     public static final int GRID_LINES = 16;
     public static final int GRID_COLS = 10;
 
+    public static final int GRID_STATE_DIMMED = 0;
+    public static final int GRID_STATE_NORMAL = 1;
+    public static final int GRID_STATE_PASSED = 2;
+    public static final int GRID_STATE_STAR = 3;
+
     // drawing data
     public int[] _colors;
     private Paint _paint;

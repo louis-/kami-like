@@ -29,7 +29,8 @@
             android:id="@+id/textKamiLike"
             android:layout_gravity="center_horizontal"
             android:textColor="@color/material_blue_grey_800"
-            android:textSize="48dp" />
+            android:textSize="48dp"
+            android:typeface="monospace" />
 
         <Space
             android:layout_width="match_parent"
@@ -52,7 +53,8 @@
             android:theme="@style/MyButton"
             android:layout_gravity="center_horizontal"
             android:textSize="24dp"
-            android:textColor="@color/material_blue_grey_800" />
+            android:textColor="@color/material_blue_grey_800"
+            android:typeface="monospace" />
 
         <Button
             android:layout_width="fill_parent"
@@ -63,7 +65,8 @@
             android:theme="@style/MyButton"
             android:layout_gravity="center_horizontal"
             android:textSize="24dp"
-            android:textColor="@color/material_blue_grey_800" />
+            android:textColor="@color/material_blue_grey_800"
+            android:typeface="monospace" />
 
         <Space
             android:layout_width="match_parent"
@@ -80,7 +83,8 @@
             android:layout_gravity="center_horizontal"
             android:textColor="@color/material_grey_800"
             android:textSize="16dp"
-            android:textStyle="italic" />
+            android:textStyle="italic"
+            android:typeface="monospace" />
 
     </LinearLayout>
 
