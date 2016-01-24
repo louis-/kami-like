@@ -1,32 +1,18 @@
 package com.example.louis.kami_like;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.content.Intent;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.app.NavUtils;
-import android.support.v4.app.TaskStackBuilder;
-import android.support.v4.view.ViewPager;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * Created by louis on 17/01/16.
@@ -38,8 +24,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     public static final int INFO = 0;
     public static final int KAMI = 1;
-    public static final int CLASSIC = 2;
-    public static final int NB_VIEWS = 3;
+    public static final int EASY1 = 2;
+    public static final int EASY2 = 3;
+    public static final int NB_VIEWS = 4;
     public static final int DEFAULT_VIEW_AT_STARTUP = KAMI;
 
     @Override
@@ -101,10 +88,25 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         switch (view.getId())
         {
             case  R.id.buttonInfo: _ViewPager.setCurrentItem(INFO); break;
-            case  R.id.buttonClassicPuzzles: _ViewPager.setCurrentItem(CLASSIC); break;
-            case  R.id.imageButtonClassic1: createGameView("classic_1"); break;
-            case  R.id.imageButtonClassic2: createGameView("classic_2"); break;
-            case  R.id.imageButtonClassic3: createGameView("classic_3"); break;
+            case  R.id.buttonEasy: _ViewPager.setCurrentItem(EASY1); break;
+            case  R.id.easy_1 : createGameView("classic_1"); break;
+            case  R.id.easy_2 : createGameView("classic_2"); break;
+            case  R.id.easy_3 : createGameView("classic_3"); break;
+            case  R.id.easy_4 : createGameView("classic_1"); break;
+            case  R.id.easy_5 : createGameView("classic_2"); break;
+            case  R.id.easy_6 : createGameView("classic_3"); break;
+            case  R.id.easy_7 : createGameView("classic_1"); break;
+            case  R.id.easy_8 : createGameView("classic_2"); break;
+            case  R.id.easy_9 : createGameView("classic_3"); break;
+            case  R.id.easy_10 : createGameView("classic_1"); break;
+            case  R.id.easy_11 : createGameView("classic_2"); break;
+            case  R.id.easy_12 : createGameView("classic_3"); break;
+            case  R.id.easy_13 : createGameView("classic_1"); break;
+            case  R.id.easy_14 : createGameView("classic_2"); break;
+            case  R.id.easy_15 : createGameView("classic_3"); break;
+            case  R.id.easy_16 : createGameView("classic_1"); break;
+            case  R.id.easy_17 : createGameView("classic_2"); break;
+            case  R.id.easy_18 : createGameView("classic_3"); break;
         }
     }
 
@@ -169,20 +171,39 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                     button = (Button)getActivity().findViewById(R.id.buttonInfo);
                     button.setOnClickListener((MainActivity)getActivity());
                     break;
-                case CLASSIC:
-                    rootView = inflater.inflate(R.layout.activity_classic_puzzles, container, false);
-                    button = (Button)getActivity().findViewById(R.id.buttonClassicPuzzles);
+                case EASY1:
+                    rootView = inflater.inflate(R.layout.activity_easy_1, container, false);
+                    button = (Button)getActivity().findViewById(R.id.buttonEasy);
                     button.setOnClickListener((MainActivity) getActivity());
-
-                    int[] buttons = {
-                            R.id.imageButtonClassic1, R.id.imageButtonClassic2, R.id.imageButtonClassic3
-                    };
-                    for (int i : buttons)
                     {
-                        ImageButton iButton = (ImageButton)rootView.findViewById(i);
-                        if (iButton != null)
-                        {
-                            iButton.setOnClickListener((MainActivity) getActivity());
+                        int[] buttons = {
+                                R.id.easy_1, R.id.easy_2, R.id.easy_3,
+                                R.id.easy_4, R.id.easy_5, R.id.easy_6,
+                                R.id.easy_7, R.id.easy_8, R.id.easy_9
+                        };
+                        for (int i : buttons) {
+                            FlatButton myFlat = (FlatButton) rootView.findViewById(i);
+                            if (myFlat != null) {
+                                myFlat.setOnClickListener((MainActivity) getActivity());
+                            }
+                        }
+                    }
+                    break;
+                case EASY2:
+                    rootView = inflater.inflate(R.layout.activity_easy_2, container, false);
+                    button = (Button)getActivity().findViewById(R.id.buttonEasy);
+                    button.setOnClickListener((MainActivity) getActivity());
+                    {
+                        int[] buttons = {
+                                R.id.easy_10, R.id.easy_11, R.id.easy_12,
+                                R.id.easy_13, R.id.easy_14, R.id.easy_15,
+                                R.id.easy_16, R.id.easy_17, R.id.easy_18
+                        };
+                        for (int i : buttons) {
+                            FlatButton myFlat = (FlatButton) rootView.findViewById(i);
+                            if (myFlat != null) {
+                                myFlat.setOnClickListener((MainActivity) getActivity());
+                            }
                         }
                     }
                     break;

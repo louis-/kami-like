@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Easy 1"
+        android:id="@+id/textEasy1"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/material_blue_grey_800"
+        android:textSize="48dp"
+        android:typeface="normal"
+        android:singleLine="false"
+        android:layout_marginTop="48dp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Choose a level:"
+        android:id="@+id/textChooseALevel1"
+        android:layout_gravity="center_horizontal"
+        android:textStyle="italic" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_gravity="center_horizontal" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <com.example.louis.kami_like.FlatButton
+            android:id="@+id/easy_1"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_margin="5dp"
+            custom:label="1"
+            custom:labelsize="40sp"
+            custom:bgcolor="@color/darkblue"
+            custom:labelcolor="@color/white"
+            android:layout_gravity="center_horizontal" />
+
+        <com.example.louis.kami_like.FlatButton
+            android:id="@+id/easy_2"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_margin="5dp"
+            custom:label="2"
+            custom:labelsize="40sp"
+            custom:bgcolor="@color/darkblue"
+            custom:labelcolor="@color/white"
+            android:layout_gravity="center_horizontal" />
+
+        <com.example.louis.kami_like.FlatButton
+            android:id="@+id/easy_3"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_margin="5dp"
+            custom:label="3"
+            custom:labelsize="40sp"
+            custom:bgcolor="@color/darkblue"
+            custom:labelcolor="@color/white"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+        <com.example.louis.kami_like.FlatButton
+            android:id="@+id/easy_4"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_margin="5dp"
+            custom:label="4"
+            custom:labelsize="40sp"
+            custom:bgcolor="@color/darkblue"
+            custom:labelcolor="@color/white"
+            android:layout_gravity="center_horizontal" />
+
+        <com.example.louis.kami_like.FlatButton
+            android:id="@+id/easy_5"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_margin="5dp"
+            custom:label="5"
+            custom:labelsize="40sp"
+            custom:bgcolor="@color/darkblue"
+            custom:labelcolor="@color/white"
+            android:layout_gravity="center_horizontal" />
+
+        <com.example.louis.kami_like.FlatButton
+            android:id="@+id/easy_6"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_margin="5dp"
+            custom:label="6"
+            custom:labelsize="40sp"
+            custom:bgcolor="@color/darkblue"
+            custom:labelcolor="@color/white"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+        <com.example.louis.kami_like.FlatButton
+            android:id="@+id/easy_7"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_margin="5dp"
+            custom:label="7"
+            custom:labelsize="40sp"
+            custom:bgcolor="@color/darkblue"
+            custom:labelcolor="@color/white"
+            android:layout_gravity="center_horizontal" />
+
+        <com.example.louis.kami_like.FlatButton
+            android:id="@+id/easy_8"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_margin="5dp"
+            custom:label="8"
+            custom:labelsize="40sp"
+            custom:bgcolor="@color/darkblue"
+            custom:labelcolor="@color/white"
+            android:layout_gravity="center_horizontal" />
+
+        <com.example.louis.kami_like.FlatButton
+            android:id="@+id/easy_9"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_margin="5dp"
+            custom:label="9"
+            custom:labelsize="40sp"
+            custom:bgcolor="@color/darkblue"
+            custom:labelcolor="@color/white"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+
+</LinearLayout>

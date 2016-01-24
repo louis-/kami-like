@@ -1,0 +1,7 @@
+<resources>
+    <declare-styleable name="FlatButton">
+        <attr name="bgcolor" format="color" />
+        <attr name="btncolor" format="color"></attr>
+        <attr name="label" format="string"></attr>
+    </declare-styleable>
+</resources>

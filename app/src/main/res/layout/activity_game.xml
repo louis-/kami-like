@@ -6,34 +6,23 @@
     tools:context="com.example.louis.kami_like.GameActivity"
     android:id="@+id/gameLayout">
 
-    <LinearLayout android:id="@+id/footer" android:layout_width="fill_parent"
-        android:layout_height="wrap_content" android:orientation="horizontal"
-        android:layout_alignParentBottom="true" style="@android:style/ButtonBar">
-
-        <Button android:id="@+id/saveButton" android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:layout_weight="1"
-            android:text="one" />
-
-        <Button android:id="@+id/cancelButton" android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:layout_weight="1"
-            android:text="two" />
-
-        <Button android:id="@+id/cancelButton" android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:layout_weight="1"
-            android:text="three" />
-
-        <Button android:id="@+id/cancelButton" android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:layout_weight="1"
-            android:text="four" />
-
-    </LinearLayout>
+    <SurfaceView
+        android:layout_width="fill_parent"
+        android:layout_height="120dp"
+        android:id="@+id/surfaceView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginRight="6dp"
+        android:layout_above="@+id/surfaceView2"
+        android:layout_marginBottom="6dp" />
 
     <SurfaceView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/surfaceView"
-        android:layout_above="@+id/footer"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="false"
-        android:layout_alignParentTop="true" />
+        android:layout_height="96dp"
+        android:id="@+id/surfaceView2"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

@@ -20,6 +20,9 @@ public class GameGrid
     public static final int GRID_STATE_PASSED = 2;
     public static final int GRID_STATE_STAR = 3;
 
+    public static final int GRID_INTERIOR_MARGIN_HOR = 10;
+    public static final int GRID_INTERIOR_MARGIN_VER = 10;
+
     // drawing data
     public int[] _colors;
     private Paint _paint;
@@ -107,15 +110,6 @@ public class GameGrid
         float x;
         float y;
 
-        // squares
-        //if (((float)GRID_LINES / (float)GRID_COLS) > (height / width))
-        //    square_side_x = height / GRID_LINES;
-        //else
-        //    square_side_x = width / GRID_COLS;
-        //square_side_y = square_side_x;
-        //margin_left = (width - (GRID_COLS * square_side_x)) / 2;
-        //margin_top = (height - (GRID_LINES * square_side_y)) / 2;
-
         // filling rects
         square_side_x = width / GRID_COLS;
         square_side_y = height / GRID_LINES;
@@ -128,24 +122,16 @@ public class GameGrid
         // fill
         _paint.setStyle(Paint.Style.FILL);
         _paint.setColor(color);
-        canvas.drawRect(x, y, x + square_side_x, y + square_side_y, _paint);
-
-        // stroke
-        _paint.setStyle(Paint.Style.STROKE);
-        _paint.setColor(Color.BLACK);
-        canvas.drawRect(x, y, x + square_side_x, y + square_side_y, _paint);
+        canvas.drawRect(x+GRID_INTERIOR_MARGIN_HOR, y+GRID_INTERIOR_MARGIN_VER, x + square_side_x - 2*GRID_INTERIOR_MARGIN_HOR, y + square_side_y - 2*GRID_INTERIOR_MARGIN_VER, _paint);
     }
 
-    void draw(Canvas canvas)
-    {
+    void draw(Canvas canvas) {
         // bkground
         _paint.setStyle(Paint.Style.FILL);
         _paint.setColor(Color.WHITE);
         canvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), _paint);
 
         // grid
-        _paint.setStyle(Paint.Style.STROKE);
-        _paint.setColor(Color.BLACK);
         for (int i = 0; i < GRID_LINES; i++)
             for (int j = 0; j < GRID_COLS; j++)
                 drawBox(canvas, i, j, _colors[_grid[i][j]]);

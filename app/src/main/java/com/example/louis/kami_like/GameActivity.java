@@ -65,9 +65,11 @@ public class GameActivity extends Activity implements SurfaceHolder.Callback
     }
 
     @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
+    public void onWindowFocusChanged(boolean hasFocus)
+    {
         super.onWindowFocusChanged(hasFocus);
-        if (hasFocus) {
+        if (hasFocus)
+        {
             hideSystemUI();
         }
     }
@@ -78,9 +80,12 @@ public class GameActivity extends Activity implements SurfaceHolder.Callback
     @Override
     public void surfaceChanged(SurfaceHolder holder, int frmt, int w, int h)
     {
-        _currentScreenWidth = w;
-        _currentScreenHeight = h;
-        surfaceCreated(holder);
+        if (holder == ((SurfaceView)findViewById(R.id.surfaceView)).getHolder())
+        {
+            _currentScreenWidth = w;
+            _currentScreenHeight = h;
+            surfaceCreated(holder);
+        }
     }
 
     @Override
