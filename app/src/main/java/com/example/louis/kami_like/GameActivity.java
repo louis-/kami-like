@@ -54,10 +54,10 @@ public class GameActivity extends Activity implements SurfaceHolder.Callback
         LinearLayout layout = (LinearLayout) findViewById(R.id.linearLayout);
         layout.setOrientation(LinearLayout.HORIZONTAL);
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 2; i++)
         {
             FlatButton btnTag = new FlatButton(this);
-            btnTag.setLayoutParams(new LinearLayout.LayoutParams(/*LinearLayout.LayoutParams.WRAP_CONTENT*/150, /*LinearLayout.LayoutParams.WRAP_CONTENT*/48));
+            btnTag.setLayoutParams(new LinearLayout.LayoutParams(/*LinearLayout.LayoutParams.WRAP_CONTENT*/150, LinearLayout.LayoutParams.WRAP_CONTENT));
             btnTag.setLabel("Button " + i);
             btnTag.setBgColor(Color.BLUE);
             btnTag.setId(i + 1);

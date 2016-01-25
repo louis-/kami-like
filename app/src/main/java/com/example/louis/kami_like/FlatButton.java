@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Toast;
 
@@ -15,7 +16,7 @@ import android.widget.Toast;
  */
 public class FlatButton extends View
 {
-    public static final int DEF_LABELSIZE = 16;
+    public static final int DEF_LABELSIZE = 48;// TODO : cette taille doit être SP et pas pixels
     public static final int DEF_BGCOLOR = Color.BLACK;
     public static final int DEF_LABELCOLOR = Color.WHITE;
 
@@ -117,5 +118,30 @@ public class FlatButton extends View
         paint.setColor(labelColor);
         paint.setTextSize(labelSize);
         canvas.drawText(label, bounds.left, bounds.top - paint.ascent(), paint);
+    }
+
+    @Override
+    protected void onSizeChanged (int w, int h, int oldw, int oldh)
+    {
+        RectF bounds = new RectF(0, 0, w, h);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+    {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+        int size = 0;
+        int width = getMeasuredWidth();
+        int height = getMeasuredHeight();
+
+        if (width > height) {
+            size = height;
+        }
+        else
+        {
+            size = width;
+        }
+        setMeasuredDimension(size, size);
     }
 }
