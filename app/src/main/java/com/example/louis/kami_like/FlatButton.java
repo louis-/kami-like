@@ -16,7 +16,7 @@ import android.widget.Toast;
  */
 public class FlatButton extends View
 {
-    public static final int DEF_LABELSIZE = 48;// TODO : cette taille doit être SP et pas pixels
+    public static final int DEF_LABELSIZE_DP = 16;// in dp
     public static final int DEF_BGCOLOR = Color.BLACK;
     public static final int DEF_LABELCOLOR = Color.WHITE;
 
@@ -24,7 +24,6 @@ public class FlatButton extends View
     public int getBgColor() {
         return bgColor;
     }
-
     public void setBgColor(int bgColor) {
         this.bgColor = bgColor;
     }
@@ -32,7 +31,6 @@ public class FlatButton extends View
     public String getLabel() {
         return label;
     }
-
     public void setLabel(String label) {
         this.label = label;
     }
@@ -40,15 +38,13 @@ public class FlatButton extends View
     public int getLabelSize() {
         return labelSize;
     }
-
     public void setLabelSize(int labelSize) {
-        this.labelSize = labelSize;
+        this.labelSize = dp_to_pixels(labelSize);
     }
 
     public int getLabelColor() {
         return labelColor;
     }
-
     public void setLabelColor(int labelColor) {
         this.labelColor = labelColor;
     }
@@ -58,7 +54,7 @@ public class FlatButton extends View
 
     // label
     private String label = "";
-    private int labelSize = DEF_LABELSIZE;
+    private int labelSize = dp_to_pixels(DEF_LABELSIZE_DP);// in pixels
     private int labelColor = DEF_LABELCOLOR;
 
     //paint for drawing custom view
@@ -78,7 +74,7 @@ public class FlatButton extends View
             //get the text and colors specified using the names in attrs.xml
             bgColor = a.getColor(R.styleable.FlatButton_bgcolor, DEF_BGCOLOR);
             label = a.getString(R.styleable.FlatButton_label);
-            labelSize = a.getDimensionPixelSize(R.styleable.FlatButton_labelsize, DEF_LABELSIZE);
+            labelSize = a.getDimensionPixelSize(R.styleable.FlatButton_labelsize, dp_to_pixels(DEF_LABELSIZE_DP));
             labelColor = a.getColor(R.styleable.FlatButton_labelcolor, DEF_LABELCOLOR);
         }
         finally
@@ -144,4 +140,11 @@ public class FlatButton extends View
         }
         setMeasuredDimension(size, size);
     }
+
+    private int dp_to_pixels(int dp)
+    {
+        return (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                dp, getResources().getDisplayMetrics());
+    }
+
 }

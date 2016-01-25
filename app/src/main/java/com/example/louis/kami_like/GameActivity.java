@@ -57,18 +57,12 @@ public class GameActivity extends Activity implements SurfaceHolder.Callback
         for (int i = 0; i < 2; i++)
         {
             FlatButton btnTag = new FlatButton(this);
-            btnTag.setLayoutParams(new LinearLayout.LayoutParams(/*LinearLayout.LayoutParams.WRAP_CONTENT*/150, LinearLayout.LayoutParams.WRAP_CONTENT));
-            btnTag.setLabel("Button " + i);
+            btnTag.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            btnTag.setLabel("Btn " + i);
             btnTag.setBgColor(Color.BLUE);
             btnTag.setId(i + 1);
             layout.addView(btnTag);
         }
-        TextView text = new TextView(this);
-        text.setLayoutParams(new LinearLayout.LayoutParams(/*LinearLayout.LayoutParams.WRAP_CONTENT*/150, /*LinearLayout.LayoutParams.WRAP_CONTENT*/48));
-        text.setText("Text");
-        text.setBackgroundColor(Color.GREEN);
-        text.setId(11);
-        layout.addView(text);
     }
 
     private void hideSystemUI()
