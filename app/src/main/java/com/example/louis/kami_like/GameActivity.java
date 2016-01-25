@@ -14,7 +14,10 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class GameActivity extends Activity implements SurfaceHolder.Callback
@@ -37,14 +40,35 @@ public class GameActivity extends Activity implements SurfaceHolder.Callback
         //
         SurfaceView surfaceView = (SurfaceView)findViewById(R.id.surfaceView);
         surfaceView.getHolder().addCallback(this);
-        surfaceView.setWillNotDraw(false);
+        //surfaceView.setWillNotDraw(false);
 
         //
         Bundle bundle = getIntent().getExtras();
         GameGridDb gameGridDb = new GameGridDb(this);
         _grid = gameGridDb.makeGameGrid(bundle.getString("level"));
 
+        //
         hideSystemUI();
+
+        //
+        LinearLayout layout = (LinearLayout) findViewById(R.id.linearLayout);
+        layout.setOrientation(LinearLayout.HORIZONTAL);
+
+        for (int i = 0; i < 3; i++)
+        {
+            FlatButton btnTag = new FlatButton(this);
+            btnTag.setLayoutParams(new LinearLayout.LayoutParams(/*LinearLayout.LayoutParams.WRAP_CONTENT*/150, /*LinearLayout.LayoutParams.WRAP_CONTENT*/48));
+            btnTag.setLabel("Button " + i);
+            btnTag.setBgColor(Color.BLUE);
+            btnTag.setId(i + 1);
+            layout.addView(btnTag);
+        }
+        TextView text = new TextView(this);
+        text.setLayoutParams(new LinearLayout.LayoutParams(/*LinearLayout.LayoutParams.WRAP_CONTENT*/150, /*LinearLayout.LayoutParams.WRAP_CONTENT*/48));
+        text.setText("Text");
+        text.setBackgroundColor(Color.GREEN);
+        text.setId(11);
+        layout.addView(text);
     }
 
     private void hideSystemUI()
@@ -80,12 +104,9 @@ public class GameActivity extends Activity implements SurfaceHolder.Callback
     @Override
     public void surfaceChanged(SurfaceHolder holder, int frmt, int w, int h)
     {
-        if (holder == ((SurfaceView)findViewById(R.id.surfaceView)).getHolder())
-        {
-            _currentScreenWidth = w;
-            _currentScreenHeight = h;
-            surfaceCreated(holder);
-        }
+        _currentScreenWidth = w;
+        _currentScreenHeight = h;
+        surfaceCreated(holder);
     }
 
     @Override

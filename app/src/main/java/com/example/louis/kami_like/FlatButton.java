@@ -19,13 +19,46 @@ public class FlatButton extends View
     public static final int DEF_BGCOLOR = Color.BLACK;
     public static final int DEF_LABELCOLOR = Color.WHITE;
 
+    // attributes
+    public int getBgColor() {
+        return bgColor;
+    }
+
+    public void setBgColor(int bgColor) {
+        this.bgColor = bgColor;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public int getLabelSize() {
+        return labelSize;
+    }
+
+    public void setLabelSize(int labelSize) {
+        this.labelSize = labelSize;
+    }
+
+    public int getLabelColor() {
+        return labelColor;
+    }
+
+    public void setLabelColor(int labelColor) {
+        this.labelColor = labelColor;
+    }
+
     // background
-    private int bgColor;
+    private int bgColor = DEF_BGCOLOR;
 
     // label
-    private String label;
-    private int labelSize;
-    private int labelColor;
+    private String label = "";
+    private int labelSize = DEF_LABELSIZE;
+    private int labelColor = DEF_LABELCOLOR;
 
     //paint for drawing custom view
     private Paint paint;
@@ -51,6 +84,14 @@ public class FlatButton extends View
         {
             a.recycle();
         }
+    }
+
+    public FlatButton(Context context)
+    {
+        super(context);
+
+        // paint object for drawing in onDraw
+        paint = new Paint();
     }
 
     @Override
