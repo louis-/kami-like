@@ -125,20 +125,44 @@ public class FlatButton extends View
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
     {
+        int sizeW = 0;
+        int sizeH = 0;
+
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        sizeW = getMeasuredWidth();
+        sizeH = getMeasuredHeight();
 
-        int size = 0;
-        int width = getMeasuredWidth();
-        int height = getMeasuredHeight();
-
-        if (width > height) {
-            size = height;
-        }
-        else
+        switch(View.MeasureSpec.getMode(widthMeasureSpec))
         {
-            size = width;
+            case View.MeasureSpec.UNSPECIFIED:
+                paint.setTextSize(labelSize);
+                sizeW = (int)paint.measureText(label, 0, label.length());
+                break;
+            case View.MeasureSpec.AT_MOST:
+                paint.setTextSize(labelSize);
+                sizeW = Math.max((int)paint.measureText(label, 0, label.length()), widthMeasureSpec);
+                break;
+            case View.MeasureSpec.EXACTLY:
+                sizeW = widthMeasureSpec;
+                break;
         }
-        setMeasuredDimension(size, size);
+
+        switch(View.MeasureSpec.getMode(heightMeasureSpec))
+        {
+            case View.MeasureSpec.UNSPECIFIED:
+                paint.setTextSize(labelSize);
+                sizeH = (int)(paint.descent() - paint.ascent());
+                break;
+            case View.MeasureSpec.AT_MOST:
+                paint.setTextSize(labelSize);
+                sizeH = Math.max((int)(paint.descent() - paint.ascent()), heightMeasureSpec);
+                break;
+            case View.MeasureSpec.EXACTLY:
+                sizeH = heightMeasureSpec;
+                break;
+        }
+
+        setMeasuredDimension(sizeW, sizeH);
     }
 
     private int dp_to_pixels(int dp)
