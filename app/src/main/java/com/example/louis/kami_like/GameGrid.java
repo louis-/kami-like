@@ -112,7 +112,7 @@ public class GameGrid
 
         // filling rects
         square_side_x = width / GRID_COLS;
-        square_side_y = height / GRID_LINES;
+        square_side_y = square_side_x; //height / GRID_LINES;
         margin_left = 0;
         margin_top = 0;
 
