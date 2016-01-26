@@ -16,7 +16,7 @@ import android.widget.Toast;
  */
 public class FlatButton extends View
 {
-    public static final int DEF_LABELSIZE_DP = 16;// in dp
+    public static final int DEF_LABELSIZE_DP = 16;
     public static final int DEF_BGCOLOR = Color.BLACK;
     public static final int DEF_LABELCOLOR = Color.WHITE;
 
@@ -170,5 +170,4 @@ public class FlatButton extends View
         return (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                 dp, getResources().getDisplayMetrics());
     }
-
 }

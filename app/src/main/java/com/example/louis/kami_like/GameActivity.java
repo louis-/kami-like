@@ -40,7 +40,6 @@ public class GameActivity extends Activity implements SurfaceHolder.Callback
         //
         SurfaceView surfaceView = (SurfaceView)findViewById(R.id.surfaceView);
         surfaceView.getHolder().addCallback(this);
-        //surfaceView.setWillNotDraw(false);
 
         //
         Bundle bundle = getIntent().getExtras();
@@ -51,13 +50,14 @@ public class GameActivity extends Activity implements SurfaceHolder.Callback
         hideSystemUI();
 
         //
+        int screenWidth = getWindowManager().getDefaultDisplay().getWidth();
         LinearLayout layout = (LinearLayout) findViewById(R.id.linearLayout);
         layout.setOrientation(LinearLayout.HORIZONTAL);
 
         for (int i = 0; i < 4; i++)
         {
             FlatButton btnTag = new FlatButton(this);
-            btnTag.setLayoutParams(new LinearLayout.LayoutParams(1440/5, LinearLayout.LayoutParams.MATCH_PARENT));
+            //btnTag.setLayoutParams(new LinearLayout.LayoutParams(screenWidth / 4, LinearLayout.LayoutParams.MATCH_PARENT));
             btnTag.setLabel("Button " + i);
             btnTag.setBgColor(Color.BLUE);
             btnTag.setId(i + 1);

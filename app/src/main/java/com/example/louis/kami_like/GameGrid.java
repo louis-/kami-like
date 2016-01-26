@@ -58,7 +58,7 @@ public class GameGrid
             lindex++;
             lline[lindex] = line;
             lcol[lindex] = column;
-            //_grid[line][column] = _currentColor;
+
             while(lindex>=0)
             {
                 line = lline[lindex];
