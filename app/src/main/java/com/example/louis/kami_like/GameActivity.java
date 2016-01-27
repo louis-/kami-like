@@ -2,12 +2,14 @@ package com.example.louis.kami_like;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -23,8 +25,6 @@ import android.widget.Toast;
 public class GameActivity extends Activity implements SurfaceHolder.Callback
 {
     GameGrid _grid;
-    int _currentScreenWidth;
-    int _currentScreenHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -48,6 +48,11 @@ public class GameActivity extends Activity implements SurfaceHolder.Callback
 
         //
         hideSystemUI();
+
+        //
+        Resources resources = getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        GameGrid.setDensityDpi(metrics.densityDpi);
     }
 
     private void hideSystemUI()
@@ -83,8 +88,7 @@ public class GameActivity extends Activity implements SurfaceHolder.Callback
     @Override
     public void surfaceChanged(SurfaceHolder holder, int frmt, int w, int h)
     {
-        _currentScreenWidth = w;
-        _currentScreenHeight = h;
+        _grid.setDimensions(w, h);
         surfaceCreated(holder);
     }
 
@@ -105,7 +109,7 @@ public class GameActivity extends Activity implements SurfaceHolder.Callback
         if(event.getActionMasked() == MotionEvent.ACTION_DOWN)
         {
             // first, play
-            _grid.playAt(_currentScreenWidth, _currentScreenHeight, event.getX(), event.getY(), 0);
+            _grid.playAt(event.getX(), event.getY(), 0);
 
             // then refresh view
             surfaceCreated(((SurfaceView)findViewById(R.id.surfaceView)).getHolder());
