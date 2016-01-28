@@ -19,28 +19,28 @@ public class GameGrid
     public static final int GRID_LINES = 16;
     public static final int GRID_COLS = 10;
     
-    public static final int GRID_MARGIN_LEFT = 10;
-    public static final int GRID_MARGIN_TOP = 10;
-    public static final int GRID_MARGIN_RIGHT = 10;
-    public static final int GRID_MARGIN_BOTTOM = 0;
+    public static final float GRID_MARGIN_LEFT = 10;
+    public static final float GRID_MARGIN_TOP = 10;
+    public static final float GRID_MARGIN_RIGHT = 7;
+    public static final float GRID_MARGIN_BOTTOM = 0;
 
     // grid boxes
-    public static final int BOX_MARGIN_LEFT = 4;
-    public static final int BOX_MARGIN_RIGHT = 0;
-    public static final int BOX_MARGIN_TOP = 4;
-    public static final int BOX_MARGIN_BOTTOM = 4;
+    public static final float BOX_MARGIN_LEFT = 3;
+    public static final float BOX_MARGIN_TOP = 3;
+    public static final float BOX_MARGIN_RIGHT = 3;
+    public static final float BOX_MARGIN_BOTTOM = 3;
 
-    public static final int BOX_STATE_DIMMED = 0;
-    public static final int BOX_STATE_NORMAL = 1;
-    public static final int BOX_STATE_PASSED = 2;
-    public static final int BOX_STATE_STAR = 3;
+    public static final float BOX_STATE_DIMMED = 0;
+    public static final float BOX_STATE_NORMAL = 1;
+    public static final float BOX_STATE_PASSED = 2;
+    public static final float BOX_STATE_STAR = 3;
 
     // buttonbar
-    public static final int BUTTONBAR_HEIGHT = 60;
-    public static final int BUTTONBAR_MARGIN_LEFT = 10;
-    public static final int BUTTONBAR_MARGIN_TOP = 10;
-    public static final int BUTTONBAR_MARGIN_RIGHT = 10;
-    public static final int BUTTONBAR_MARGIN_BOTTOM = 10;
+    public static final float BUTTONBAR_HEIGHT = 60;
+    public static final float BUTTONBAR_MARGIN_LEFT = 10;
+    public static final float BUTTONBAR_MARGIN_TOP = 10;
+    public static final float BUTTONBAR_MARGIN_RIGHT = 10;
+    public static final float BUTTONBAR_MARGIN_BOTTOM = 10;
 
     // complete window (calculated by setDimensions, called by father)
     private int screenWidth;
@@ -57,8 +57,8 @@ public class GameGrid
     private int boxOffsetY;
     private int boxWidth;
     private int boxHeight;
-    private int boxWidthNoRightMargin;
-    private int boxHeightNoBottomMargin;
+    private int boxWidthWithMargins;
+    private int boxHeightWithMargins;
 
     // drawing data
     public int[] _colors;
@@ -83,7 +83,7 @@ public class GameGrid
         GameGrid.densityDpi = densityDpi;
     }
 
-    private int dpToPx(int dp)
+    private int dpToPx(float dp)
     {
         return (int)(dp * densityDpi / 160f);
     }
@@ -95,18 +95,18 @@ public class GameGrid
 
         gridOffsetX = dpToPx(GRID_MARGIN_LEFT);
         gridOffsetY = dpToPx(GRID_MARGIN_TOP);
-        gridWidth = screenWidth - dpToPx(GRID_MARGIN_LEFT + BOX_MARGIN_RIGHT);
+        gridWidth = screenWidth - dpToPx(GRID_MARGIN_LEFT + GRID_MARGIN_RIGHT);
         gridHeight = screenHeight - dpToPx(GRID_MARGIN_TOP + GRID_MARGIN_BOTTOM + BUTTONBAR_MARGIN_TOP + BUTTONBAR_HEIGHT + BUTTONBAR_MARGIN_BOTTOM);
         buttonBarOffsetX = dpToPx(BUTTONBAR_MARGIN_LEFT);
-        buttonBarOffsetY = gridOffsetY + gridHeight + dpToPx(GRID_MARGIN_BOTTOM + BUTTONBAR_MARGIN_TOP);
+        buttonBarOffsetY = gridOffsetY + gridHeight + dpToPx(BUTTONBAR_MARGIN_BOTTOM + BUTTONBAR_MARGIN_TOP);
         buttonBarWidth = screenWidth - dpToPx(BUTTONBAR_MARGIN_LEFT + BUTTONBAR_MARGIN_RIGHT);
         buttonBarHeight = dpToPx(BUTTONBAR_HEIGHT);
         boxOffsetX = dpToPx(BOX_MARGIN_LEFT);
         boxOffsetY = dpToPx(BOX_MARGIN_TOP);
         boxWidth = (gridWidth / GRID_COLS) - dpToPx(BOX_MARGIN_LEFT + BOX_MARGIN_RIGHT);
-        boxWidthNoRightMargin = (gridWidth / GRID_COLS) - dpToPx(BOX_MARGIN_LEFT);
-        boxHeight = boxWidth;
-        boxHeightNoBottomMargin = boxWidthNoRightMargin;
+        boxWidthWithMargins = (gridWidth / GRID_COLS);
+        boxHeight = (gridHeight / GRID_LINES) - dpToPx(BOX_MARGIN_TOP + BOX_MARGIN_BOTTOM);
+        boxHeightWithMargins = (gridHeight / GRID_LINES);
     }
 
     public void playAt(float pixelX, float pixelY, int colrep)
@@ -171,30 +171,22 @@ public class GameGrid
     //
     private void drawBox(Canvas canvas, int line, int column, int color)
     {
-        float height = (float)canvas.getHeight();
-        float width = (float)canvas.getWidth();
-        float x;
-        float y;
-
-        x = (boxOffsetX + boxWidthNoRightMargin) * column + gridOffsetX;
-        y = (boxOffsetY + boxHeightNoBottomMargin) * line + gridOffsetY;
+        float x = boxWidthWithMargins * column + gridOffsetX;
+        float y = boxHeightWithMargins * line + gridOffsetY;
 
         // fill
         _paint.setStyle(Paint.Style.FILL);
         _paint.setColor(color);
-        canvas.drawRect(x, y, x + boxWidth, y + boxHeight, _paint);
+        canvas.drawRect(x + boxOffsetX, y + boxOffsetY, x + boxWidth + boxOffsetX, y + boxHeight + boxOffsetY, _paint);
     }
 
-    void draw(Canvas canvas)
-    {
+    void draw(Canvas canvas) {
         // bkground
         _paint.setStyle(Paint.Style.FILL);
         _paint.setColor(Color.WHITE);
         canvas.drawRect(0, 0, screenWidth, screenHeight, _paint);
 
         // grid
-        _paint.setColor(Color.BLACK);
-        canvas.drawRect(gridOffsetX, gridOffsetY, gridOffsetX + gridWidth, gridOffsetY + gridHeight, _paint);
         _paint.setColor(Color.BLUE);
         canvas.drawRect(buttonBarOffsetX, buttonBarOffsetY, buttonBarOffsetX + buttonBarWidth, buttonBarOffsetY + buttonBarHeight, _paint);
 

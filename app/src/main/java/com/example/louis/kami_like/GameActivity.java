@@ -98,6 +98,7 @@ public class GameActivity extends Activity implements SurfaceHolder.Callback
         Canvas canvas = holder.lockCanvas();
         if (canvas != null)
         {
+            _grid.setDimensions(canvas.getWidth(), canvas.getHeight());
             _grid.draw(canvas);
             holder.unlockCanvasAndPost(canvas);
         }
