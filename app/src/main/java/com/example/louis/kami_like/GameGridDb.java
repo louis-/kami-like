@@ -21,7 +21,7 @@ public class GameGridDb
 
     GameGrid makeGameGrid(String level)
     {
-        GameGrid grid = new GameGrid();
+        GameGrid grid = new GameGrid(_context);
 
         // set grid data from resources
         if (grid != null)
