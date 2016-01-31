@@ -1,2 +1,2 @@
-# OneColoe
+# OneColor
 A kami-like puzzle game for Android
