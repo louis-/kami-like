@@ -18,14 +18,18 @@ public class FlatButton extends View
 {
     public static final int DEF_LABELSIZE_DP = 16;
     public static final int DEF_BGCOLOR = Color.BLACK;
+    public static final int DEF_DIMMEDCOLOR = Color.LTGRAY;
     public static final int DEF_LABELCOLOR = Color.WHITE;
 
     // attributes
-    public int getBgColor() {
+    public int getBgColor() { return bgColor; }
+    public void setBgColor(int bgColor) { this.bgColor = bgColor; }
+
+    public int getDimmedColor() {
         return bgColor;
     }
-    public void setBgColor(int bgColor) {
-        this.bgColor = bgColor;
+    public void setDimmedColor(int dimmedColor) {
+        this.dimmedColor = dimmedColor;
     }
 
     public String getLabel() {
@@ -49,8 +53,9 @@ public class FlatButton extends View
         this.labelColor = labelColor;
     }
 
-    // background
+    // colors
     private int bgColor = DEF_BGCOLOR;
+    private int dimmedColor = DEF_DIMMEDCOLOR;
 
     // label
     private String label = "";
@@ -73,6 +78,7 @@ public class FlatButton extends View
         {
             //get the text and colors specified using the names in attrs.xml
             bgColor = a.getColor(R.styleable.FlatButton_bgcolor, DEF_BGCOLOR);
+            dimmedColor = a.getColor(R.styleable.FlatButton_bgcolor, DEF_DIMMEDCOLOR);
             label = a.getString(R.styleable.FlatButton_label);
             labelSize = a.getDimensionPixelSize(R.styleable.FlatButton_labelsize, dp_to_pixels(DEF_LABELSIZE_DP));
             labelColor = a.getColor(R.styleable.FlatButton_labelcolor, DEF_LABELCOLOR);
@@ -96,9 +102,6 @@ public class FlatButton extends View
     {
         super.onDraw(canvas);
 
-        //
-        //paint.setAntiAlias(true);
-
         // bg
         RectF bounds = new RectF(0, 0, canvas.getWidth(), canvas.getHeight());
         paint.setStyle(Paint.Style.FILL);
@@ -113,56 +116,8 @@ public class FlatButton extends View
 
         paint.setColor(labelColor);
         paint.setTextSize(labelSize);
-        canvas.drawText(label, bounds.left, bounds.top - paint.ascent(), paint);
-    }
-
-    @Override
-    protected void onSizeChanged (int w, int h, int oldw, int oldh)
-    {
-        RectF bounds = new RectF(0, 0, w, h);
-    }
-
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
-    {
-        int sizeW = 0;
-        int sizeH = 0;
-
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        sizeW = getMeasuredWidth();
-        sizeH = getMeasuredHeight();
-
-        switch(View.MeasureSpec.getMode(widthMeasureSpec))
-        {
-            case View.MeasureSpec.UNSPECIFIED:
-                paint.setTextSize(labelSize);
-                sizeW = (int)paint.measureText(label, 0, label.length());
-                break;
-            case View.MeasureSpec.AT_MOST:
-                paint.setTextSize(labelSize);
-                sizeW = Math.max((int)paint.measureText(label, 0, label.length()), widthMeasureSpec);
-                break;
-            case View.MeasureSpec.EXACTLY:
-                sizeW = widthMeasureSpec;
-                break;
-        }
-
-        switch(View.MeasureSpec.getMode(heightMeasureSpec))
-        {
-            case View.MeasureSpec.UNSPECIFIED:
-                paint.setTextSize(labelSize);
-                sizeH = (int)(paint.descent() - paint.ascent());
-                break;
-            case View.MeasureSpec.AT_MOST:
-                paint.setTextSize(labelSize);
-                sizeH = Math.max((int)(paint.descent() - paint.ascent()), heightMeasureSpec);
-                break;
-            case View.MeasureSpec.EXACTLY:
-                sizeH = heightMeasureSpec;
-                break;
-        }
-
-        setMeasuredDimension(sizeW, sizeH);
+        paint.setTextAlign(Paint.Align.CENTER);
+        canvas.drawText(label, bounds.left, bounds.top + labelSize/3, paint);
     }
 
     private int dp_to_pixels(int dp)
