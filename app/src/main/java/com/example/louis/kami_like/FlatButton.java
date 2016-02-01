@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -21,16 +22,21 @@ public class FlatButton extends View
     public static final int DEF_DIMMEDCOLOR = Color.LTGRAY;
     public static final int DEF_LABELCOLOR = Color.WHITE;
 
+    public static final int STATE_DIMMED = -1;
+    public static final int STATE_NORMAL = 0;
+    public static final int STATE_PASSED = 1;
+    public static final int STATE_STAR = 2;
+
+    // state
+    public int getState() { return state; }
+    public void setState(int state) { this.state = state; }
+
     // attributes
     public int getBgColor() { return bgColor; }
     public void setBgColor(int bgColor) { this.bgColor = bgColor; }
 
-    public int getDimmedColor() {
-        return bgColor;
-    }
-    public void setDimmedColor(int dimmedColor) {
-        this.dimmedColor = dimmedColor;
-    }
+    public int getDimmedColor() { return bgColor; }
+    public void setDimmedColor(int dimmedColor) { this.dimmedColor = dimmedColor; }
 
     public String getLabel() {
         return label;
@@ -46,20 +52,19 @@ public class FlatButton extends View
         this.labelSize = dp_to_pixels(labelSize);
     }
 
-    public int getLabelColor() {
-        return labelColor;
-    }
-    public void setLabelColor(int labelColor) {
-        this.labelColor = labelColor;
-    }
+    public int getLabelColor() { return labelColor; }
+    public void setLabelColor(int labelColor) { this.labelColor = labelColor; }
 
     // colors
     private int bgColor = DEF_BGCOLOR;
     private int dimmedColor = DEF_DIMMEDCOLOR;
 
+    // state
+    private int state = STATE_NORMAL;
+
     // label
     private String label = "";
-    private int labelSize = dp_to_pixels(DEF_LABELSIZE_DP);// in pixels
+    private int labelSize = dp_to_pixels(DEF_LABELSIZE_DP);
     private int labelColor = DEF_LABELCOLOR;
 
     //paint for drawing custom view
@@ -78,7 +83,7 @@ public class FlatButton extends View
         {
             //get the text and colors specified using the names in attrs.xml
             bgColor = a.getColor(R.styleable.FlatButton_bgcolor, DEF_BGCOLOR);
-            dimmedColor = a.getColor(R.styleable.FlatButton_bgcolor, DEF_DIMMEDCOLOR);
+            dimmedColor = a.getColor(R.styleable.FlatButton_dimmedcolor, DEF_DIMMEDCOLOR);
             label = a.getString(R.styleable.FlatButton_label);
             labelSize = a.getDimensionPixelSize(R.styleable.FlatButton_labelsize, dp_to_pixels(DEF_LABELSIZE_DP));
             labelColor = a.getColor(R.styleable.FlatButton_labelcolor, DEF_LABELCOLOR);
@@ -103,21 +108,19 @@ public class FlatButton extends View
         super.onDraw(canvas);
 
         // bg
-        RectF bounds = new RectF(0, 0, canvas.getWidth(), canvas.getHeight());
+        Rect bounds = new Rect(0, 0, canvas.getWidth(), canvas.getHeight());
         paint.setStyle(Paint.Style.FILL);
-        paint.setColor(bgColor);
+        if (state == STATE_DIMMED)
+            paint.setColor(dimmedColor);
+        else
+            paint.setColor(bgColor);
         canvas.drawRect(bounds, paint);
 
         // centered label
-        bounds.right = paint.measureText(label, 0, label.length());
-        bounds.bottom = paint.descent() - paint.ascent();
-        bounds.left += (canvas.getWidth() - bounds.right) / 2.0f;
-        bounds.top += (canvas.getHeight() - bounds.bottom) / 2.0f;
-
         paint.setColor(labelColor);
         paint.setTextSize(labelSize);
         paint.setTextAlign(Paint.Align.CENTER);
-        canvas.drawText(label, bounds.left, bounds.top + labelSize/3, paint);
+        canvas.drawText(label, bounds.exactCenterX(), bounds.exactCenterY() + labelSize/3, paint);
     }
 
     private int dp_to_pixels(int dp)

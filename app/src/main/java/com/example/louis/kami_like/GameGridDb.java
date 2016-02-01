@@ -26,16 +26,30 @@ public class GameGridDb
         // set grid data from resources
         if (grid != null)
         {
-            grid._colors = new int[]{ getColor(getString(level + "_color_1")),
-                    getColor(getString(level + "_color_2")),
-                    getColor(getString(level + "_color_3"))};
+            // colors
+            for (int i = 1; i <= GameGrid.COLORS_MAX; i++)
+            {
+                String colorString = getString(level + "_color_" + i);
+                if (colorString.length() >0)
+                {
+                    grid._colors[i-1] = getColor(colorString);
+                    grid._nbColors++;
+                }
+                else
+                    break;
+            }
 
+            // grid
             String boxes = getString(level + "_grid");
             grid._grid = new int[grid.GRID_LINES][grid.GRID_COLS];
             if (grid._grid != null)
                 for(int i = 0; i < grid.GRID_LINES; i++)
                     for(int j = 0; j < grid.GRID_COLS; j++)
                         grid._grid[i][j] = Character.getNumericValue(boxes.charAt(i*grid.GRID_COLS+j))-Character.getNumericValue('0');
+
+            // turns
+            grid._turnsForStar = (int)getInteger(level + "_star");
+            grid._turnsForPass = (int)getInteger(level + "_pass");
         }
         return grid;
     }

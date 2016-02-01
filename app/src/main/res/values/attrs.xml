@@ -2,6 +2,7 @@
 <resources>
     <declare-styleable name="FlatButton">
         <attr name="bgcolor" format="color" />
+        <attr name="dimmedcolor" format="color" />
         <attr name="label" format="string" />
         <attr name="labelsize" format="dimension" />
         <attr name="labelcolor" format="color" />

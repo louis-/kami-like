@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 
@@ -23,11 +24,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     ViewPager _ViewPager;
 
     public static final int INFO = 0;
-    public static final int KAMI = 1;
+    public static final int MAIN = 1;
     public static final int EASY1 = 2;
     public static final int EASY2 = 3;
     public static final int NB_VIEWS = 4;
-    public static final int DEFAULT_VIEW_AT_STARTUP = KAMI;
+    public static final int DEFAULT_VIEW_AT_STARTUP = MAIN;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -37,12 +38,15 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         // Set up the ViewPager, attaching the adapter.
         _CollectionPagerAdapter = new CollectionPagerAdapter(getSupportFragmentManager());
-        _ViewPager = (ViewPager) findViewById(R.id.pager);
+        _ViewPager = (ViewPager)findViewById(R.id.pager);
         _ViewPager.setAdapter(_CollectionPagerAdapter);
-        hideSystemUI();
-
+ 
         // Default view at startup
         _ViewPager.setCurrentItem(DEFAULT_VIEW_AT_STARTUP);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        hideSystemUI();
     }
 
     private void hideSystemUI()
@@ -60,9 +64,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
+    public void onWindowFocusChanged(boolean hasFocus)
+    {
         super.onWindowFocusChanged(hasFocus);
-        if (hasFocus) {
+        if (hasFocus) 
+        {
             hideSystemUI();
         }
     }
@@ -70,7 +76,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     @Override
     public void onBackPressed()
     {
-        if (_ViewPager.getCurrentItem() == KAMI)
+        if (_ViewPager.getCurrentItem() == MAIN)
         {
             // If the user is currently looking at the first step, allow the system to handle the
             // Back button. This calls finish() on this activity and pops the back stack.
@@ -78,46 +84,49 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         }
         else
         {
-            // Otherwise, select KAMI
-            _ViewPager.setCurrentItem(KAMI);
+            // Otherwise, select MAIN
+            _ViewPager.setCurrentItem(MAIN);
         }
     }
 
     public void onClick(View view)
     {
-        switch (view.getId())
+        int buttonId = view.getId();
+        switch (buttonId)
         {
             case  R.id.buttonInfo: _ViewPager.setCurrentItem(INFO); break;
             case  R.id.buttonEasy: _ViewPager.setCurrentItem(EASY1); break;
-            case  R.id.easy_1 : createGameView("classic_1"); break;
-            case  R.id.easy_2 : createGameView("classic_2"); break;
-            case  R.id.easy_3 : createGameView("classic_3"); break;
-            case  R.id.easy_4 : createGameView("classic_1"); break;
-            case  R.id.easy_5 : createGameView("classic_2"); break;
-            case  R.id.easy_6 : createGameView("classic_3"); break;
-            case  R.id.easy_7 : createGameView("classic_1"); break;
-            case  R.id.easy_8 : createGameView("classic_2"); break;
-            case  R.id.easy_9 : createGameView("classic_3"); break;
-            case  R.id.easy_10 : createGameView("classic_1"); break;
-            case  R.id.easy_11 : createGameView("classic_2"); break;
-            case  R.id.easy_12 : createGameView("classic_3"); break;
-            case  R.id.easy_13 : createGameView("classic_1"); break;
-            case  R.id.easy_14 : createGameView("classic_2"); break;
-            case  R.id.easy_15 : createGameView("classic_3"); break;
-            case  R.id.easy_16 : createGameView("classic_1"); break;
-            case  R.id.easy_17 : createGameView("classic_2"); break;
-            case  R.id.easy_18 : createGameView("classic_3"); break;
+            case  R.id.easy_1 : buttonPressed(buttonId, "classic_1"); break;
+            case  R.id.easy_2 : buttonPressed(buttonId, "classic_2"); break;
+            case  R.id.easy_3 : buttonPressed(buttonId, "classic_3"); break;
+            case  R.id.easy_4 : buttonPressed(buttonId, "classic_1"); break;
+            case  R.id.easy_5 : buttonPressed(buttonId, "classic_2"); break;
+            case  R.id.easy_6 : buttonPressed(buttonId, "classic_3"); break;
+            case  R.id.easy_7 : buttonPressed(buttonId, "classic_1"); break;
+            case  R.id.easy_8 : buttonPressed(buttonId, "classic_2"); break;
+            case  R.id.easy_9 : buttonPressed(buttonId, "classic_3"); break;
+            case  R.id.easy_10 : buttonPressed(buttonId, "classic_1"); break;
+            case  R.id.easy_11 : buttonPressed(buttonId, "classic_2"); break;
+            case  R.id.easy_12 : buttonPressed(buttonId, "classic_3"); break;
+            case  R.id.easy_13 : buttonPressed(buttonId, "classic_1"); break;
+            case  R.id.easy_14 : buttonPressed(buttonId, "classic_2"); break;
+            case  R.id.easy_15 : buttonPressed(buttonId, "classic_3"); break;
+            case  R.id.easy_16 : buttonPressed(buttonId, "classic_1"); break;
+            case  R.id.easy_17 : buttonPressed(buttonId, "classic_2"); break;
+            case  R.id.easy_18 : buttonPressed(buttonId, "classic_3"); break;
         }
     }
-
-    private void createGameView(String level)
+    
+    private void buttonPressed(int buttonId, String level)
     {
-        Intent intent = new Intent(this, GameActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putString("level", level);
-        intent.putExtras(bundle);
-
-        startActivity(intent);
+        if (((FlatButton)findViewById(buttonId)).getState() != FlatButton.STATE_DIMMED)
+        {
+            Intent intent = new Intent(this, GameActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("level", level);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
     }
 
     //
@@ -163,7 +172,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             Button button;
             switch(getArguments().getInt(ARG_OBJECT))
             {
-                case KAMI:
+                case MAIN:
                     rootView = inflater.inflate(R.layout.activity_kami, container, false);
                     break;
                 case INFO:

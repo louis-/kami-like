@@ -25,6 +25,8 @@ import android.widget.Toast;
 public class GameActivity extends Activity implements SurfaceHolder.Callback
 {
     GameGrid _grid;
+    String _level;
+    GameGridDb _gameGridDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -43,8 +45,11 @@ public class GameActivity extends Activity implements SurfaceHolder.Callback
 
         //
         Bundle bundle = getIntent().getExtras();
-        GameGridDb gameGridDb = new GameGridDb(this);
-        _grid = gameGridDb.makeGameGrid(bundle.getString("level"));
+        _gameGridDb = new GameGridDb(this);
+        _level = bundle.getString("level");
+
+        // create a grid matching with level
+        _grid = _gameGridDb.makeGameGrid(_level);
 
         //
         hideSystemUI();
@@ -109,11 +114,27 @@ public class GameActivity extends Activity implements SurfaceHolder.Callback
     {
         if(event.getActionMasked() == MotionEvent.ACTION_DOWN)
         {
-            // first, play
-            _grid.playAt(event.getX(), event.getY(), 0);
-
-            // then refresh view
-            surfaceCreated(((SurfaceView)findViewById(R.id.surfaceView)).getHolder());
+            float x = event.getX();
+            float y = event.getY();
+            switch(_grid.press(x, y))
+            {
+                case GameGrid.PRESS_GRID:
+                    // play
+                    _grid.playAt(x, y, 0);
+                    // then refresh view
+                    surfaceCreated(((SurfaceView)findViewById(R.id.surfaceView)).getHolder());
+                    break;
+                case GameGrid.PRESS_CLEAR:
+                    // bye
+                    finish();
+                    break;
+                case GameGrid.PRESS_REPLAY:
+                    // new
+                    _grid = _gameGridDb.makeGameGrid(_level);
+                    // then refresh view
+                    surfaceCreated(((SurfaceView)findViewById(R.id.surfaceView)).getHolder());
+                    break;
+            }
         }
         return super.onTouchEvent(event);
     }
