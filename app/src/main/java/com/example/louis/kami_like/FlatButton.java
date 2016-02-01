@@ -2,11 +2,13 @@ package com.example.louis.kami_like;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.drawable.VectorDrawable;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
@@ -26,6 +28,8 @@ public class FlatButton extends View
     public static final int STATE_NORMAL = 0;
     public static final int STATE_PASSED = 1;
     public static final int STATE_STAR = 2;
+
+    public static final int DEF_STARSIZE_DP = 32;
 
     // state
     public int getState() { return state; }
@@ -69,6 +73,8 @@ public class FlatButton extends View
 
     //paint for drawing custom view
     private Paint paint;
+    private Bitmap star;
+    private VectorDrawable starDrawable;
 
     public FlatButton(Context context, AttributeSet attrs)
     {
@@ -92,6 +98,13 @@ public class FlatButton extends View
         {
             a.recycle();
         }
+
+        int starSize = dp_to_pixels(DEF_STARSIZE_DP);
+        star = Bitmap.createBitmap(starSize, starSize, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(star);
+        starDrawable = (VectorDrawable)context.getDrawable(R.drawable.ic_star_24dp);
+        starDrawable.setBounds(0, 0, starSize, starSize);
+        starDrawable.draw(canvas);
     }
 
     public FlatButton(Context context)
@@ -120,7 +133,9 @@ public class FlatButton extends View
         paint.setColor(labelColor);
         paint.setTextSize(labelSize);
         paint.setTextAlign(Paint.Align.CENTER);
-        canvas.drawText(label, bounds.exactCenterX(), bounds.exactCenterY() + labelSize/3, paint);
+        canvas.drawText(label, bounds.exactCenterX(), bounds.exactCenterY() + labelSize / 3, paint);
+
+        //canvas.drawBitmap(star, canvas.getWidth()-dp_to_pixels(DEF_STARSIZE_DP), canvas.getHeight()-dp_to_pixels(DEF_STARSIZE_DP), paint);
     }
 
     private int dp_to_pixels(int dp)
