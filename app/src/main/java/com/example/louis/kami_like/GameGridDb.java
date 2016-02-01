@@ -38,6 +38,7 @@ public class GameGridDb
                 else
                     break;
             }
+            grid.prepareColors();
 
             // grid
             String boxes = getString(level + "_grid");
@@ -51,12 +52,12 @@ public class GameGridDb
             grid._turnsForStar = (int)getInteger(level + "_star");
             grid._turnsForPass = (int)getInteger(level + "_pass");
         }
+
         return grid;
     }
 
     //
     private Context _context;
-    private static final int max_colors = 3;
     private static final int max_levels = 1;
 
     //

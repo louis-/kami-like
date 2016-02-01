@@ -190,6 +190,14 @@ public class GameGrid
         _starDrawable.draw(canvas);
     }
 
+    public void prepareColors()
+    {
+        for (int i=0; i<COLORS_MAX; i++)
+        {
+
+        }
+    }
+
     public void playAt(float pixelX, float pixelY, int colrep)
     {
         int line;
