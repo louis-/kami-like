@@ -74,7 +74,9 @@ public class FlatButton extends View
     //paint for drawing custom view
     private Paint paint;
     private Bitmap star;
+    private Bitmap starOutline;
     private VectorDrawable starDrawable;
+    private VectorDrawable starOutlineDrawable;
 
     public FlatButton(Context context, AttributeSet attrs)
     {
@@ -99,12 +101,19 @@ public class FlatButton extends View
             a.recycle();
         }
 
+        // star and star outline
         int starSize = dp_to_pixels(DEF_STARSIZE_DP);
         star = Bitmap.createBitmap(starSize, starSize, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(star);
         starDrawable = (VectorDrawable)context.getDrawable(R.drawable.ic_star_24dp);
         starDrawable.setBounds(0, 0, starSize, starSize);
         starDrawable.draw(canvas);
+
+        starOutline = Bitmap.createBitmap(starSize, starSize, Bitmap.Config.ARGB_8888);
+        canvas = new Canvas(starOutline);
+        starOutlineDrawable = (VectorDrawable)context.getDrawable(R.drawable.ic_star_outline_24dp);
+        starOutlineDrawable.setBounds(0, 0, starSize, starSize);
+        starOutlineDrawable.draw(canvas);
     }
 
     public FlatButton(Context context)
@@ -135,7 +144,7 @@ public class FlatButton extends View
         paint.setTextAlign(Paint.Align.CENTER);
         canvas.drawText(label, bounds.exactCenterX(), bounds.exactCenterY() + labelSize / 3, paint);
 
-        //canvas.drawBitmap(star, canvas.getWidth()-dp_to_pixels(DEF_STARSIZE_DP), canvas.getHeight()-dp_to_pixels(DEF_STARSIZE_DP), paint);
+        canvas.drawBitmap(starOutline, canvas.getWidth() - dp_to_pixels(DEF_STARSIZE_DP), canvas.getHeight() - dp_to_pixels(DEF_STARSIZE_DP), paint);
     }
 
     private int dp_to_pixels(int dp)
