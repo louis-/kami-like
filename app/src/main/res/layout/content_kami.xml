@@ -87,19 +87,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.09" />
 
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="info"
-            android:id="@+id/buttonInfo"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:theme="@style/MyButton"
-            android:layout_gravity="center_horizontal"
-            android:textColor="@color/material_grey_800"
-            android:textSize="20dp"
-            android:textStyle="italic"
-            android:typeface="monospace" />
-
     </LinearLayout>
 
 </RelativeLayout>

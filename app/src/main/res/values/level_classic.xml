@@ -3,6 +3,7 @@
         <string name="classic_1_color_1">darkpurple</string>
         <string name="classic_1_color_2">darkblue</string>
         <string name="classic_1_color_3">darkorange"</string>
+        <string name="classic_1_color_4">darkred"</string>
         <integer name="classic_1_star">1</integer>
         <integer name="classic_1_pass">2</integer>
         <string name="classic_1_grid">0000000000000000000000000000000000000000000000000000000000000000000000000000000011111111111111111111111111111111111111111111111111111111111111111111111111111111</string>

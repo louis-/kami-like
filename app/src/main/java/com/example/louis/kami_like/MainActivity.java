@@ -23,11 +23,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     CollectionPagerAdapter _CollectionPagerAdapter;
     ViewPager _ViewPager;
 
-    public static final int INFO = 0;
-    public static final int MAIN = 1;
-    public static final int EASY1 = 2;
-    public static final int EASY2 = 3;
-    public static final int NB_VIEWS = 4;
+    public static final int MAIN = 0;
+    public static final int EASY1 = 1;
+    public static final int EASY2 = 2;
+    public static final int NB_VIEWS = 3;
     public static final int DEFAULT_VIEW_AT_STARTUP = MAIN;
 
     @Override
@@ -94,7 +93,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         int buttonId = view.getId();
         switch (buttonId)
         {
-            case  R.id.buttonInfo: _ViewPager.setCurrentItem(INFO); break;
             case  R.id.buttonEasy: _ViewPager.setCurrentItem(EASY1); break;
             case  R.id.easy_1 : buttonPressed(buttonId, "classic_1"); break;
             case  R.id.easy_2 : buttonPressed(buttonId, "classic_2"); break;
@@ -121,6 +119,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     {
         if (((FlatButton)findViewById(buttonId)).getState() != FlatButton.STATE_DIMMED)
         {
+            // start a game with "level" resource as parameter
             Intent intent = new Intent(this, GameActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString("level", level);
@@ -174,11 +173,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             {
                 case MAIN:
                     rootView = inflater.inflate(R.layout.activity_kami, container, false);
-                    break;
-                case INFO:
-                    rootView = inflater.inflate(R.layout.activity_info, container, false);
-                    button = (Button)getActivity().findViewById(R.id.buttonInfo);
-                    button.setOnClickListener((MainActivity)getActivity());
                     break;
                 case EASY1:
                     rootView = inflater.inflate(R.layout.activity_easy_1, container, false);

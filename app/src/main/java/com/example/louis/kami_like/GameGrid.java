@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.drawable.VectorDrawable;
 import android.util.DisplayMetrics;
 import android.widget.Toast;
@@ -58,23 +59,29 @@ public class GameGrid
 
     // button clear (offsets from buttonbar top right)
     public static final float BUTTONCLEAR_OFFSET_TOP = 20;
-    public static final float BUTTONCLEAR_OFFSET_LEFT = -60;
+    public static final float BUTTONCLEAR_OFFSET_LEFT = -50;
     public static final float BUTTONCLEAR_SIZE = 48;
 
     // button replay (offsets from buttonbar top right)
     public static final float BUTTONREPLAY_OFFSET_TOP = 20;
-    public static final float BUTTONREPLAY_OFFSET_LEFT = -128;
+    public static final float BUTTONREPLAY_OFFSET_LEFT = -100;
     public static final float BUTTONREPLAY_SIZE = 48;
+
+    // color buttons (offsets from buttonbar)
+    public static final float BUTTONCOLOR_OFFSET_TOP = 10;
+    public static final float BUTTONCOLOR_OFFSET_LEFT = 10;
+    public static final float BUTTONCOLOR_SIZE = 52;
+    public static final float BUTTONCOLOR_SELECTED_SIZE = 62;
 
     // turns text (offsets from buttonbar top right)
     public static final float TURN_TEXT_OFFSET_TOP = 55;
-    public static final float TURN_TEXT_OFFSET_LEFT = -190;
+    public static final float TURN_TEXT_OFFSET_LEFT = -162;
     public static final float TURN_TEXT_FONT_SIZE = 150;
     public static final float TURN_STAR_TEXT_OFFSET_TOP = 65;
-    public static final float TURN_STAR_TEXT_OFFSET_LEFT = -170;
+    public static final float TURN_STAR_TEXT_OFFSET_LEFT = -135;
     public static final float TURN_STAR_TEXT_FONT_SIZE = 100;
     public static final float TURN_STAR_IMG_OFFSET_TOP = 15;
-    public static final float TURN_STAR_IMG_OFFSET_LEFT = -163;
+    public static final float TURN_STAR_IMG_OFFSET_LEFT = -135;
     public static final float TURN_STAR_IMG_SIZE = 24;
 
     // complete window (calculated by setDimensions, called by father)
@@ -96,6 +103,10 @@ public class GameGrid
     private int buttonClearOffsetY;
     private int buttonClearWidth;
     private int buttonClearHeight;
+    private int buttonColorOffsetX;
+    private int buttonColorOffsetY;
+    private int buttonColorSize;
+    private int buttonColorSelectedSize;
     private int boxOffsetX;
     private int boxOffsetY;
     private int boxWidth;
@@ -170,6 +181,10 @@ public class GameGrid
         buttonClearOffsetY = dpToPx(BUTTONCLEAR_OFFSET_TOP);
         buttonClearWidth = dpToPx(BUTTONCLEAR_SIZE);
         buttonClearHeight = buttonClearWidth;
+        buttonColorOffsetX = dpToPx(BUTTONCOLOR_OFFSET_TOP);
+        buttonColorOffsetY = dpToPx(BUTTONCOLOR_OFFSET_LEFT);
+        buttonColorSize = dpToPx(BUTTONCOLOR_SIZE);
+        buttonColorSelectedSize = dpToPx(BUTTONCOLOR_SELECTED_SIZE);
         boxOffsetX = dpToPx(BOX_MARGIN_LEFT);
         boxOffsetY = dpToPx(BOX_MARGIN_TOP);
         boxWidth = (gridWidth / GRID_COLS) - dpToPx(BOX_MARGIN_LEFT + BOX_MARGIN_RIGHT);
@@ -188,14 +203,6 @@ public class GameGrid
         Canvas canvas = new Canvas(_star);
         _starDrawable.setBounds(0, 0, starSize, starSize);
         _starDrawable.draw(canvas);
-    }
-
-    public void prepareColors()
-    {
-        for (int i=0; i<COLORS_MAX; i++)
-        {
-
-        }
     }
 
     public void playAt(float pixelX, float pixelY, int colrep)
@@ -292,6 +299,34 @@ public class GameGrid
         {
             ret = PRESS_GRID;
         }
+        else
+        {
+            // color buttons
+            float x = (float)buttonBarOffsetX + (float)buttonColorOffsetX;
+            float y = (float)buttonBarOffsetY +(float)buttonColorOffsetY;
+            float deltaYNonSelected = (buttonColorSelectedSize - buttonColorSize)/2;
+            for (int i = 0; i < _nbColors; i++)
+            {
+                if (i == _currentColor)
+                {
+                    if (pixelX >= x && pixelX <= (x+buttonColorSelectedSize)
+                        && pixelY >= y && pixelY <= (y+buttonColorSelectedSize))
+                    {
+                        ret = PRESS_COLOR + i;
+                    }
+                    x += buttonColorSelectedSize;
+                }
+                else
+                {
+                    if (pixelX >= x && pixelX <= (x+buttonColorSize)
+                            && pixelY >= y && pixelY <= (y+deltaYNonSelected+buttonColorSize))
+                    {
+                        ret = PRESS_COLOR + i;
+                    }
+                    x += buttonColorSize;
+                }
+            }
+        }
 
         return ret;
     }
@@ -335,6 +370,25 @@ public class GameGrid
         else
         {
             canvas.drawText("/" + _turnsForPass, buttonBarOffsetX + turnStarTextOffsetX, buttonBarOffsetY + turnStarTextOffsetY, _paint);
+        }
+
+        // color buttons
+        float x = (float)buttonBarOffsetX + (float)buttonColorOffsetX;
+        float y = (float)buttonBarOffsetY +(float)buttonColorOffsetY;
+        float deltaYNonSelected = (buttonColorSelectedSize - buttonColorSize)/2;
+        for (int i = 0; i < _nbColors; i++)
+        {
+            _paint.setColor(_colors[i]);
+            if (i == _currentColor)
+            {
+                canvas.drawRect(x, y, x+buttonColorSelectedSize, y+buttonColorSelectedSize, _paint);
+                x += buttonColorSelectedSize;
+            }
+            else
+            {
+                canvas.drawRect(x, y+deltaYNonSelected, x+buttonColorSize, y+deltaYNonSelected+buttonColorSize, _paint);
+                x += buttonColorSize;
+            }
         }
     }
 

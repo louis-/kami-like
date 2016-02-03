@@ -117,11 +117,12 @@ public class GameActivity extends Activity implements SurfaceHolder.Callback
         {
             float x = event.getX();
             float y = event.getY();
-            switch(_grid.press(x, y))
+            int pressed = _grid.press(x, y);
+            switch(pressed)
             {
                 case GameGrid.PRESS_GRID:
                     // play
-                    _grid.playAt(x, y, 0);
+                    _grid.playAt(x, y, _grid._currentColor);
                     // then refresh view
                     surfaceCreated(((SurfaceView)findViewById(R.id.surfaceView)).getHolder());
                     break;
@@ -134,6 +135,16 @@ public class GameActivity extends Activity implements SurfaceHolder.Callback
                     _grid = _gameGridDb.makeGameGrid(_level);
                     // then refresh view
                     surfaceCreated(((SurfaceView)findViewById(R.id.surfaceView)).getHolder());
+                    break;
+                default:
+                    // color button pressed
+                    if (pressed >= GameGrid.PRESS_COLOR && pressed <= (GameGrid.PRESS_COLOR+_grid._nbColors))
+                    {
+                        // select new color
+                        _grid._currentColor = pressed - GameGrid.PRESS_COLOR;
+                        // then refresh view
+                        surfaceCreated(((SurfaceView)findViewById(R.id.surfaceView)).getHolder());
+                    }
                     break;
             }
         }
