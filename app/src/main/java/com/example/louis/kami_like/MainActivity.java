@@ -122,10 +122,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         int buttonId = view.getId();
         switch (buttonId)
         {
-<<<<<<< HEAD
-            case  R.id.buttonInfo: _ViewPager.setCurrentItem(INFO);
+            case  R.id.buttonEasy1: _ViewPager.setCurrentItem(EASY1);
                 break;
-            case  R.id.buttonEasy: _ViewPager.setCurrentItem(EASY1);
+            case  R.id.buttonEasy2: _ViewPager.setCurrentItem(EASY2);
                 break;
             default:
                 for (Level level : _levels)
@@ -137,27 +136,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                     }
                 }
                 break;
-=======
-            case  R.id.buttonEasy: _ViewPager.setCurrentItem(EASY1); break;
-            case  R.id.easy_1 : buttonPressed(buttonId, "classic_1"); break;
-            case  R.id.easy_2 : buttonPressed(buttonId, "classic_2"); break;
-            case  R.id.easy_3 : buttonPressed(buttonId, "classic_3"); break;
-            case  R.id.easy_4 : buttonPressed(buttonId, "classic_4"); break;
-            case  R.id.easy_5 : buttonPressed(buttonId, "classic_5"); break;
-            case  R.id.easy_6 : buttonPressed(buttonId, "classic_6"); break;
-            case  R.id.easy_7 : buttonPressed(buttonId, "classic_7"); break;
-            case  R.id.easy_8 : buttonPressed(buttonId, "classic_8"); break;
-            case  R.id.easy_9 : buttonPressed(buttonId, "classic_9"); break;
-            case  R.id.easy_10 : buttonPressed(buttonId, "classic_1"); break;
-            case  R.id.easy_11 : buttonPressed(buttonId, "classic_2"); break;
-            case  R.id.easy_12 : buttonPressed(buttonId, "classic_3"); break;
-            case  R.id.easy_13 : buttonPressed(buttonId, "classic_4"); break;
-            case  R.id.easy_14 : buttonPressed(buttonId, "classic_5"); break;
-            case  R.id.easy_15 : buttonPressed(buttonId, "classic_6"); break;
-            case  R.id.easy_16 : buttonPressed(buttonId, "classic_7"); break;
-            case  R.id.easy_17 : buttonPressed(buttonId, "classic_8"); break;
-            case  R.id.easy_18 : buttonPressed(buttonId, "classic_9"); break;
->>>>>>> 4b4afbe5cb0186892d77d9814eb91084b19080ed
         }
     }
     
