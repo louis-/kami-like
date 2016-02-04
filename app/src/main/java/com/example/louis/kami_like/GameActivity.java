@@ -125,6 +125,11 @@ public class GameActivity extends Activity implements SurfaceHolder.Callback
                     _grid.playAt(x, y, _grid._currentColor);
                     // then refresh view
                     surfaceCreated(((SurfaceView)findViewById(R.id.surfaceView)).getHolder());
+                    // game won
+                    if (_grid._gameStatus == GameGrid.GAME_WON_STAR)
+                        ((MainActivity)getCallingActivity())._gamer.setScore(_level, Gamer.SCORE_STAR);
+                    else if (_grid._gameStatus == GameGrid.GAME_WON_PASSED)
+                        ((MainActivity)getCallingActivity())._gamer.setScore(_level, Gamer.SCORE_PASSED);
                     break;
                 case GameGrid.PRESS_CLEAR:
                     // bye

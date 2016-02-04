@@ -35,6 +35,11 @@ public class GameGrid
     public static final int GRID_COLS = 10;
     public static final int COLORS_MAX = 6;
 
+    // game status
+    public static final int GAME_NOT_FINISHED = 0;
+    public static final int GAME_WON_PASSED = 1;
+    public static final int GAME_WON_STAR = 2;
+
     // geometry (all in DP)
     //
 
@@ -137,6 +142,7 @@ public class GameGrid
     public int _currentTurn = 0;
     public int _turnsForStar = 0;
     public int _turnsForPass = 0;
+    public int _gameStatus = GAME_NOT_FINISHED;
     private boolean _won = false;
 
     //
@@ -262,8 +268,16 @@ public class GameGrid
                 }
             }
 
-            // check if game was win
+            // check if game was won
             _won = check_won();
+            if (_won)
+            {
+                if (_currentTurn <= _turnsForStar)
+                    _gameStatus = GAME_WON_STAR;
+                else
+                    _gameStatus = GAME_WON_PASSED;
+            }
+
             // turn management
             _currentTurn++;
         }
