@@ -122,9 +122,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         int buttonId = view.getId();
         switch (buttonId)
         {
-            case  R.id.buttonEasy1: _ViewPager.setCurrentItem(EASY1);
-                break;
-            case  R.id.buttonEasy2: _ViewPager.setCurrentItem(EASY2);
+            case  R.id.buttonEasy: _ViewPager.setCurrentItem(EASY1);
                 break;
             default:
                 for (Level level : _levels)
