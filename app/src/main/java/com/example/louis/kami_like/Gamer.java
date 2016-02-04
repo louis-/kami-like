@@ -1,5 +1,8 @@
 package com.example.louis.kami_like;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,24 +17,38 @@ public class Gamer
     public static final int SCORE_STAR = 2;
 
     //
-    Gamer() { _score = new HashMap<String, Integer>(); }
-    Gamer(String name) { this.name = name; _score = new HashMap<String, Integer>(); }
-
-    //
-    void setScore(String level, int score)
-    {
-        _score.put(level, score);
-    }
-
-    int getScore(String level)
-    {
-        int ret = SCORE_NOT_PASSED;
-        if (_score.containsKey(level))
-            ret = _score.get(level);
-        return ret;
-    }
-
-    //
     private String name = GAMER_DEFAULT_NAME;
-    private Map<String, Integer> _score;
+    private SharedPreferences settings;
+    private SharedPreferences.Editor editor;
+
+    //
+    Gamer(Context context)
+    {
+        init(GAMER_DEFAULT_NAME, context);
+    }
+
+    Gamer(String name, Context context)
+    {
+        init(name, context);
+    }
+
+    //
+    private void init(String name, Context context)
+    {
+        this.name = name;
+        settings = context.getSharedPreferences(name, 0);
+        editor = settings.edit();
+    }
+
+    //
+    public void setScore(String level, int score)
+    {
+        editor.putInt(level, score);
+        editor.commit();
+    }
+
+    public int getScore(String level)
+    {
+        return settings.getInt(level, SCORE_NOT_PASSED);
+    }
 }
