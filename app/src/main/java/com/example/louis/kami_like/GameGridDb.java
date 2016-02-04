@@ -38,7 +38,6 @@ public class GameGridDb
                 else
                     break;
             }
-            grid.prepareColors();
 
             // grid
             String boxes = getString(level + "_grid");

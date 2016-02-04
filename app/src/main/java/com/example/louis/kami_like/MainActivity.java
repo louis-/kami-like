@@ -24,11 +24,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     ViewPager _ViewPager;
     public Gamer _gamer;
 
-    public static final int INFO = 0;
-    public static final int MAIN = 1;
-    public static final int EASY1 = 2;
-    public static final int EASY2 = 3;
-    public static final int NB_VIEWS = 4;
+    public static final int MAIN = 0;
+    public static final int EASY1 = 1;
+    public static final int EASY2 = 2;
+    public static final int NB_VIEWS = 3;
     public static final int DEFAULT_VIEW_AT_STARTUP = MAIN;
 
     //
@@ -123,6 +122,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         int buttonId = view.getId();
         switch (buttonId)
         {
+<<<<<<< HEAD
             case  R.id.buttonInfo: _ViewPager.setCurrentItem(INFO);
                 break;
             case  R.id.buttonEasy: _ViewPager.setCurrentItem(EASY1);
@@ -137,6 +137,27 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                     }
                 }
                 break;
+=======
+            case  R.id.buttonEasy: _ViewPager.setCurrentItem(EASY1); break;
+            case  R.id.easy_1 : buttonPressed(buttonId, "classic_1"); break;
+            case  R.id.easy_2 : buttonPressed(buttonId, "classic_2"); break;
+            case  R.id.easy_3 : buttonPressed(buttonId, "classic_3"); break;
+            case  R.id.easy_4 : buttonPressed(buttonId, "classic_4"); break;
+            case  R.id.easy_5 : buttonPressed(buttonId, "classic_5"); break;
+            case  R.id.easy_6 : buttonPressed(buttonId, "classic_6"); break;
+            case  R.id.easy_7 : buttonPressed(buttonId, "classic_7"); break;
+            case  R.id.easy_8 : buttonPressed(buttonId, "classic_8"); break;
+            case  R.id.easy_9 : buttonPressed(buttonId, "classic_9"); break;
+            case  R.id.easy_10 : buttonPressed(buttonId, "classic_1"); break;
+            case  R.id.easy_11 : buttonPressed(buttonId, "classic_2"); break;
+            case  R.id.easy_12 : buttonPressed(buttonId, "classic_3"); break;
+            case  R.id.easy_13 : buttonPressed(buttonId, "classic_4"); break;
+            case  R.id.easy_14 : buttonPressed(buttonId, "classic_5"); break;
+            case  R.id.easy_15 : buttonPressed(buttonId, "classic_6"); break;
+            case  R.id.easy_16 : buttonPressed(buttonId, "classic_7"); break;
+            case  R.id.easy_17 : buttonPressed(buttonId, "classic_8"); break;
+            case  R.id.easy_18 : buttonPressed(buttonId, "classic_9"); break;
+>>>>>>> 4b4afbe5cb0186892d77d9814eb91084b19080ed
         }
     }
     
@@ -144,6 +165,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     {
         if (((FlatButton)findViewById(buttonId)).getState() != FlatButton.STATE_DIMMED)
         {
+            // start a game with "level" resource as parameter
             Intent intent = new Intent(this, GameActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString("level", level);
@@ -197,11 +219,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             {
                 case MAIN:
                     rootView = inflater.inflate(R.layout.activity_kami, container, false);
-                    break;
-                case INFO:
-                    rootView = inflater.inflate(R.layout.activity_info, container, false);
-                    button = (Button)getActivity().findViewById(R.id.buttonInfo);
-                    button.setOnClickListener((MainActivity)getActivity());
                     break;
                 case EASY1:
                     rootView = inflater.inflate(R.layout.activity_easy_1, container, false);

@@ -1,62 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-        <string name="classic_1_color_1">darkpurple</string>
+        <string name="classic_1_color_1">darkred</string>
         <string name="classic_1_color_2">darkblue</string>
         <string name="classic_1_color_3">darkorange"</string>
+        <string name="classic_1_color_4">darkpurple"</string>
         <integer name="classic_1_star">1</integer>
         <integer name="classic_1_pass">2</integer>
         <string name="classic_1_grid">0000000000000000000000000000000000000000000000000000000000000000000000000000000011111111111111111111111111111111111111111111111111111111111111111111111111111111</string>
 
-        <string name="classic_2_color_1">darkpurple</string>
+        <string name="classic_2_color_1">darkred</string>
         <string name="classic_2_color_2">darkblue</string>
         <string name="classic_2_color_3">darkorange"</string>
         <integer name="classic_2_star">1</integer>
         <integer name="classic_2_pass">2</integer>
         <string name="classic_2_grid">0000000000000000000000000000000011111100001111110000111111000011111100001111110000111111000011111100001111110000111111000011111100000000000000000000000000000000</string>
 
-        <string name="classic_3_color_1">darkpurple</string>
+        <string name="classic_3_color_1">darkred</string>
         <string name="classic_3_color_2">darkblue</string>
         <string name="classic_3_color_3">darkorange"</string>
         <integer name="classic_3_star">2</integer>
         <integer name="classic_3_pass">3</integer>
         <string name="classic_3_grid">0000000000000000000000000000000011111100001111110000111111000022222200002222220000222222000022222200001111110000111111000011111100000000000000000000000000000000</string>
 
-        <string name="classic_4_color_1">darkpurple</string>
+        <string name="classic_4_color_1">darkred</string>
         <string name="classic_4_color_2">darkblue</string>
         <string name="classic_4_color_3">darkorange"</string>
         <integer name="classic_4_star">3</integer>
         <integer name="classic_4_pass">4</integer>
         <string name="classic_4_grid">0000000000000000000011111111111000000001102222220110200002011020220201102022020110202202011020220201102000020110222222011000000001111111111100000000000000000000</string>
 
-        <string name="classic_5_color_1">darkpurple</string>
+        <string name="classic_5_color_1">darkred</string>
         <string name="classic_5_color_2">darkblue</string>
         <string name="classic_5_color_3">darkorange"</string>
         <integer name="classic_5_star">5</integer>
         <integer name="classic_5_pass">6</integer>
         <string name="classic_5_grid">0001101100001100011001100200111100222001100220220010220102201002202200110022200101100200110011000110000110110020001110002200010002022000002200220002200002202200</string>
 
-        <string name="classic_6_color_1">darkpurple</string>
+        <string name="classic_6_color_1">darkred</string>
         <string name="classic_6_color_2">darkblue</string>
         <string name="classic_6_color_3">darkorange"</string>
         <integer name="classic_6_star">3</integer>
         <integer name="classic_6_pass">4</integer>
         <string name="classic_6_grid">2211100011221110001122111000112211100000211110220020022022002002202200200220000021122000000012202211001220221100122022110221101122022110112202211011220000001122</string>
 
-        <string name="classic_7_color_1">darkpurple</string>
+        <string name="classic_7_color_1">darkred</string>
         <string name="classic_7_color_2">darkblue</string>
         <string name="classic_7_color_3">darkorange"</string>
         <integer name="classic_7_star">4</integer>
         <integer name="classic_7_pass">5</integer>
         <string name="classic_7_grid">1111111111111111111111111111111112222222111222222211122000001112200000111220011111122001111112200111111220011100100221220010022122000111122200000222220000022222</string>
 
-        <string name="classic_8_color_1">darkpurple</string>
+        <string name="classic_8_color_1">darkred</string>
         <string name="classic_8_color_2">darkblue</string>
         <string name="classic_8_color_3">darkorange"</string>
         <integer name="classic_8_star">4</integer>
         <integer name="classic_8_pass">5</integer>
         <string name="classic_8_grid">1111111111000000000022222222222222222222000000000011111111111221221221122122122111111111110000000000000000000011111111111111111111111111111122222222222222222222</string>
 
-        <string name="classic_9_color_1">darkpurple</string>
+        <string name="classic_9_color_1">darkred</string>
         <string name="classic_9_color_2">darkblue</string>
         <string name="classic_9_color_3">darkorange"</string>
         <integer name="classic_9_star">4</integer>
