@@ -43,15 +43,15 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     };
 
     public final Level _levels[] = new Level[] {
-        new Level("classic_1", R.id.easy_1),
-        new Level("classic_2", R.id.easy_2),
-        new Level("classic_3", R.id.easy_3),
-        new Level("classic_4", R.id.easy_4),
-        new Level("classic_5", R.id.easy_5),
-        new Level("classic_6", R.id.easy_6),
-        new Level("classic_7", R.id.easy_7),
-        new Level("classic_8", R.id.easy_8),
-        new Level("classic_9", R.id.easy_9)
+        new Level("level_1", R.id.easy_1),
+        new Level("level_2", R.id.easy_2),
+        new Level("level_3", R.id.easy_3),
+        new Level("level_4", R.id.easy_4),
+        new Level("level_5", R.id.easy_5),
+        new Level("level_6", R.id.easy_6),
+        new Level("level_7", R.id.easy_7),
+        new Level("level_8", R.id.easy_8),
+        new Level("level_9", R.id.easy_9)
     };
 
     //
