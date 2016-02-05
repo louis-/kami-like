@@ -158,14 +158,16 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         if (resultCode == RESULT_OK)
         {
             String level = data.getStringExtra("GameLevel");
-            int result = data.getIntExtra("GameResult", GameGrid.GAME_WON_PASSED);
-            if (result == GameGrid.GAME_WON_STAR)
-                result = Gamer.SCORE_STAR;
-            else if (result == GameGrid.GAME_WON_PASSED)
-                result = Gamer.SCORE_PASSED;
+            int score = data.getIntExtra("GameResult", GameGrid.GAME_WON_PASSED);
+            int current_score = _gamer.getScore(level);
+            if (score == GameGrid.GAME_WON_STAR)
+                score = Gamer.SCORE_STAR;
+            else if (score == GameGrid.GAME_WON_PASSED)
+                score = Gamer.SCORE_PASSED;
             else
-                result = Gamer.SCORE_NOT_PASSED;
-            _gamer.setScore(level, result);
+                score = Gamer.SCORE_NOT_PASSED;
+            if (current_score>score)
+                _gamer.setScore(level, score);
         }
     }
 

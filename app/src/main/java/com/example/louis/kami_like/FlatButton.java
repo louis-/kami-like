@@ -144,7 +144,11 @@ public class FlatButton extends View
         paint.setTextAlign(Paint.Align.CENTER);
         canvas.drawText(label, bounds.exactCenterX(), bounds.exactCenterY() + labelSize / 3, paint);
 
-        canvas.drawBitmap(starOutline, canvas.getWidth() - dp_to_pixels(DEF_STARSIZE_DP), canvas.getHeight() - dp_to_pixels(DEF_STARSIZE_DP), paint);
+        // star or not
+        if (state == STATE_STAR)
+            canvas.drawBitmap(star, canvas.getWidth() - dp_to_pixels(DEF_STARSIZE_DP), canvas.getHeight() - dp_to_pixels(DEF_STARSIZE_DP), paint);
+        else if (state == STATE_PASSED)
+            canvas.drawBitmap(starOutline, canvas.getWidth() - dp_to_pixels(DEF_STARSIZE_DP), canvas.getHeight() - dp_to_pixels(DEF_STARSIZE_DP), paint);
     }
 
     private int dp_to_pixels(int dp)
