@@ -133,6 +133,7 @@ public class GameActivity extends Activity implements SurfaceHolder.Callback
                         intent.putExtra("GameLevel", _level);
                         intent.putExtra("GameResult", GameGrid.GAME_WON_STAR);
                         setResult(RESULT_OK, intent);
+                        finish();
                     }
                     else if (_grid._gameStatus == GameGrid.GAME_WON_PASSED)
                     {
@@ -140,6 +141,7 @@ public class GameActivity extends Activity implements SurfaceHolder.Callback
                         intent.putExtra("GameLevel", _level);
                         intent.putExtra("GameResult", GameGrid.GAME_WON_PASSED);
                         setResult(RESULT_OK, intent);
+                        finish();
                     }
                     break;
                 case GameGrid.PRESS_CLEAR:
