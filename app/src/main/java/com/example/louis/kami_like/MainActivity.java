@@ -157,6 +157,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         // game result
         if (resultCode == RESULT_OK)
         {
+            // update score if needed
             String level = data.getStringExtra("GameLevel");
             int score = data.getIntExtra("GameResult", GameGrid.GAME_WON_PASSED);
             int current_score = _gamer.getScore(level);
@@ -166,8 +167,14 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 score = Gamer.SCORE_PASSED;
             else
                 score = Gamer.SCORE_NOT_PASSED;
+
             if (current_score>score)
+            {
+                // record this new state
                 _gamer.setScore(level, score);
+
+                // update button state
+            }
         }
     }
 
