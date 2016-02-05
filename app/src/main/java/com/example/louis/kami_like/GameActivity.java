@@ -2,6 +2,7 @@ package com.example.louis.kami_like;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -124,15 +125,27 @@ public class GameActivity extends Activity implements SurfaceHolder.Callback
                     // play
                     _grid.playAt(x, y, _grid._currentColor);
                     // then refresh view
-                    surfaceCreated(((SurfaceView)findViewById(R.id.surfaceView)).getHolder());
+                    surfaceCreated(((SurfaceView) findViewById(R.id.surfaceView)).getHolder());
                     // game won
                     if (_grid._gameStatus == GameGrid.GAME_WON_STAR)
-                        ((MainActivity)getCallingActivity())._gamer.setScore(_level, Gamer.SCORE_STAR);
+                    {
+                        Intent intent = getIntent();
+                        intent.putExtra("GameLevel", _level);
+                        intent.putExtra("GameResult", GameGrid.GAME_WON_STAR);
+                        setResult(RESULT_OK, intent);
+                    }
                     else if (_grid._gameStatus == GameGrid.GAME_WON_PASSED)
-                        ((MainActivity)getCallingActivity())._gamer.setScore(_level, Gamer.SCORE_PASSED);
+                    {
+                        Intent intent = getIntent();
+                        intent.putExtra("GameLevel", _level);
+                        intent.putExtra("GameResult", GameGrid.GAME_WON_PASSED);
+                        setResult(RESULT_OK, intent);
+                    }
                     break;
                 case GameGrid.PRESS_CLEAR:
                     // bye
+                    Intent intent = getIntent();
+                    setResult(RESULT_CANCELED, intent);
                     finish();
                     break;
                 case GameGrid.PRESS_REPLAY:

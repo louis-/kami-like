@@ -146,9 +146,29 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             Bundle bundle = new Bundle();
             bundle.putString("level", level);
             intent.putExtras(bundle);
-            startActivity(intent);
+            startActivityForResult(intent, 0);
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        // game result
+        if (resultCode == RESULT_OK)
+        {
+            String level = data.getStringExtra("GameLevel");
+            int result = data.getIntExtra("GameResult", GameGrid.GAME_WON_PASSED);
+            if (result == GameGrid.GAME_WON_STAR)
+                result = Gamer.SCORE_STAR;
+            else if (result == GameGrid.GAME_WON_PASSED)
+                result = Gamer.SCORE_PASSED;
+            else
+                result = Gamer.SCORE_NOT_PASSED;
+            _gamer.setScore(level, result);
+        }
+    }
+
 
     //
     public static class CollectionPagerAdapter extends FragmentStatePagerAdapter
