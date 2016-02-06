@@ -19,7 +19,7 @@ public class Gamer
     //
     private String name = GAMER_DEFAULT_NAME;
     private SharedPreferences settings;
-    private SharedPreferences.Editor editor;
+    private Context context;
 
     //
     Gamer(Context context)
@@ -36,19 +36,26 @@ public class Gamer
     private void init(String name, Context context)
     {
         this.name = name;
-        settings = context.getSharedPreferences(name, 0);
-        editor = settings.edit();
+        this.context = context;
     }
 
     //
     public void setScore(String level, int score)
     {
+        SharedPreferences.Editor editor = context.getSharedPreferences(name, 0).edit();
         editor.putInt(level, score);
+        editor.commit();
+    }
+
+    public void reset()
+    {
+        SharedPreferences.Editor editor = context.getSharedPreferences(name, 0).edit();
+        editor.clear();
         editor.commit();
     }
 
     public int getScore(String level)
     {
-        return settings.getInt(level, SCORE_NOT_PASSED);
+        return context.getSharedPreferences(name, 0).getInt(level, SCORE_NOT_PASSED);
     }
 }
