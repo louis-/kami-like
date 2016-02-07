@@ -23,17 +23,21 @@ import android.widget.ImageButton;
  */
 public class MainActivity extends FragmentActivity implements View.OnClickListener
 {
+    // activities in a pager
     CollectionPagerAdapter _CollectionPagerAdapter;
     ViewPager _ViewPager;
+
+    // stored score
     public Gamer _gamer;
 
+    // activities
     public static final int MAIN = 0;
     public static final int EASY1 = 1;
     public static final int EASY2 = 2;
     public static final int NB_VIEWS = 3;
     public static final int DEFAULT_VIEW_AT_STARTUP = MAIN;
 
-    //
+    // levels
     public class Level
     {
         Level(String level, int buttonId)
@@ -45,26 +49,30 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         public int buttonId;
     };
 
-    public final Level _levels[] = new Level[]
+    public final Level _levels[][] = new Level[][]
     {
-        new Level("level_1", R.id.easy_1),
-        new Level("level_2", R.id.easy_2),
-        new Level("level_3", R.id.easy_3),
-        new Level("level_4", R.id.easy_4),
-        new Level("level_5", R.id.easy_5),
-        new Level("level_6", R.id.easy_6),
-        new Level("level_7", R.id.easy_7),
-        new Level("level_8", R.id.easy_8),
-        new Level("level_9", R.id.easy_9),
-        new Level("level_10", R.id.easy_10),
-        new Level("level_11", R.id.easy_11),
-        new Level("level_12", R.id.easy_12),
-        new Level("level_13", R.id.easy_13),
-        new Level("level_14", R.id.easy_14),
-        new Level("level_15", R.id.easy_15),
-        new Level("level_16", R.id.easy_16),
-        new Level("level_17", R.id.easy_17),
-        new Level("level_18", R.id.easy_18),
+        {
+            new Level("level_1", R.id.easy_1),
+            new Level("level_2", R.id.easy_2),
+            new Level("level_3", R.id.easy_3),
+            new Level("level_4", R.id.easy_4),
+            new Level("level_5", R.id.easy_5),
+            new Level("level_6", R.id.easy_6),
+            new Level("level_7", R.id.easy_7),
+            new Level("level_8", R.id.easy_8),
+            new Level("level_9", R.id.easy_9),
+        },
+        {
+            new Level("level_10", R.id.easy_10),
+            new Level("level_11", R.id.easy_11),
+            new Level("level_12", R.id.easy_12),
+            new Level("level_13", R.id.easy_13),
+            new Level("level_14", R.id.easy_14),
+            new Level("level_15", R.id.easy_15),
+            new Level("level_16", R.id.easy_16),
+            new Level("level_17", R.id.easy_17),
+            new Level("level_18", R.id.easy_18)
+        },
     };
 
     //
@@ -333,7 +341,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                     ((Button)rootView.findViewById(R.id.buttonEasy)).setOnClickListener((MainActivity)getActivity());
                     ((Button)rootView.findViewById(R.id.buttonMedium)).setOnClickListener((MainActivity)getActivity());
                     ((Button)rootView.findViewById(R.id.buttonHard)).setOnClickListener((MainActivity) getActivity());
-                    //((MainActivity)getActivity()).refreshButtonsState();
                     break;
                 case EASY1:
                     Log.i("ObjectFragment", "EASY1");
