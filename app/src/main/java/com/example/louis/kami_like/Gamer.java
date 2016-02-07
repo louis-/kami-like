@@ -12,14 +12,17 @@ import java.util.Map;
 public class Gamer
 {
     public static final String GAMER_DEFAULT_NAME = "guest";
-    public static final int SCORE_NOT_PASSED = 0;
-    public static final int SCORE_PASSED = 1;
-    public static final int SCORE_STAR = 2;
+    public static final int SCORE_NOT_ACCESSIBLE = 0;
+    public static final int SCORE_NOT_PASSED = 1;
+    public static final int SCORE_PASSED = 2;
+    public static final int SCORE_STAR = 3;
 
     //
     private String name = GAMER_DEFAULT_NAME;
     private SharedPreferences settings;
     private Context context;
+
+    private Map map;
 
     //
     Gamer(Context context)
@@ -37,25 +40,42 @@ public class Gamer
     {
         this.name = name;
         this.context = context;
+        map = new HashMap<String, Integer>();
+        reset();
     }
 
     //
     public void setScore(String level, int score)
     {
+/*
         SharedPreferences.Editor editor = context.getSharedPreferences(name, 0).edit();
         editor.putInt(level, score);
         editor.commit();
+*/
+        map.put(level, score);
     }
 
     public void reset()
     {
+        /*
         SharedPreferences.Editor editor = context.getSharedPreferences(name, 0).edit();
         editor.clear();
         editor.commit();
+        */
+        map.clear();
+        map.put("level_1", SCORE_NOT_PASSED);
+        for(int i = 2; i<=9;i++)
+            map.put("level_"+i, SCORE_STAR);
     }
 
     public int getScore(String level)
     {
+        /*
         return context.getSharedPreferences(name, 0).getInt(level, SCORE_NOT_PASSED);
+        */
+        if (map.containsKey(level))
+            return (int)map.get(level);
+        else
+            return SCORE_NOT_ACCESSIBLE;
     }
 }

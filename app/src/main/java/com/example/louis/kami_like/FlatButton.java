@@ -64,7 +64,7 @@ public class FlatButton extends View
     private int dimmedColor = DEF_DIMMEDCOLOR;
 
     // state
-    private int state = STATE_NORMAL;
+    private int state = STATE_DIMMED;
 
     // label
     private String label = "";

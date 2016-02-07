@@ -272,10 +272,12 @@ public class GameGrid
             _won = check_won();
             if (_won)
             {
-                if (_currentTurn <= _turnsForStar)
+                if (_currentTurn < _turnsForStar)
                     _gameStatus = GAME_WON_STAR;
-                else
+                else if (_currentTurn < _turnsForPass)
                     _gameStatus = GAME_WON_PASSED;
+                else
+                    _gameStatus = GAME_NOT_FINISHED;
             }
 
             // turn management
