@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
         <string name="level_1_color_1">darkred</string>
-        <string name="level_1_color_2">darkblue</string>
+        <string name="level_1_color_2">black</string>
         <string name="level_1_color_3">darkorange"</string>
         <string name="level_1_color_4">darkpurple"</string>
         <integer name="level_1_star">1</integer>
