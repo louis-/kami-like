@@ -1,6 +1,5 @@
-package com.example.louis.kami_like;
+package com.example.louis.onecolor;
 
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -13,15 +12,11 @@ import android.view.ViewGroup;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.WindowManager;
 import android.view.animation.Animation;
-import android.view.animation.BounceInterpolator;
-import android.view.animation.DecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.view.animation.ScaleAnimation;
 import android.widget.Button;
-import android.widget.ImageButton;
 
 /**
  * Created by louis on 17/01/16.
@@ -36,12 +31,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     public Gamer _gamer;
 
     // activities
-    public static final int MAIN = 0;
+    public static final int ONECOLOR = 0;
     public static final int EASY1 = 1;
     public static final int EASY2 = 2;
     public static final int NB_VIEWS = 3;
-    public static final int NB_LEVELS = 2;
-    public static final int DEFAULT_VIEW_AT_STARTUP = MAIN;
+    public static final int DEFAULT_VIEW_AT_STARTUP = ONECOLOR;
 
     // levels
     public class Level
@@ -131,7 +125,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     @Override
     public void onBackPressed()
     {
-        if (_ViewPager.getCurrentItem() == MAIN)
+        if (_ViewPager.getCurrentItem() == ONECOLOR)
         {
             // If the user is currently looking at the first step, allow the system to handle the
             // Back button. This calls finish() on this activity and pops the back stack.
@@ -139,8 +133,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         }
         else
         {
-            // Otherwise, select MAIN
-            _ViewPager.setCurrentItem(MAIN);
+            // Otherwise, select ONECOLOR
+            _ViewPager.setCurrentItem(ONECOLOR);
         }
     }
 
@@ -176,7 +170,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 else
                 {
                     // or at next level
-                    if (levelIndex < NB_LEVELS)
+                    if (levelIndex < NB_VIEWS - 1)
                         recordGameScore(levelIndex + 1, 0, GameGrid.GAME_NOT_FINISHED);
                 }
             }
@@ -346,9 +340,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             Button button;
             switch(getArguments().getInt(ARG_OBJECT))
             {
-                case MAIN:
+                case ONECOLOR:
                     // fragment
-                    rootView = inflater.inflate(R.layout.activity_kami, container, false);
+                    rootView = inflater.inflate(R.layout.activity_onecolor, container, false);
                     // button 'easy'
                     ((Button)rootView.findViewById(R.id.buttonEasy)).setOnClickListener((MainActivity)getActivity());
                     ((Button)rootView.findViewById(R.id.buttonMedium)).setOnClickListener((MainActivity)getActivity());

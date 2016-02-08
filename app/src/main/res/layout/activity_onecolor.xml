@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.louis.kami_like.KamiActivity">
+    tools:context="com.example.louis.onecolor.OneColorActivity">
 
-    <include layout="@layout/content_kami" />
+    <include layout="@layout/content_onecolor" />
 
 </android.support.design.widget.CoordinatorLayout>
 

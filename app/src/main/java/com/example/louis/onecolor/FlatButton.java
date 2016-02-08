@@ -1,4 +1,4 @@
-package com.example.louis.kami_like;
+package com.example.louis.onecolor;
 
 import android.content.Context;
 import android.content.res.TypedArray;

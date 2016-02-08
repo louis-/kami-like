@@ -1,4 +1,4 @@
-package com.example.louis.kami_like;
+package com.example.louis.onecolor;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

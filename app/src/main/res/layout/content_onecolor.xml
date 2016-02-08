@@ -9,8 +9,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.louis.kami_like.KamiActivity"
-    tools:showIn="@layout/activity_kami">
+    tools:context="com.example.louis.onecolor.OneColorActivity"
+    tools:showIn="@layout/activity_onecolor">
 
     <LinearLayout
         android:orientation="vertical"
