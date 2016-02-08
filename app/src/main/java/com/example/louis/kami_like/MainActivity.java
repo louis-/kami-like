@@ -165,12 +165,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             // update score if needed (requestCode is the button index in _levels)
             if (recordGameScore(levelIndex, buttonIndex, data.getIntExtra("GameResult", GameGrid.GAME_WON_PASSED)))
             {
-                // update button state of next button
+                // make next button accessible at same level
                 if (buttonIndex < _levels[levelIndex].length - 1)
                     recordGameScore(levelIndex, buttonIndex + 1, GameGrid.GAME_NOT_FINISHED);
                 else
                 {
-                    // else, of first button of next level
+                    // or at next level
                     if (levelIndex < NB_LEVELS)
                         recordGameScore(levelIndex + 1, 0, GameGrid.GAME_NOT_FINISHED);
                 }
@@ -207,13 +207,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         {
             _gamer.setScore(_levels[levelIndex][buttonIndex].level, gameScore);
             changed = true;
-        }
 
-        // update button state
-        FlatButton myFlat = (FlatButton)findViewById(_levels[levelIndex][buttonIndex].buttonId);
-        if (myFlat != null)
-        {
-            myFlat.setState(buttonState);
+            // update button state
+            FlatButton myFlat = (FlatButton) findViewById(_levels[levelIndex][buttonIndex].buttonId);
+            if (myFlat != null)
+            {
+                myFlat.setState(buttonState);
+            }
         }
 
         return changed;
