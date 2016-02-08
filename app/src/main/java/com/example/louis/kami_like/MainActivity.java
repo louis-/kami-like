@@ -15,6 +15,11 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.BounceInterpolator;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.OvershootInterpolator;
+import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.ImageButton;
 
@@ -272,7 +277,17 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                     }
                 });
 
-                myFlat.invalidate();
+                Animation anim = new ScaleAnimation(
+                        0.5f, 1f, // Start and end values for the X axis scaling
+                        0.5f, 1f, // Start and end values for the Y axis scaling
+                        Animation.RELATIVE_TO_SELF, 1f, // Pivot point of X scaling
+                        Animation.RELATIVE_TO_SELF, 1f); // Pivot point of Y scaling
+                anim.setFillAfter(true); // Needed to keep the result of the animation
+                anim.setDuration(400+buttonIndex*35);
+                anim.setInterpolator(new OvershootInterpolator());
+                myFlat.startAnimation(anim);
+
+                //myFlat.invalidate();
 
                 buttonIndex++;
             }
@@ -332,13 +347,43 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             switch(getArguments().getInt(ARG_OBJECT))
             {
                 case MAIN:
-                    Log.i("ObjectFragment", "MAIN");
                     // fragment
                     rootView = inflater.inflate(R.layout.activity_kami, container, false);
                     // button 'easy'
                     ((Button)rootView.findViewById(R.id.buttonEasy)).setOnClickListener((MainActivity)getActivity());
                     ((Button)rootView.findViewById(R.id.buttonMedium)).setOnClickListener((MainActivity)getActivity());
                     ((Button)rootView.findViewById(R.id.buttonHard)).setOnClickListener((MainActivity) getActivity());
+
+                    Animation anim = new ScaleAnimation(
+                            0.5f, 1f, // Start and end values for the X axis scaling
+                            0.5f, 1f, // Start and end values for the Y axis scaling
+                            Animation.RELATIVE_TO_SELF, 1f, // Pivot point of X scaling
+                            Animation.RELATIVE_TO_SELF, 1f); // Pivot point of Y scaling
+                    anim.setFillAfter(true); // Needed to keep the result of the animation
+                    anim.setDuration(500);
+                    anim.setInterpolator(new OvershootInterpolator());
+                    ((Button)rootView.findViewById(R.id.buttonEasy)).startAnimation(anim);
+
+                    Animation anim2 = new ScaleAnimation(
+                            0.5f, 1f, // Start and end values for the X axis scaling
+                            0.5f, 1f, // Start and end values for the Y axis scaling
+                            Animation.RELATIVE_TO_SELF, 1f, // Pivot point of X scaling
+                            Animation.RELATIVE_TO_SELF, 1f); // Pivot point of Y scaling
+                    anim2.setFillAfter(true); // Needed to keep the result of the animation
+                    anim2.setDuration(550);
+                    anim2.setInterpolator(new OvershootInterpolator());
+                    ((Button)rootView.findViewById(R.id.buttonMedium)).startAnimation(anim2);
+
+                    Animation anim3 = new ScaleAnimation(
+                            0.5f, 1f, // Start and end values for the X axis scaling
+                            0.5f, 1f, // Start and end values for the Y axis scaling
+                            Animation.RELATIVE_TO_SELF, 1f, // Pivot point of X scaling
+                            Animation.RELATIVE_TO_SELF, 1f); // Pivot point of Y scaling
+                    anim3.setFillAfter(true); // Needed to keep the result of the animation
+                    anim3.setDuration(600);
+                    anim3.setInterpolator(new OvershootInterpolator());
+                    ((Button)rootView.findViewById(R.id.buttonHard)).startAnimation(anim);
+
                     break;
                 case EASY1:
                     Log.i("ObjectFragment", "EASY1");
