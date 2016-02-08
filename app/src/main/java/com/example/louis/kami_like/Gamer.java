@@ -63,9 +63,9 @@ public class Gamer
         editor.commit();
         */
         map.clear();
-        map.put("level_1", SCORE_NOT_PASSED);
-        for(int i = 2; i<=9;i++)
-            map.put("level_"+i, SCORE_STAR);
+        map.put("level_1", SCORE_PASSED);
+        for(int i = 2; i<=10;i++)
+            map.put("level_"+i, SCORE_PASSED);
     }
 
     public int getScore(String level)

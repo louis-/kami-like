@@ -35,6 +35,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     public static final int EASY1 = 1;
     public static final int EASY2 = 2;
     public static final int NB_VIEWS = 3;
+    public static final int NB_LEVELS = 2;
     public static final int DEFAULT_VIEW_AT_STARTUP = MAIN;
 
     // levels
@@ -145,39 +146,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         {
             case  R.id.buttonEasy: _ViewPager.setCurrentItem(EASY1);
                 break;
-            case  R.id.buttonHard:
-                //TODO remove
-                _gamer.reset();
-                refreshButtonsState();
-                break;
             default:
-                int index = 0;
-                for (Level level : _levels)
-                {
-                    if (level.buttonId == buttonId)
-                    {
-                        buttonPressed(buttonId, index, level.level);
-                        break;
-                    }
-                    index++;
-                }
                 break;
         }
     }
     
-    private void buttonPressed(int buttonId, int buttonIndex, String level)
-    {
-        if (((FlatButton)findViewById(buttonId)).getState() != FlatButton.STATE_DIMMED)
-        {
-            // start a game with "level" resource as parameter
-            Intent intent = new Intent(this, GameActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putString("level", level);
-            intent.putExtras(bundle);
-            startActivityForResult(intent, buttonIndex);
-        }
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
@@ -186,19 +159,26 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         // game result
         if (resultCode == RESULT_OK)
         {
-            int buttonIndex = requestCode;
+            int levelIndex = (requestCode / 1000) - 1;
+            int buttonIndex = requestCode - (levelIndex+1)*1000;
 
             // update score if needed (requestCode is the button index in _levels)
-            if (recordGameScore(requestCode, data.getIntExtra("GameResult", GameGrid.GAME_WON_PASSED)))
+            if (recordGameScore(levelIndex, buttonIndex, data.getIntExtra("GameResult", GameGrid.GAME_WON_PASSED)))
             {
-                // update button state of next level
-                if (requestCode < _levels.length - 1)
-                    recordGameScore(requestCode + 1, GameGrid.GAME_NOT_FINISHED);
+                // update button state of next button
+                if (buttonIndex < _levels[levelIndex].length - 1)
+                    recordGameScore(levelIndex, buttonIndex + 1, GameGrid.GAME_NOT_FINISHED);
+                else
+                {
+                    // else, of first button of next level
+                    if (levelIndex < NB_LEVELS)
+                        recordGameScore(levelIndex + 1, 0, GameGrid.GAME_NOT_FINISHED);
+                }
             }
         }
     }
 
-    public boolean recordGameScore(int levelIndex, int gridScore)
+    public boolean recordGameScore(int levelIndex, int buttonIndex, int gridScore)
     {
         boolean changed = false;
 
@@ -223,14 +203,14 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         }
 
         // update game score only if better than current
-        if (gameScore >  _gamer.getScore(_levels[levelIndex].level))
+        if (gameScore >  _gamer.getScore(_levels[levelIndex][buttonIndex].level))
         {
-            _gamer.setScore(_levels[levelIndex].level, gameScore);
+            _gamer.setScore(_levels[levelIndex][buttonIndex].level, gameScore);
             changed = true;
         }
 
         // update button state
-        FlatButton myFlat = (FlatButton)findViewById(_levels[levelIndex].buttonId);
+        FlatButton myFlat = (FlatButton)findViewById(_levels[levelIndex][buttonIndex].buttonId);
         if (myFlat != null)
         {
             myFlat.setState(buttonState);
@@ -239,15 +219,17 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         return changed;
     }
 
-    public void refreshButtonsState()
+    public void refreshButtonsState(View parentView, int levelIndex)
     {
         boolean atLeastOne = false;
+        int buttonIndex = 0;
+
         // current buttons state from game score
-        for (Level level : _levels)
+        for (Level level : _levels[levelIndex-1])
         {
             int stateToSet = FlatButton.STATE_DIMMED;
             FlatButton myFlat;
-            myFlat = getFlatButton(level.buttonId);
+            myFlat = getFlatButton(parentView, level.buttonId);
             if (myFlat != null)
             {
                 // button state from gamer score
@@ -270,22 +252,38 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                         break;
                 }
                 myFlat.setState(stateToSet);
-                myFlat.setOnClickListener(this);
+
+                // click callback
+                myFlat.setName(level.level);
+                myFlat.setLocal(buttonIndex + (1000*levelIndex));
+                myFlat.setOnClickListener(new View.OnClickListener()
+                {
+                    public void onClick(View v)
+                    {
+                        if (((FlatButton)v).getState() != FlatButton.STATE_DIMMED)
+                        {
+                            // start a game with "level" resource as parameter
+                            Intent intent = new Intent(getApplicationContext(), GameActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("level", ((FlatButton)v).getName());
+                            intent.putExtras(bundle);
+                            startActivityForResult(intent, ((FlatButton)v).getLocal());
+                        }
+                    }
+                });
+
                 myFlat.invalidate();
+
+                buttonIndex++;
             }
         }
     }
 
-    FlatButton getFlatButton(int buttonId)
+    FlatButton getFlatButton(View parentView, int buttonId)
     {
-        FlatButton myFlat;
-        myFlat = (FlatButton)findViewById(buttonId);
-        if (myFlat == null)
-        {
-            View myView = _ViewPager.getChildAt(EASY2);
-            if (myView != null)
-                myFlat = (FlatButton)myView.findViewById(buttonId);
-        }
+        FlatButton myFlat = null;
+        if (parentView != null)
+            myFlat = (FlatButton)parentView.findViewById(buttonId);
         return myFlat;
     }
 
@@ -303,7 +301,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             Fragment fragment = new ObjectFragment();
             Bundle args = new Bundle();
             args.putInt(ObjectFragment.ARG_OBJECT, i);
-            Log.i("getItem", ""+i);
+            Log.i("getItem", "" + i);
             fragment.setArguments(args);
             return fragment;
         }
@@ -347,26 +345,14 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                     // fragment
                     rootView = inflater.inflate(R.layout.activity_easy_1, container, false);
                     // buttons state (all fragments)
-                    ((MainActivity)getActivity()).refreshButtonsState();
+                    ((MainActivity)getActivity()).refreshButtonsState(rootView, EASY1);
                     break;
                 case EASY2:
                     Log.i("ObjectFragment", "EASY2");
                     // fragment
                     rootView = inflater.inflate(R.layout.activity_easy_2, container, false);
                     // buttons state (all fragments)
-                    ((MainActivity)getActivity()).refreshButtonsState();
-                    if (((MainActivity)getActivity()).getFlatButton(((MainActivity)getActivity())._levels[0].buttonId) != null)
-                        Log.i("button_0", "OK");
-                    else
-                        Log.i("button_0", "NOK!");
-                    if (((MainActivity)getActivity()).getFlatButton(((MainActivity)getActivity())._levels[9].buttonId) != null)
-                        Log.i("button_9", "OK");
-                    else
-                        Log.i("button_9", "NOK!");
-                    if (rootView.findViewById(((MainActivity)getActivity())._levels[9].buttonId) != null)
-                        Log.i("button_9 [2]", "OK");
-                    else
-                        Log.i("button_9 [2]", "NOK!");
+                    ((MainActivity)getActivity()).refreshButtonsState(rootView, EASY2);
                     break;
             }
             return rootView;

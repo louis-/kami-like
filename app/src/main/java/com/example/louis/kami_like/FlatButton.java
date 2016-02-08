@@ -42,12 +42,8 @@ public class FlatButton extends View
     public int getDimmedColor() { return bgColor; }
     public void setDimmedColor(int dimmedColor) { this.dimmedColor = dimmedColor; }
 
-    public String getLabel() {
-        return label;
-    }
-    public void setLabel(String label) {
-        this.label = label;
-    }
+    public String getLabel() { return label; }
+    public void setLabel(String label) { this.label = label; }
 
     public int getLabelSize() {
         return labelSize;
@@ -59,12 +55,24 @@ public class FlatButton extends View
     public int getLabelColor() { return labelColor; }
     public void setLabelColor(int labelColor) { this.labelColor = labelColor; }
 
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public int getLocal() { return local; }
+    public void setLocal(int local) { this.local = local; }
+
     // colors
     private int bgColor = DEF_BGCOLOR;
     private int dimmedColor = DEF_DIMMEDCOLOR;
 
     // state
     private int state = STATE_DIMMED;
+
+    // name
+    private String name;
+
+    // local
+    private int local;
 
     // label
     private String label = "";
