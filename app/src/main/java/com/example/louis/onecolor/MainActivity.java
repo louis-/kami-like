@@ -1,8 +1,11 @@
 package com.example.louis.onecolor;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,21 +24,22 @@ import android.widget.Button;
 /**
  * Created by louis on 17/01/16.
  */
-public class MainActivity extends FragmentActivity implements View.OnClickListener
+public class MainActivity extends FragmentActivity implements View.OnClickListener, LevelFragment.OnFragmentCreatedListener
 {
-    // activities in a pager
-    CollectionPagerAdapter _CollectionPagerAdapter;
-    ViewPager _ViewPager;
-
-    // stored score
-    public Gamer _gamer;
-
     // activities
     public static final int ONECOLOR = 0;
     public static final int EASY1 = 1;
     public static final int EASY2 = 2;
     public static final int NB_VIEWS = 3;
     public static final int DEFAULT_VIEW_AT_STARTUP = ONECOLOR;
+
+    // activities in a pager
+    CollectionPagerAdapter _CollectionPagerAdapter;
+    ViewPager _ViewPager;
+    View _LevelViews[] = new View[NB_VIEWS - 1];
+
+    // stored score
+    public Gamer _gamer;
 
     // levels
     public class Level
@@ -84,9 +88,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         // Set up the ViewPager, attaching the adapter.
         _CollectionPagerAdapter = new CollectionPagerAdapter(getSupportFragmentManager());
+        _CollectionPagerAdapter.setMainActivity(this);
         _ViewPager = (ViewPager)findViewById(R.id.pager);
         _ViewPager.setAdapter(_CollectionPagerAdapter);
- 
+
         // Default view at startup
         _ViewPager.setCurrentItem(DEFAULT_VIEW_AT_STARTUP);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -96,6 +101,16 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         // gamer init
         _gamer = new Gamer(this);
+    }
+
+    public void onFragmentCreated(int levelIndex, View fragmentView)
+    {
+        if (levelIndex>0 && levelIndex<NB_VIEWS)
+        {
+            // keep fragment created view
+            _LevelViews[levelIndex - 1] = fragmentView;
+            Log.i("onFragmentCreated", "level is " + levelIndex);
+        }
     }
 
     private void hideSystemUI()
@@ -254,36 +269,53 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
                 // click callback
                 myFlat.setName(level.level);
-                myFlat.setLocal(buttonIndex + (1000*levelIndex));
+                myFlat.setLocal(buttonIndex + (1000 * levelIndex));
                 myFlat.setOnClickListener(new View.OnClickListener()
                 {
                     public void onClick(View v)
                     {
-                        if (((FlatButton)v).getState() != FlatButton.STATE_DIMMED)
+                        if (((FlatButton) v).getState() != FlatButton.STATE_DIMMED)
                         {
                             // start a game with "level" resource as parameter
                             Intent intent = new Intent(getApplicationContext(), GameActivity.class);
                             Bundle bundle = new Bundle();
-                            bundle.putString("level", ((FlatButton)v).getName());
+                            bundle.putString("level", ((FlatButton) v).getName());
                             intent.putExtras(bundle);
-                            startActivityForResult(intent, ((FlatButton)v).getLocal());
+                            startActivityForResult(intent, ((FlatButton) v).getLocal());
                         }
                     }
                 });
-
-                Animation anim = new ScaleAnimation(
-                        0.5f, 1f, // Start and end values for the X axis scaling
-                        0.5f, 1f, // Start and end values for the Y axis scaling
-                        Animation.RELATIVE_TO_SELF, 1f, // Pivot point of X scaling
-                        Animation.RELATIVE_TO_SELF, 1f); // Pivot point of Y scaling
-                anim.setFillAfter(true); // Needed to keep the result of the animation
-                anim.setDuration(400+buttonIndex*35);
-                anim.setInterpolator(new OvershootInterpolator());
-                myFlat.startAnimation(anim);
-
                 //myFlat.invalidate();
 
                 buttonIndex++;
+            }
+        }
+    }
+
+    public void animateButtons(int levelIndex)
+    {
+        int buttonIndex = 0;
+
+        // current buttons state from game score
+        if (levelIndex>0 && levelIndex<NB_VIEWS && _LevelViews[levelIndex-1] != null)
+        {
+            for (Level level : _levels[levelIndex - 1])
+            {
+                FlatButton myFlat;
+                myFlat = getFlatButton(_LevelViews[levelIndex], level.buttonId);
+                if (myFlat != null)
+                {
+                    Animation anim = new ScaleAnimation(
+                            0.5f, 1f, // Start and end values for the X axis scaling
+                            0.5f, 1f, // Start and end values for the Y axis scaling
+                            Animation.RELATIVE_TO_SELF, 1f, // Pivot point of X scaling
+                            Animation.RELATIVE_TO_SELF, 1f); // Pivot point of Y scaling
+                    anim.setFillAfter(true); // Needed to keep the result of the animation
+                    anim.setDuration(400 + buttonIndex * 35);
+                    anim.setInterpolator(new OvershootInterpolator());
+                    myFlat.startAnimation(anim);
+                    buttonIndex++;
+                }
             }
         }
     }
@@ -299,6 +331,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     //
     public static class CollectionPagerAdapter extends FragmentPagerAdapter/*FragmentStatePagerAdapter*/
     {
+        MainActivity mainActivity;
+        public void setMainActivity(MainActivity mainActivity) { this.mainActivity = mainActivity; }
+
+        //
         public CollectionPagerAdapter(FragmentManager fm)
         {
             super(fm);
@@ -307,12 +343,25 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         @Override
         public Fragment getItem(int i)
         {
-            Fragment fragment = new ObjectFragment();
-            Bundle args = new Bundle();
-            args.putInt(ObjectFragment.ARG_OBJECT, i);
-            Log.i("getItem", "" + i);
-            fragment.setArguments(args);
-            return fragment;
+            switch(i)
+            {
+                /** OneColor fragment */
+                case ONECOLOR:
+                    Fragment fragment = new MainFragment();
+                    Bundle args = new Bundle();
+                    args.putInt(MainFragment.ARG_OBJECT, i);
+                    fragment.setArguments(args);
+                    return fragment;
+                /** level fragment */
+                case EASY1:
+                case EASY2:
+                    LevelFragment levelFragment = new LevelFragment();
+                    Bundle levelArgs = new Bundle();
+                    levelArgs.putInt(LevelFragment.ARG_OBJECT, i);
+                    levelFragment.setArguments(levelArgs);
+                    return levelFragment;
+            }
+            return null;
         }
 
         @Override
@@ -324,12 +373,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         @Override
         public CharSequence getPageTitle(int position)
         {
-            Log.i("getPageTitle", ""+position);
+            Log.i("getPageTitle", "" + position);
             return "page " + position;
         }
     }
 
-    public static class ObjectFragment extends Fragment
+    public static class MainFragment extends Fragment
     {
         public static final String ARG_OBJECT = "object";
 
@@ -377,24 +426,72 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                     anim3.setDuration(600);
                     anim3.setInterpolator(new OvershootInterpolator());
                     ((Button)rootView.findViewById(R.id.buttonHard)).startAnimation(anim);
-
-                    break;
-                case EASY1:
-                    Log.i("ObjectFragment", "EASY1");
-                    // fragment
-                    rootView = inflater.inflate(R.layout.activity_easy_1, container, false);
-                    // buttons state (all fragments)
-                    ((MainActivity)getActivity()).refreshButtonsState(rootView, EASY1);
-                    break;
-                case EASY2:
-                    Log.i("ObjectFragment", "EASY2");
-                    // fragment
-                    rootView = inflater.inflate(R.layout.activity_easy_2, container, false);
-                    // buttons state (all fragments)
-                    ((MainActivity)getActivity()).refreshButtonsState(rootView, EASY2);
                     break;
             }
             return rootView;
         }
-     }
+    }
+}
+
+class LevelFragment extends Fragment
+{
+    public static final String ARG_OBJECT = "object";
+    public OnFragmentCreatedListener listener;
+    int level = 0;
+
+    public interface OnFragmentCreatedListener
+    {
+        public void onFragmentCreated(int levelIndex, View fragmentView);
+    }
+
+    @Override
+    public void onAttach(Activity activity)
+    {
+        super.onAttach(activity);
+        try
+        {
+            listener = (OnFragmentCreatedListener)(MainActivity)activity;
+        }
+        catch (ClassCastException e)
+        {
+            throw new ClassCastException(activity.toString() + " must implement OnFragmentCreatedListener");
+        }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
+        View rootView = null;
+        Button button;
+        switch(getArguments().getInt(ARG_OBJECT))
+        {
+            case MainActivity.EASY1:
+                // fragment
+                rootView = inflater.inflate(R.layout.activity_easy_1, container, false);
+                // buttons state (all fragments)
+                ((MainActivity)getActivity()).refreshButtonsState(rootView, MainActivity.EASY1);
+                // record view in activity
+                listener.onFragmentCreated(MainActivity.EASY1, rootView);
+                level = MainActivity.EASY1;
+                break;
+
+            case MainActivity.EASY2:
+                // fragment
+                rootView = inflater.inflate(R.layout.activity_easy_2, container, false);
+                // buttons state (all fragments)
+                ((MainActivity)getActivity()).refreshButtonsState(rootView, MainActivity.EASY2);
+                // record view in activity
+                listener.onFragmentCreated(MainActivity.EASY2, rootView);
+                level = MainActivity.EASY2;
+                break;
+        }
+        return rootView;
+    }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        Log.i("onStart", "level = " + level);
+    }
 }
