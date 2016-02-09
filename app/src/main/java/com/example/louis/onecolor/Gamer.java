@@ -64,7 +64,7 @@ public class Gamer
         */
         map.clear();
         map.put("level_1", SCORE_NOT_PASSED);
-        for(int i = 1; i<=12;i++)
+        for(int i = 1; i<=18;i++)
             map.put("level_"+i, SCORE_NOT_PASSED);
     }
 

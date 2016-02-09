@@ -88,4 +88,51 @@
         <integer name="level_12_pass">5</integer>
         <string name="level_12_grid">1122200033112220003311222000331122200000122220110013311011001331101100133110110012211000000021101122002110112200211211220112202211011220221101122022110000002211</string>
 
+        <string name="level_13_color_1">black</string>
+        <string name="level_13_color_2">darkred</string>
+        <string name="level_13_color_3">darkorange"</string>
+        <string name="level_13_color_4">lightyellow"</string>
+        <integer name="level_13_star">3</integer>
+        <integer name="level_13_pass">4</integer>
+        <string name="level_13_grid">0000000000000000202000000002000000002020100000000001000000000010000000000100000000001000000000010000000000100000000001000000000010000000000100000000000000000000</string>
+
+        <string name="level_14_color_1">black</string>
+        <string name="level_14_color_2">darkred</string>
+        <string name="level_14_color_3">darkorange"</string>
+        <string name="level_14_color_4">lightyellow"</string>
+        <integer name="level_14_star">3</integer>
+        <integer name="level_14_pass">4</integer>
+        <string name="level_14_grid">0000000000000000202000000002000000002020100000000001000000000010000000000300000000001000000000010000000000100000000001000000000010000000000100000000000000000000</string>
+
+        <string name="level_15_color_1">black</string>
+        <string name="level_15_color_2">darkred</string>
+        <string name="level_15_color_3">darkorange"</string>
+        <string name="level_15_color_4">lightyellow"</string>
+        <integer name="level_15_star">4</integer>
+        <integer name="level_15_pass">5</integer>
+        <string name="level_15_grid">0000000000000000202000000002000000002020100000000001000000000010000000100300000001001000000030010000000100100000001001003300010010330000100100110001000011000000</string>
+
+        <string name="level_16_color_1">black</string>
+        <string name="level_16_color_2">darkred</string>
+        <string name="level_16_color_3">darkorange"</string>
+        <string name="level_16_color_4">lightyellow"</string>
+        <integer name="level_16_star">4</integer>
+        <integer name="level_16_pass">5</integer>
+        <string name="level_16_grid">0000000000002020000000020000010020200010000000010000000010000000010000100030000003010020200010000200000100202000003000000000010000000000100000000001000000000010</string>
+
+        <string name="level_17_color_1">black</string>
+        <string name="level_17_color_2">darkred</string>
+        <string name="level_17_color_3">darkorange"</string>
+        <string name="level_17_color_4">lightyellow"</string>
+        <integer name="level_17_star">7</integer>
+        <integer name="level_17_pass">8</integer>
+        <string name="level_17_grid">2222220200211300311021130031122332002330211122000211020020000002002000000311300000031130000002002000110200200021112200022332002330211300311221130031102222220200</string>
+
+        <string name="level_18_color_1">black</string>
+        <string name="level_18_color_2">darkred</string>
+        <string name="level_18_color_3">darkorange"</string>
+        <string name="level_18_color_4">lightyellow"</string>
+        <integer name="level_18_star">7</integer>
+        <integer name="level_18_pass">8</integer>
+        <string name="level_18_grid">2222220203211300311021130031122332002330211122000211020020000002002002330311302233031130220002002002110200200021112200022332002330211300311221130031102222220203</string>
 </resources>
