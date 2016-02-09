@@ -17,6 +17,8 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.WindowManager;
 import android.view.animation.Animation;
+import android.view.animation.AnticipateOvershootInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.view.animation.ScaleAnimation;
 import android.widget.Button;
@@ -24,7 +26,7 @@ import android.widget.Button;
 /**
  * Created by louis on 17/01/16.
  */
-public class MainActivity extends FragmentActivity implements View.OnClickListener, LevelFragment.OnFragmentCreatedListener
+public class MainActivity extends FragmentActivity implements View.OnClickListener, LevelFragment.OnFragmentCreatedListener, ViewPager.OnPageChangeListener
 {
     // activities
     public static final int ONECOLOR = 0;
@@ -91,6 +93,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         _CollectionPagerAdapter.setMainActivity(this);
         _ViewPager = (ViewPager)findViewById(R.id.pager);
         _ViewPager.setAdapter(_CollectionPagerAdapter);
+        _ViewPager.addOnPageChangeListener(this);
 
         // Default view at startup
         _ViewPager.setCurrentItem(DEFAULT_VIEW_AT_STARTUP);
@@ -109,8 +112,22 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         {
             // keep fragment created view
             _LevelViews[levelIndex - 1] = fragmentView;
-            Log.i("onFragmentCreated", "level is " + levelIndex);
         }
+    }
+
+    public void onPageScrollStateChanged (int state)
+    {
+        //Log.i("onPageScrollStateChanged", "state is " + state);
+    }
+
+    public void onPageScrolled (int position, float positionOffset, int positionOffsetPixels)
+    {
+    }
+
+    public void onPageSelected (int position)
+    {
+        if (position>0 && position < NB_VIEWS)
+            animateButtons(position);
     }
 
     private void hideSystemUI()
@@ -302,21 +319,39 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             for (Level level : _levels[levelIndex - 1])
             {
                 FlatButton myFlat;
-                myFlat = getFlatButton(_LevelViews[levelIndex], level.buttonId);
+                myFlat = getFlatButton(_LevelViews[levelIndex-1], level.buttonId);
                 if (myFlat != null)
                 {
                     Animation anim = new ScaleAnimation(
-                            0.5f, 1f, // Start and end values for the X axis scaling
-                            0.5f, 1f, // Start and end values for the Y axis scaling
+                            0.9f, 1.0f, // Start and end values for the X axis scaling
+                            0.9f, 1.0f, // Start and end values for the Y axis scaling
                             Animation.RELATIVE_TO_SELF, 1f, // Pivot point of X scaling
                             Animation.RELATIVE_TO_SELF, 1f); // Pivot point of Y scaling
                     anim.setFillAfter(true); // Needed to keep the result of the animation
                     anim.setDuration(400 + buttonIndex * 35);
-                    anim.setInterpolator(new OvershootInterpolator());
+                    anim.setInterpolator(new AnticipateOvershootInterpolator());
                     myFlat.startAnimation(anim);
                     buttonIndex++;
                 }
             }
+        }
+    }
+
+    public static void animateButton(View parentView, int viewId, int delay)
+    {
+        View view = parentView.findViewById(viewId);
+
+        if (view != null)
+        {
+            Animation anim = new ScaleAnimation(
+                    0.0f, 1.0f, // Start and end values for the X axis scaling
+                    0.0f, 1.0f, // Start and end values for the Y axis scaling
+                    Animation.RELATIVE_TO_SELF, 1f, // Pivot point of X scaling
+                    Animation.RELATIVE_TO_SELF, 1f); // Pivot point of Y scaling
+            anim.setFillAfter(true); // Needed to keep the result of the animation
+            anim.setDuration(1400 + delay * 35);
+            anim.setInterpolator(new DecelerateInterpolator(4f));
+            view.startAnimation(anim);
         }
     }
 
@@ -332,7 +367,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     public static class CollectionPagerAdapter extends FragmentPagerAdapter/*FragmentStatePagerAdapter*/
     {
         MainActivity mainActivity;
-        public void setMainActivity(MainActivity mainActivity) { this.mainActivity = mainActivity; }
+        public void setMainActivity(MainActivity mainActivity)
+        {
+            this.mainActivity = mainActivity;
+        }
 
         //
         public CollectionPagerAdapter(FragmentManager fm)
@@ -392,40 +430,16 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 case ONECOLOR:
                     // fragment
                     rootView = inflater.inflate(R.layout.activity_onecolor, container, false);
-                    // button 'easy'
+
+                    // button callbacks
                     ((Button)rootView.findViewById(R.id.buttonEasy)).setOnClickListener((MainActivity)getActivity());
                     ((Button)rootView.findViewById(R.id.buttonMedium)).setOnClickListener((MainActivity)getActivity());
                     ((Button)rootView.findViewById(R.id.buttonHard)).setOnClickListener((MainActivity) getActivity());
 
-                    Animation anim = new ScaleAnimation(
-                            0.5f, 1f, // Start and end values for the X axis scaling
-                            0.5f, 1f, // Start and end values for the Y axis scaling
-                            Animation.RELATIVE_TO_SELF, 1f, // Pivot point of X scaling
-                            Animation.RELATIVE_TO_SELF, 1f); // Pivot point of Y scaling
-                    anim.setFillAfter(true); // Needed to keep the result of the animation
-                    anim.setDuration(500);
-                    anim.setInterpolator(new OvershootInterpolator());
-                    ((Button)rootView.findViewById(R.id.buttonEasy)).startAnimation(anim);
-
-                    Animation anim2 = new ScaleAnimation(
-                            0.5f, 1f, // Start and end values for the X axis scaling
-                            0.5f, 1f, // Start and end values for the Y axis scaling
-                            Animation.RELATIVE_TO_SELF, 1f, // Pivot point of X scaling
-                            Animation.RELATIVE_TO_SELF, 1f); // Pivot point of Y scaling
-                    anim2.setFillAfter(true); // Needed to keep the result of the animation
-                    anim2.setDuration(550);
-                    anim2.setInterpolator(new OvershootInterpolator());
-                    ((Button)rootView.findViewById(R.id.buttonMedium)).startAnimation(anim2);
-
-                    Animation anim3 = new ScaleAnimation(
-                            0.5f, 1f, // Start and end values for the X axis scaling
-                            0.5f, 1f, // Start and end values for the Y axis scaling
-                            Animation.RELATIVE_TO_SELF, 1f, // Pivot point of X scaling
-                            Animation.RELATIVE_TO_SELF, 1f); // Pivot point of Y scaling
-                    anim3.setFillAfter(true); // Needed to keep the result of the animation
-                    anim3.setDuration(600);
-                    anim3.setInterpolator(new OvershootInterpolator());
-                    ((Button)rootView.findViewById(R.id.buttonHard)).startAnimation(anim);
+                    // animate !
+                    MainActivity.animateButton(rootView, R.id.buttonEasy, 0);
+                    MainActivity.animateButton(rootView, R.id.buttonMedium, 10);
+                    MainActivity.animateButton(rootView, R.id.buttonHard, 20);
                     break;
             }
             return rootView;
@@ -486,12 +500,5 @@ class LevelFragment extends Fragment
                 break;
         }
         return rootView;
-    }
-
-    @Override
-    public void onStart()
-    {
-        super.onStart();
-        Log.i("onStart", "level = " + level);
     }
 }
