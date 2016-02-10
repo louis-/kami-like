@@ -12,17 +12,20 @@ import java.util.Map;
 public class Gamer
 {
     public static final String GAMER_DEFAULT_NAME = "guest";
+    public static final int DEFAULT_SCORES_PER_GAMER = 256;
     public static final int SCORE_NOT_ACCESSIBLE = 0;
     public static final int SCORE_NOT_PASSED = 1;
     public static final int SCORE_PASSED = 2;
     public static final int SCORE_STAR = 3;
+
+    public static final boolean DEV_ALL_ACCESSIBLE = true;
 
     //
     private String name = GAMER_DEFAULT_NAME;
     private SharedPreferences settings;
     private Context context;
 
-    private Map map;
+    private Map<String,String> map;
 
     //
     Gamer(Context context)
@@ -40,19 +43,36 @@ public class Gamer
     {
         this.name = name;
         this.context = context;
-        map = new HashMap<String, Integer>();
-        reset();
+
+        // new void score
+        String voidScore = String.format("%0" + DEFAULT_SCORES_PER_GAMER + "d", 0);
+
+        // new map
+        map = new HashMap();
+        map.put(name, voidScore);
+
+        StringBuffer buffer = new StringBuffer(map.get(name));
+        buffer.setCharAt(0, '1');
+        map.put(name, buffer.toString());
     }
 
     //
-    public void setScore(String level, int score)
+    public void setScore(int index, int score)
     {
 /*
         SharedPreferences.Editor editor = context.getSharedPreferences(name, 0).edit();
         editor.putInt(level, score);
         editor.commit();
 */
-        map.put(level, score);
+        if (map.containsKey(name))
+        {
+            StringBuffer buffer = new StringBuffer(map.get(name));
+            if (index>=0 && index < buffer.length())
+            {
+                buffer.setCharAt(index, (char) (score + (int) '0'));
+                map.put(name, buffer.toString());
+            }
+        }
     }
 
     public void reset()
@@ -62,19 +82,21 @@ public class Gamer
         editor.clear();
         editor.commit();
         */
-        map.clear();
-        map.put("level_1", SCORE_NOT_PASSED);
-        for(int i = 1; i<=18;i++)
-            map.put("level_"+i, SCORE_NOT_PASSED);
+        init(name, context);
     }
 
-    public int getScore(String level)
+    public int getScore(int index)
     {
         /*
         return context.getSharedPreferences(name, 0).getInt(level, SCORE_NOT_PASSED);
         */
-        if (map.containsKey(level))
-            return (int)map.get(level);
+        if (map.containsKey(name))
+        {
+            int score = (int)map.get(name).charAt(index);
+            int zero  = (int) '0';
+            return score - zero;
+            //return ((int) map.get(name).charAt(index) - (int) '0');
+        }
         else
             return SCORE_NOT_ACCESSIBLE;
     }

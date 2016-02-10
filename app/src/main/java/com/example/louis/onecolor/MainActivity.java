@@ -46,38 +46,40 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     // levels
     public class Level
     {
-        Level(String level, int buttonId)
+        Level(String level, int buttonId, int absoluteButtonIndex)
         {
             this.level = level;
             this.buttonId = buttonId;
+            this.absoluteButtonIndex = absoluteButtonIndex;
         }
         public String level;
         public int buttonId;
+        public int absoluteButtonIndex;
     };
 
     public final Level _levels[][] = new Level[][]
     {
         {
-            new Level("level_1", R.id.easy_1),
-            new Level("level_2", R.id.easy_2),
-            new Level("level_3", R.id.easy_3),
-            new Level("level_4", R.id.easy_4),
-            new Level("level_5", R.id.easy_5),
-            new Level("level_6", R.id.easy_6),
-            new Level("level_7", R.id.easy_7),
-            new Level("level_8", R.id.easy_8),
-            new Level("level_9", R.id.easy_9),
+            new Level("level_1", R.id.easy_1, 0),
+            new Level("level_2", R.id.easy_2, 1),
+            new Level("level_3", R.id.easy_3, 2),
+            new Level("level_4", R.id.easy_4, 3),
+            new Level("level_5", R.id.easy_5, 4),
+            new Level("level_6", R.id.easy_6, 5),
+            new Level("level_7", R.id.easy_7, 6),
+            new Level("level_8", R.id.easy_8, 7),
+            new Level("level_9", R.id.easy_9, 8)
         },
         {
-            new Level("level_10", R.id.easy_10),
-            new Level("level_11", R.id.easy_11),
-            new Level("level_12", R.id.easy_12),
-            new Level("level_13", R.id.easy_13),
-            new Level("level_14", R.id.easy_14),
-            new Level("level_15", R.id.easy_15),
-            new Level("level_16", R.id.easy_16),
-            new Level("level_17", R.id.easy_17),
-            new Level("level_18", R.id.easy_18)
+            new Level("level_10", R.id.easy_10, 9),
+            new Level("level_11", R.id.easy_11, 10),
+            new Level("level_12", R.id.easy_12, 11),
+            new Level("level_13", R.id.easy_13, 12),
+            new Level("level_14", R.id.easy_14, 13),
+            new Level("level_15", R.id.easy_15, 14),
+            new Level("level_16", R.id.easy_16, 15),
+            new Level("level_17", R.id.easy_17, 16),
+            new Level("level_18", R.id.easy_18, 17)
         },
     };
 
@@ -234,9 +236,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         }
 
         // update game score only if better than current
-        if (gameScore >  _gamer.getScore(_levels[levelIndex][buttonIndex].level))
+        if (gameScore >  _gamer.getScore(_levels[levelIndex][buttonIndex].absoluteButtonIndex))
         {
-            _gamer.setScore(_levels[levelIndex][buttonIndex].level, gameScore);
+            _gamer.setScore(_levels[levelIndex][buttonIndex].absoluteButtonIndex, gameScore);
             changed = true;
 
             // update button state
@@ -264,7 +266,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             if (myFlat != null)
             {
                 // button state from gamer score
-                switch (_gamer.getScore(level.level))
+                switch (_gamer.getScore(level.absoluteButtonIndex))
                 {
                     case Gamer.SCORE_NOT_ACCESSIBLE:
                         stateToSet = FlatButton.STATE_DIMMED;
