@@ -45,15 +45,16 @@ public class Gamer
         this.context = context;
 
         // new void score
-        String voidScore = String.format("%0" + DEFAULT_SCORES_PER_GAMER + "d", 0);
+        String score = String.format("%0" + DEFAULT_SCORES_PER_GAMER + "d", 0);
+        StringBuffer buffer = new StringBuffer(score);
+        buffer.setCharAt(0, '1');
+
+        SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        score = sharedPref.getString(name, buffer.toString());
 
         // new map
         map = new HashMap();
-        map.put(name, voidScore);
-
-        StringBuffer buffer = new StringBuffer(map.get(name));
-        buffer.setCharAt(0, '1');
-        map.put(name, buffer.toString());
+        map.put(name, score);
     }
 
     //
@@ -71,6 +72,11 @@ public class Gamer
             {
                 buffer.setCharAt(index, (char) (score + (int) '0'));
                 map.put(name, buffer.toString());
+
+                SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString(name, buffer.toString());
+                editor.apply();
             }
         }
     }
