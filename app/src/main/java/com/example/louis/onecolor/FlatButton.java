@@ -145,6 +145,7 @@ public class FlatButton extends View
         else
             paint.setColor(bgColor);
         canvas.drawRect(bounds, paint);
+        //canvas.drawCircle(bounds.centerX(), bounds.centerY(), bounds.width()/2, paint);
 
         // centered label
         paint.setColor(labelColor);

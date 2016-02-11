@@ -9,6 +9,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.VectorDrawable;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -44,52 +45,52 @@ public class GameGrid
     //
 
     // grid (offsets from screen)
-    public static final float GRID_MARGIN_LEFT = 10;
-    public static final float GRID_MARGIN_TOP = 10;
-    public static final float GRID_MARGIN_RIGHT = 6;
-    public static final float GRID_MARGIN_BOTTOM = 0;
+    public static final float GRID_MARGIN_LEFT_DP = 10;
+    public static final float GRID_MARGIN_TOP_DP = 10;
+    public static final float GRID_MARGIN_RIGHT_DP = 6;
+    public static final float GRID_MARGIN_BOTTOM_DP = 0;
 
     // grid boxes (offsets from boxes)
-    public static final float BOX_MARGIN_LEFT = 4;
-    public static final float BOX_MARGIN_TOP = 4;
-    public static final float BOX_MARGIN_RIGHT = 4;
-    public static final float BOX_MARGIN_BOTTOM = 4;
+    public static final float BOX_MARGIN_LEFT_DP = 4;
+    public static final float BOX_MARGIN_TOP_DP = 4;
+    public static final float BOX_MARGIN_RIGHT_DP = 4;
+    public static final float BOX_MARGIN_BOTTOM_DP = 4;
 
     // buttonbar (offsets from screen)
-    public static final float BUTTONBAR_HEIGHT_INCLUDING_MARGINS = 96;
-    public static final float BUTTONBAR_MARGIN_LEFT = 5;
-    public static final float BUTTONBAR_MARGIN_TOP = 0;
-    public static final float BUTTONBAR_MARGIN_RIGHT = 5;
-    public static final float BUTTONBAR_MARGIN_BOTTOM = 5;
+    public static final float BUTTONBAR_HEIGHT_INCLUDING_MARGINS_DP = 96;
+    public static final float BUTTONBAR_MARGIN_LEFT_DP = 5;
+    public static final float BUTTONBAR_MARGIN_TOP_DP = 0;
+    public static final float BUTTONBAR_MARGIN_RIGHT_DP = 5;
+    public static final float BUTTONBAR_MARGIN_BOTTOM_DP = 5;
 
     // button clear (offsets from buttonbar top right)
-    public static final float BUTTONCLEAR_OFFSET_TOP = 20;
-    public static final float BUTTONCLEAR_OFFSET_LEFT = -50;
-    public static final float BUTTONCLEAR_SIZE = 48;
+    public static final float BUTTONCLEAR_OFFSET_TOP_DP = 20;
+    public static final float BUTTONCLEAR_OFFSET_LEFT_DP = -50;
+    public static final float BUTTONCLEAR_SIZE_DP = 48;
 
     // button replay (offsets from buttonbar top right)
-    public static final float BUTTONREPLAY_OFFSET_TOP = 20;
-    public static final float BUTTONREPLAY_OFFSET_LEFT = -100;
-    public static final float BUTTONREPLAY_SIZE = 48;
+    public static final float BUTTONREPLAY_OFFSET_TOP_DP = 20;
+    public static final float BUTTONREPLAY_OFFSET_LEFT_DP = -100;
+    public static final float BUTTONREPLAY_SIZE_DP = 48;
 
     // color buttons (offsets from buttonbar)
-    public static final float BUTTONCOLOR_OFFSET_TOP = 10;
-    public static final float BUTTONCOLOR_OFFSET_LEFT = 10;
-    public static final float BUTTONCOLOR_SIZE = 52;
-    public static final float BUTTONCOLOR_SELECTED_SIZE = 62;
+    public static final float BUTTONCOLOR_OFFSET_TOP_DP = 10;
+    public static final float BUTTONCOLOR_OFFSET_LEFT_DP = 10;
+    public static final float BUTTONCOLOR_SIZE_DP = 52;
+    public static final float BUTTONCOLOR_SELECTED_SIZE_DP = 62;
 
     // turns text (offsets from buttonbar top right)
-    public static final float TURN_TEXT_OFFSET_TOP = 55;
-    public static final float TURN_TEXT_OFFSET_LEFT = -162;
-    public static final float TURN_TEXT_FONT_SIZE = 150;
-    public static final float TURN_STAR_TEXT_OFFSET_TOP = 65;
-    public static final float TURN_STAR_TEXT_OFFSET_LEFT = -135;
-    public static final float TURN_STAR_TEXT_FONT_SIZE = 100;
-    public static final float TURN_STAR_IMG_OFFSET_TOP = 15;
-    public static final float TURN_STAR_IMG_OFFSET_LEFT = -135;
-    public static final float TURN_STAR_IMG_SIZE = 24;
+    public static final float TURN_TEXT_OFFSET_TOP_DP = 55;
+    public static final float TURN_TEXT_OFFSET_LEFT_DP = -162;
+    public static final float TURN_TEXT_FONT_SIZE_DP = 48;
+    public static final float TURN_STAR_TEXT_OFFSET_TOP_DP = 65;
+    public static final float TURN_STAR_TEXT_OFFSET_LEFT_DP = -135;
+    public static final float TURN_STAR_TEXT_FONT_SIZE_DP = 24;
+    public static final float TURN_STAR_IMG_OFFSET_TOP_DP = 15;
+    public static final float TURN_STAR_IMG_OFFSET_LEFT_DP = -135;
+    public static final float TURN_STAR_IMG_SIZE_DP = 24;
 
-    // complete window (calculated by setDimensions, called by father)
+    // dimensions in pixels (calculated by setDimensions)
     private int screenWidth;
     private int screenHeight;
     private int gridOffsetX;
@@ -118,8 +119,10 @@ public class GameGrid
     private int boxHeight;
     private int boxWidthWithMargins;
     private int boxHeightWithMargins;
+    private int turnTextFontSize;
     private int turnTextOffsetX;
     private int turnTextOffsetY;
+    private int turnStarTextFontSize;
     private int turnStarTextOffsetX;
     private int turnStarTextOffsetY;
     private int turnStarImgOffsetX;
@@ -171,40 +174,42 @@ public class GameGrid
         this.screenWidth = screenWidthPx;
         this.screenHeight = screenHeightPx;
 
-        gridOffsetX = dpToPx(GRID_MARGIN_LEFT);
-        gridOffsetY = dpToPx(GRID_MARGIN_TOP);
-        gridWidth = screenWidth - dpToPx(GRID_MARGIN_LEFT + GRID_MARGIN_RIGHT);
-        gridHeight = screenHeight - dpToPx(GRID_MARGIN_TOP + GRID_MARGIN_BOTTOM + BUTTONBAR_HEIGHT_INCLUDING_MARGINS);
-        buttonBarOffsetX = dpToPx(BUTTONBAR_MARGIN_LEFT);
-        buttonBarOffsetY = gridOffsetY + gridHeight + dpToPx(BUTTONBAR_MARGIN_TOP);
-        buttonBarWidth = screenWidth - dpToPx(BUTTONBAR_MARGIN_LEFT + BUTTONBAR_MARGIN_RIGHT);
-        buttonBarHeight = dpToPx(BUTTONBAR_HEIGHT_INCLUDING_MARGINS - BUTTONBAR_MARGIN_TOP - BUTTONBAR_MARGIN_BOTTOM);
-        buttonReplayOffsetX = buttonBarWidth + dpToPx(BUTTONREPLAY_OFFSET_LEFT);
-        buttonReplayOffsetY = dpToPx(BUTTONREPLAY_OFFSET_TOP);
-        buttonReplayWidth = dpToPx(BUTTONREPLAY_SIZE);
+        gridOffsetX = dpToPx(GRID_MARGIN_LEFT_DP);
+        gridOffsetY = dpToPx(GRID_MARGIN_TOP_DP);
+        gridWidth = screenWidth - dpToPx(GRID_MARGIN_LEFT_DP + GRID_MARGIN_RIGHT_DP);
+        gridHeight = screenHeight - dpToPx(GRID_MARGIN_TOP_DP + GRID_MARGIN_BOTTOM_DP + BUTTONBAR_HEIGHT_INCLUDING_MARGINS_DP);
+        buttonBarOffsetX = dpToPx(BUTTONBAR_MARGIN_LEFT_DP);
+        buttonBarOffsetY = gridOffsetY + gridHeight + dpToPx(BUTTONBAR_MARGIN_TOP_DP);
+        buttonBarWidth = screenWidth - dpToPx(BUTTONBAR_MARGIN_LEFT_DP + BUTTONBAR_MARGIN_RIGHT_DP);
+        buttonBarHeight = dpToPx(BUTTONBAR_HEIGHT_INCLUDING_MARGINS_DP - BUTTONBAR_MARGIN_TOP_DP - BUTTONBAR_MARGIN_BOTTOM_DP);
+        buttonReplayOffsetX = buttonBarWidth + dpToPx(BUTTONREPLAY_OFFSET_LEFT_DP);
+        buttonReplayOffsetY = dpToPx(BUTTONREPLAY_OFFSET_TOP_DP);
+        buttonReplayWidth = dpToPx(BUTTONREPLAY_SIZE_DP);
         buttonReplayHeight = buttonReplayWidth;
-        buttonClearOffsetX = buttonBarWidth + dpToPx(BUTTONCLEAR_OFFSET_LEFT);
-        buttonClearOffsetY = dpToPx(BUTTONCLEAR_OFFSET_TOP);
-        buttonClearWidth = dpToPx(BUTTONCLEAR_SIZE);
+        buttonClearOffsetX = buttonBarWidth + dpToPx(BUTTONCLEAR_OFFSET_LEFT_DP);
+        buttonClearOffsetY = dpToPx(BUTTONCLEAR_OFFSET_TOP_DP);
+        buttonClearWidth = dpToPx(BUTTONCLEAR_SIZE_DP);
         buttonClearHeight = buttonClearWidth;
-        buttonColorOffsetX = dpToPx(BUTTONCOLOR_OFFSET_TOP);
-        buttonColorOffsetY = dpToPx(BUTTONCOLOR_OFFSET_LEFT);
-        buttonColorSize = dpToPx(BUTTONCOLOR_SIZE);
-        buttonColorSelectedSize = dpToPx(BUTTONCOLOR_SELECTED_SIZE);
-        boxOffsetX = dpToPx(BOX_MARGIN_LEFT);
-        boxOffsetY = dpToPx(BOX_MARGIN_TOP);
-        boxWidth = (gridWidth / GRID_COLS) - dpToPx(BOX_MARGIN_LEFT + BOX_MARGIN_RIGHT);
+        buttonColorOffsetX = dpToPx(BUTTONCOLOR_OFFSET_TOP_DP);
+        buttonColorOffsetY = dpToPx(BUTTONCOLOR_OFFSET_LEFT_DP);
+        buttonColorSize = dpToPx(BUTTONCOLOR_SIZE_DP);
+        buttonColorSelectedSize = dpToPx(BUTTONCOLOR_SELECTED_SIZE_DP);
+        boxOffsetX = dpToPx(BOX_MARGIN_LEFT_DP);
+        boxOffsetY = dpToPx(BOX_MARGIN_TOP_DP);
+        boxWidth = (gridWidth / GRID_COLS) - dpToPx(BOX_MARGIN_LEFT_DP + BOX_MARGIN_RIGHT_DP);
         boxWidthWithMargins = (gridWidth / GRID_COLS);
-        boxHeight = (gridHeight / GRID_LINES) - dpToPx(BOX_MARGIN_TOP + BOX_MARGIN_BOTTOM);
+        boxHeight = (gridHeight / GRID_LINES) - dpToPx(BOX_MARGIN_TOP_DP + BOX_MARGIN_BOTTOM_DP);
         boxHeightWithMargins = (gridHeight / GRID_LINES);
-        turnTextOffsetX = buttonBarWidth + dpToPx(TURN_TEXT_OFFSET_LEFT);
-        turnTextOffsetY = dpToPx(TURN_TEXT_OFFSET_TOP);
-        turnStarTextOffsetX = buttonBarWidth + dpToPx(TURN_STAR_TEXT_OFFSET_LEFT);
-        turnStarTextOffsetY = dpToPx(TURN_STAR_TEXT_OFFSET_TOP);
-        turnStarImgOffsetX = buttonBarWidth + dpToPx(TURN_STAR_IMG_OFFSET_LEFT);
-        turnStarImgOffsetY = dpToPx(TURN_STAR_IMG_OFFSET_TOP);
+        turnTextFontSize = dpToPx(TURN_TEXT_FONT_SIZE_DP);
+        turnTextOffsetX = buttonBarWidth + dpToPx(TURN_TEXT_OFFSET_LEFT_DP);
+        turnTextOffsetY = dpToPx(TURN_TEXT_OFFSET_TOP_DP);
+        turnStarTextFontSize = dpToPx(TURN_STAR_TEXT_FONT_SIZE_DP);
+        turnStarTextOffsetX = buttonBarWidth + dpToPx(TURN_STAR_TEXT_OFFSET_LEFT_DP);
+        turnStarTextOffsetY = dpToPx(TURN_STAR_TEXT_OFFSET_TOP_DP);
+        turnStarImgOffsetX = buttonBarWidth + dpToPx(TURN_STAR_IMG_OFFSET_LEFT_DP);
+        turnStarImgOffsetY = dpToPx(TURN_STAR_IMG_OFFSET_TOP_DP);
 
-        int starSize = dpToPx(TURN_STAR_IMG_SIZE);
+        int starSize = dpToPx(TURN_STAR_IMG_SIZE_DP);
         _star = Bitmap.createBitmap(starSize, starSize, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(_star);
         _starDrawable.setBounds(0, 0, starSize, starSize);
@@ -356,7 +361,8 @@ public class GameGrid
         // fill
         _paint.setStyle(Paint.Style.FILL);
         _paint.setColor(color);
-        canvas.drawRect(x, y, x + boxWidth, y + boxHeight, _paint);
+        //canvas.drawRect(x, y, x + boxWidth, y + boxHeight, _paint);
+        canvas.drawCircle(x + boxWidth/2, y+boxHeight/2,  boxWidth/2, _paint);
     }
 
     //
@@ -369,10 +375,10 @@ public class GameGrid
 
         // turns text
         _paint.setColor(Color.BLACK);
-        _paint.setTextSize(TURN_TEXT_FONT_SIZE);
+        _paint.setTextSize(turnTextFontSize);
         canvas.drawText("" + _currentTurn, buttonBarOffsetX + turnTextOffsetX, buttonBarOffsetY + turnTextOffsetY, _paint);
 
-        _paint.setTextSize(TURN_STAR_TEXT_FONT_SIZE);
+        _paint.setTextSize(turnStarTextFontSize);
         if (_won && (_currentTurn <= _turnsForStar))
         {
             canvas.drawText("/" + _turnsForStar, buttonBarOffsetX + turnStarTextOffsetX, buttonBarOffsetY + turnStarTextOffsetY, _paint);
