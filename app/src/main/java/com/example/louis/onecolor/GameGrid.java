@@ -130,6 +130,8 @@ public class GameGrid
 
     // drawing data
     public int[] _colors;
+    public int _bkColor;
+    public int _commandsColor;
     public int _nbColors;
     private Paint _paint;
     private Bitmap _buttonReplay;
@@ -374,7 +376,7 @@ public class GameGrid
         canvas.drawBitmap(_buttonClear, buttonBarOffsetX + buttonClearOffsetX, buttonBarOffsetY + buttonClearOffsetY, _paint);
 
         // turns text
-        _paint.setColor(Color.BLACK);
+        _paint.setColor(_commandsColor);
         _paint.setTextSize(turnTextFontSize);
         canvas.drawText("" + _currentTurn, buttonBarOffsetX + turnTextOffsetX, buttonBarOffsetY + turnTextOffsetY, _paint);
 
@@ -418,7 +420,7 @@ public class GameGrid
     {
         // bkground
         _paint.setStyle(Paint.Style.FILL);
-        _paint.setColor(Color.WHITE);
+        _paint.setColor(_bkColor);
         canvas.drawRect(0, 0, screenWidth, screenHeight, _paint);
 
         // buttonbar

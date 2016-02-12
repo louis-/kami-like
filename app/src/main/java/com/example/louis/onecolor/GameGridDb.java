@@ -39,6 +39,9 @@ public class GameGridDb
                     break;
             }
 
+            grid._bkColor = getColor(getString(level + "_color_bkground"));
+            grid._commandsColor = getColor(getString(level + "_color_commands"));
+
             // grid
             String boxes = getString(level + "_grid");
             grid._grid = new int[grid.GRID_LINES][grid.GRID_COLS];
