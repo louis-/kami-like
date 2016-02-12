@@ -34,13 +34,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     public static final int FRAGMENT_EASY2 = 2;
     public static final int FRAGMENT_EASY3 = 3;
     public static final int FRAGMENT_EASY4 = 4;
-    public static final int NB_FRAGMENTS = 5;
+    public static final int FRAGMENTS_NB = 5;
     public static final int DEFAULT_FRAGMENT_AT_STARTUP = FRAGMENT_ONECOLOR;
 
     // activities in a pager
     CollectionPagerAdapter _CollectionPagerAdapter;
     ViewPager _ViewPager;
-    View _LevelViews[] = new View[NB_FRAGMENTS - 1];
+    View _LevelViews[] = new View[FRAGMENTS_NB - 1];
 
     // stored score
     public Gamer _gamer;
@@ -133,7 +133,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     public void onFragmentCreated(int fragmentIndex, View fragmentView)
     {
-        if (fragmentIndex>0 && fragmentIndex<NB_FRAGMENTS)
+        if (fragmentIndex>0 && fragmentIndex<FRAGMENTS_NB)
         {
             // keep fragment created view
             _LevelViews[fragmentIndex - 1] = fragmentView;
@@ -151,7 +151,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     public void onPageSelected (int position)
     {
-        if (position>0 && position < NB_FRAGMENTS)
+        if (position>0 && position < FRAGMENTS_NB)
             animateButtons(position);
     }
 
@@ -227,7 +227,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 else
                 {
                     // or at next level
-                    if (fragmentIndex < NB_FRAGMENTS - 1)
+                    if (fragmentIndex < FRAGMENTS_NB - 1)
                         recordGameScore(fragmentIndex + 1, 0, GameGrid.GAME_NOT_FINISHED);
                 }
             }
@@ -338,7 +338,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         int buttonIndex = 0;
 
         // current buttons state from game score
-        if (fragmentIndex>0 && fragmentIndex<NB_FRAGMENTS && _LevelViews[fragmentIndex-1] != null)
+        if (fragmentIndex>0 && fragmentIndex<FRAGMENTS_NB && _LevelViews[fragmentIndex-1] != null)
         {
             for (Level level : _levels[fragmentIndex - 1])
             {
@@ -409,13 +409,16 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                     fragment.setArguments(args);
                     return fragment;
                 /** level fragment */
-                case FRAGMENT_EASY1:
-                case FRAGMENT_EASY2:
-                    LevelFragment levelFragment = new LevelFragment();
-                    Bundle levelArgs = new Bundle();
-                    levelArgs.putInt(LevelFragment.ARG_OBJECT, i);
-                    levelFragment.setArguments(levelArgs);
-                    return levelFragment;
+                default:
+                    if (i > FRAGMENT_ONECOLOR && i < FRAGMENTS_NB)
+                    {
+                        LevelFragment levelFragment = new LevelFragment();
+                        Bundle levelArgs = new Bundle();
+                        levelArgs.putInt(LevelFragment.ARG_OBJECT, i);
+                        levelFragment.setArguments(levelArgs);
+                        return levelFragment;
+                    }
+                    break;
             }
             return null;
         }
@@ -423,7 +426,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         @Override
         public int getCount()
         {
-            return NB_FRAGMENTS;
+            return FRAGMENTS_NB;
         }
 
         @Override
