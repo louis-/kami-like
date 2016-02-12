@@ -29,16 +29,16 @@ import android.widget.Button;
 public class MainActivity extends FragmentActivity implements View.OnClickListener, LevelFragment.OnFragmentCreatedListener, ViewPager.OnPageChangeListener
 {
     // activities
-    public static final int ONECOLOR = 0;
-    public static final int EASY1 = 1;
-    public static final int EASY2 = 2;
-    public static final int NB_VIEWS = 3;
-    public static final int DEFAULT_VIEW_AT_STARTUP = ONECOLOR;
+    public static final int FRAGMENT_ONECOLOR = 0;
+    public static final int FRAGMENT_EASY1 = 1;
+    public static final int FRAGMENT_EASY2 = 2;
+    public static final int NB_FRAGMENTS = 3;
+    public static final int DEFAULT_FRAGMENT_AT_STARTUP = FRAGMENT_ONECOLOR;
 
     // activities in a pager
     CollectionPagerAdapter _CollectionPagerAdapter;
     ViewPager _ViewPager;
-    View _LevelViews[] = new View[NB_VIEWS - 1];
+    View _LevelViews[] = new View[NB_FRAGMENTS - 1];
 
     // stored score
     public Gamer _gamer;
@@ -46,13 +46,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     // levels
     public class Level
     {
-        Level(String level, int buttonId, int absoluteButtonIndex)
+        Level(String name, int buttonId, int absoluteButtonIndex)
         {
-            this.level = level;
+            this.name = name;
             this.buttonId = buttonId;
             this.absoluteButtonIndex = absoluteButtonIndex;
         }
-        public String level;
+        public String name;
         public int buttonId;
         public int absoluteButtonIndex;
     };
@@ -92,13 +92,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         // Set up the ViewPager, attaching the adapter.
         _CollectionPagerAdapter = new CollectionPagerAdapter(getSupportFragmentManager());
-        _CollectionPagerAdapter.setMainActivity(this);
         _ViewPager = (ViewPager)findViewById(R.id.pager);
         _ViewPager.setAdapter(_CollectionPagerAdapter);
         _ViewPager.addOnPageChangeListener(this);
 
         // Default view at startup
-        _ViewPager.setCurrentItem(DEFAULT_VIEW_AT_STARTUP);
+        _ViewPager.setCurrentItem(DEFAULT_FRAGMENT_AT_STARTUP);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -108,12 +107,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         _gamer = new Gamer(this);
     }
 
-    public void onFragmentCreated(int levelIndex, View fragmentView)
+    public void onFragmentCreated(int fragmentIndex, View fragmentView)
     {
-        if (levelIndex>0 && levelIndex<NB_VIEWS)
+        if (fragmentIndex>0 && fragmentIndex<NB_FRAGMENTS)
         {
             // keep fragment created view
-            _LevelViews[levelIndex - 1] = fragmentView;
+            _LevelViews[fragmentIndex - 1] = fragmentView;
         }
     }
 
@@ -128,7 +127,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     public void onPageSelected (int position)
     {
-        if (position>0 && position < NB_VIEWS)
+        if (position>0 && position < NB_FRAGMENTS)
             animateButtons(position);
     }
 
@@ -150,7 +149,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     public void onWindowFocusChanged(boolean hasFocus)
     {
         super.onWindowFocusChanged(hasFocus);
-        if (hasFocus) 
+        if (hasFocus)
         {
             hideSystemUI();
         }
@@ -159,7 +158,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     @Override
     public void onBackPressed()
     {
-        if (_ViewPager.getCurrentItem() == ONECOLOR)
+        if (_ViewPager.getCurrentItem() == FRAGMENT_ONECOLOR)
         {
             // If the user is currently looking at the first step, allow the system to handle the
             // Back button. This calls finish() on this activity and pops the back stack.
@@ -167,8 +166,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         }
         else
         {
-            // Otherwise, select ONECOLOR
-            _ViewPager.setCurrentItem(ONECOLOR);
+            // Otherwise, select FRAGMENT_ONECOLOR
+            _ViewPager.setCurrentItem(FRAGMENT_ONECOLOR);
         }
     }
 
@@ -177,13 +176,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         int buttonId = view.getId();
         switch (buttonId)
         {
-            case  R.id.buttonEasy: _ViewPager.setCurrentItem(EASY1);
+            case  R.id.buttonEasy: _ViewPager.setCurrentItem(FRAGMENT_EASY1);
                 break;
             default:
                 break;
         }
     }
-    
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
@@ -192,26 +191,26 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         // game result
         if (resultCode == RESULT_OK)
         {
-            int levelIndex = (requestCode / 1000) - 1;
-            int buttonIndex = requestCode - (levelIndex+1)*1000;
+            int fragmentIndex = (requestCode / 10000) - 1;
+            int buttonIndex = requestCode - (fragmentIndex+1)*10000;
 
             // update score if needed (requestCode is the button index in _levels)
-            if (recordGameScore(levelIndex, buttonIndex, data.getIntExtra("GameResult", GameGrid.GAME_WON_PASSED)))
+            if (recordGameScore(fragmentIndex, buttonIndex, data.getIntExtra("GameResult", GameGrid.GAME_WON_PASSED)))
             {
                 // make next button accessible at same level
-                if (buttonIndex < _levels[levelIndex].length - 1)
-                    recordGameScore(levelIndex, buttonIndex + 1, GameGrid.GAME_NOT_FINISHED);
+                if (buttonIndex < _levels[fragmentIndex].length - 1)
+                    recordGameScore(fragmentIndex, buttonIndex + 1, GameGrid.GAME_NOT_FINISHED);
                 else
                 {
                     // or at next level
-                    if (levelIndex < NB_VIEWS - 1)
-                        recordGameScore(levelIndex + 1, 0, GameGrid.GAME_NOT_FINISHED);
+                    if (fragmentIndex < NB_FRAGMENTS - 1)
+                        recordGameScore(fragmentIndex + 1, 0, GameGrid.GAME_NOT_FINISHED);
                 }
             }
         }
     }
 
-    public boolean recordGameScore(int levelIndex, int buttonIndex, int gridScore)
+    public boolean recordGameScore(int fragmentIndex, int buttonIndex, int gridScore)
     {
         boolean changed = false;
 
@@ -236,13 +235,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         }
 
         // update game score only if better than current
-        if (gameScore >  _gamer.getScore(_levels[levelIndex][buttonIndex].absoluteButtonIndex))
+        if (gameScore >  _gamer.getScore(_levels[fragmentIndex][buttonIndex].absoluteButtonIndex))
         {
-            _gamer.setScore(_levels[levelIndex][buttonIndex].absoluteButtonIndex, gameScore);
+            _gamer.setScore(_levels[fragmentIndex][buttonIndex].absoluteButtonIndex, gameScore);
             changed = true;
 
             // update button state
-            FlatButton myFlat = (FlatButton) findViewById(_levels[levelIndex][buttonIndex].buttonId);
+            FlatButton myFlat = (FlatButton) findViewById(_levels[fragmentIndex][buttonIndex].buttonId);
             if (myFlat != null)
             {
                 myFlat.setState(buttonState);
@@ -252,13 +251,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         return changed;
     }
 
-    public void refreshButtonsState(View parentView, int levelIndex)
+    public void refreshButtonsState(View parentView, int fragmentIndex)
     {
         boolean atLeastOne = false;
         int buttonIndex = 0;
 
         // current buttons state from game score
-        for (Level level : _levels[levelIndex-1])
+        for (Level level : _levels[fragmentIndex-1])
         {
             int stateToSet = FlatButton.STATE_DIMMED;
             FlatButton myFlat;
@@ -287,8 +286,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 myFlat.setState(stateToSet);
 
                 // click callback
-                myFlat.setName(level.level);
-                myFlat.setLocal(buttonIndex + (1000 * levelIndex));
+                myFlat.setName(level.name);
+                myFlat.setLocal(buttonIndex + (10000 * fragmentIndex));
                 myFlat.setOnClickListener(new View.OnClickListener()
                 {
                     public void onClick(View v)
@@ -304,24 +303,23 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                         }
                     }
                 });
-                //myFlat.invalidate();
 
                 buttonIndex++;
             }
         }
     }
 
-    public void animateButtons(int levelIndex)
+    public void animateButtons(int fragmentIndex)
     {
         int buttonIndex = 0;
 
         // current buttons state from game score
-        if (levelIndex>0 && levelIndex<NB_VIEWS && _LevelViews[levelIndex-1] != null)
+        if (fragmentIndex>0 && fragmentIndex<NB_FRAGMENTS && _LevelViews[fragmentIndex-1] != null)
         {
-            for (Level level : _levels[levelIndex - 1])
+            for (Level level : _levels[fragmentIndex - 1])
             {
                 FlatButton myFlat;
-                myFlat = getFlatButton(_LevelViews[levelIndex-1], level.buttonId);
+                myFlat = getFlatButton(_LevelViews[fragmentIndex-1], level.buttonId);
                 if (myFlat != null)
                 {
                     Animation anim = new ScaleAnimation(
@@ -368,12 +366,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     //
     public static class CollectionPagerAdapter extends FragmentPagerAdapter/*FragmentStatePagerAdapter*/
     {
-        MainActivity mainActivity;
-        public void setMainActivity(MainActivity mainActivity)
-        {
-            this.mainActivity = mainActivity;
-        }
-
         //
         public CollectionPagerAdapter(FragmentManager fm)
         {
@@ -386,15 +378,15 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             switch(i)
             {
                 /** OneColor fragment */
-                case ONECOLOR:
+                case FRAGMENT_ONECOLOR:
                     Fragment fragment = new MainFragment();
                     Bundle args = new Bundle();
                     args.putInt(MainFragment.ARG_OBJECT, i);
                     fragment.setArguments(args);
                     return fragment;
                 /** level fragment */
-                case EASY1:
-                case EASY2:
+                case FRAGMENT_EASY1:
+                case FRAGMENT_EASY2:
                     LevelFragment levelFragment = new LevelFragment();
                     Bundle levelArgs = new Bundle();
                     levelArgs.putInt(LevelFragment.ARG_OBJECT, i);
@@ -407,7 +399,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         @Override
         public int getCount()
         {
-            return NB_VIEWS;
+            return NB_FRAGMENTS;
         }
 
         @Override
@@ -429,7 +421,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             Button button;
             switch(getArguments().getInt(ARG_OBJECT))
             {
-                case ONECOLOR:
+                case FRAGMENT_ONECOLOR:
                     // fragment
                     rootView = inflater.inflate(R.layout.activity_onecolor, container, false);
 
@@ -453,11 +445,10 @@ class LevelFragment extends Fragment
 {
     public static final String ARG_OBJECT = "object";
     public OnFragmentCreatedListener listener;
-    int level = 0;
 
     public interface OnFragmentCreatedListener
     {
-        public void onFragmentCreated(int levelIndex, View fragmentView);
+        public void onFragmentCreated(int fragmentIndex, View fragmentView);
     }
 
     @Override
@@ -478,27 +469,24 @@ class LevelFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View rootView = null;
-        Button button;
         switch(getArguments().getInt(ARG_OBJECT))
         {
-            case MainActivity.EASY1:
-                // fragment
+            case MainActivity.FRAGMENT_EASY1:
+                // create fragment
                 rootView = inflater.inflate(R.layout.activity_easy_1, container, false);
-                // buttons state (all fragments)
-                ((MainActivity)getActivity()).refreshButtonsState(rootView, MainActivity.EASY1);
+                // set buttons state
+                ((MainActivity)getActivity()).refreshButtonsState(rootView, MainActivity.FRAGMENT_EASY1);
                 // record view in activity
-                listener.onFragmentCreated(MainActivity.EASY1, rootView);
-                level = MainActivity.EASY1;
+                listener.onFragmentCreated(MainActivity.FRAGMENT_EASY1, rootView);
                 break;
 
-            case MainActivity.EASY2:
-                // fragment
+            case MainActivity.FRAGMENT_EASY2:
+                // create fragment
                 rootView = inflater.inflate(R.layout.activity_easy_2, container, false);
-                // buttons state (all fragments)
-                ((MainActivity)getActivity()).refreshButtonsState(rootView, MainActivity.EASY2);
+                // set buttons state
+                ((MainActivity)getActivity()).refreshButtonsState(rootView, MainActivity.FRAGMENT_EASY2);
                 // record view in activity
-                listener.onFragmentCreated(MainActivity.EASY2, rootView);
-                level = MainActivity.EASY2;
+                listener.onFragmentCreated(MainActivity.FRAGMENT_EASY2, rootView);
                 break;
         }
         return rootView;
