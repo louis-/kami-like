@@ -32,7 +32,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     public static final int FRAGMENT_ONECOLOR = 0;
     public static final int FRAGMENT_EASY1 = 1;
     public static final int FRAGMENT_EASY2 = 2;
-    public static final int NB_FRAGMENTS = 3;
+    public static final int FRAGMENT_EASY3 = 3;
+    public static final int FRAGMENT_EASY4 = 4;
+    public static final int NB_FRAGMENTS = 5;
     public static final int DEFAULT_FRAGMENT_AT_STARTUP = FRAGMENT_ONECOLOR;
 
     // activities in a pager
@@ -81,6 +83,28 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             new Level("level_17", R.id.easy_17, 16),
             new Level("level_18", R.id.easy_18, 17)
         },
+        {
+            new Level("level_19", R.id.easy_19, 18),
+            new Level("level_20", R.id.easy_20, 19),
+            new Level("level_21", R.id.easy_21, 20),
+            new Level("level_22", R.id.easy_22, 21),
+            new Level("level_23", R.id.easy_23, 22),
+            new Level("level_24", R.id.easy_24, 23),
+            new Level("level_25", R.id.easy_25, 24),
+            new Level("level_26", R.id.easy_26, 25),
+            new Level("level_27", R.id.easy_27, 26)
+        },
+        {
+            new Level("level_28", R.id.easy_28, 27),
+            new Level("level_29", R.id.easy_29, 28),
+            new Level("level_30", R.id.easy_30, 29),
+            new Level("level_31", R.id.easy_31, 30),
+            new Level("level_32", R.id.easy_32, 31),
+            new Level("level_33", R.id.easy_33, 32),
+            new Level("level_34", R.id.easy_34, 33),
+            new Level("level_35", R.id.easy_35, 34),
+            new Level("level_36", R.id.easy_36, 35)
+        }
     };
 
     //
@@ -487,6 +511,24 @@ class LevelFragment extends Fragment
                 ((MainActivity)getActivity()).refreshButtonsState(rootView, MainActivity.FRAGMENT_EASY2);
                 // record view in activity
                 listener.onFragmentCreated(MainActivity.FRAGMENT_EASY2, rootView);
+                break;
+
+            case MainActivity.FRAGMENT_EASY3:
+                // create fragment
+                rootView = inflater.inflate(R.layout.activity_easy_3, container, false);
+                // set buttons state
+                ((MainActivity)getActivity()).refreshButtonsState(rootView, MainActivity.FRAGMENT_EASY3);
+                // record view in activity
+                listener.onFragmentCreated(MainActivity.FRAGMENT_EASY3, rootView);
+                break;
+
+            case MainActivity.FRAGMENT_EASY4:
+                // create fragment
+                rootView = inflater.inflate(R.layout.activity_easy_4, container, false);
+                // set buttons state
+                ((MainActivity)getActivity()).refreshButtonsState(rootView, MainActivity.FRAGMENT_EASY4);
+                // record view in activity
+                listener.onFragmentCreated(MainActivity.FRAGMENT_EASY4, rootView);
                 break;
         }
         return rootView;
