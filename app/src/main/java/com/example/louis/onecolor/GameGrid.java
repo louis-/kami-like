@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.VectorDrawable;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.widget.Toast;
@@ -158,7 +159,7 @@ public class GameGrid
         _colors = new int [COLORS_MAX];
         _buttonReplay = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_replay_black_48dp);
         _buttonClear = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_clear_black_48dp);
-        _starDrawable = (VectorDrawable)context.getDrawable(R.drawable.ic_star_24dp);
+        _starDrawable = (VectorDrawable)context.getResources().getDrawable(R.drawable.ic_star_24dp);
     }
 
     public static void setDensityDpi(float densityDpi)
@@ -215,6 +216,7 @@ public class GameGrid
         _star = Bitmap.createBitmap(starSize, starSize, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(_star);
         _starDrawable.setBounds(0, 0, starSize, starSize);
+        DrawableCompat.setTint(_starDrawable, mColor);
         _starDrawable.draw(canvas);
     }
 

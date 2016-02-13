@@ -32,7 +32,6 @@ public class Gamer
     {
         init(GAMER_DEFAULT_NAME, context);
     }
-
     Gamer(String name, Context context)
     {
         init(name, context);
@@ -44,15 +43,16 @@ public class Gamer
         this.name = name;
         this.context = context;
 
-        // new void score
+        // new void score (default)
         String score = String.format("%0" + DEFAULT_SCORES_PER_GAMER + "d", 0);
         StringBuffer buffer = new StringBuffer(score);
         buffer.setCharAt(0, '1');
 
+        // get stored score or store and get default
         SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         score = sharedPref.getString(name, buffer.toString());
 
-        // new map
+        // score associated with gamer
         map = new HashMap();
         map.put(name, score);
     }
@@ -60,11 +60,6 @@ public class Gamer
     //
     public void setScore(int index, int score)
     {
-/*
-        SharedPreferences.Editor editor = context.getSharedPreferences(name, 0).edit();
-        editor.putInt(level, score);
-        editor.commit();
-*/
         if (map.containsKey(name))
         {
             StringBuffer buffer = new StringBuffer(map.get(name));
@@ -83,27 +78,14 @@ public class Gamer
 
     public void reset()
     {
-        /*
-        SharedPreferences.Editor editor = context.getSharedPreferences(name, 0).edit();
-        editor.clear();
-        editor.commit();
-        */
-        init(name, context);
+        map.clear();
     }
 
     public int getScore(int index)
     {
-        /*
-        return context.getSharedPreferences(name, 0).getInt(level, SCORE_NOT_PASSED);
-        */
+        int ret = SCORE_NOT_ACCESSIBLE;
         if (map.containsKey(name))
-        {
-            int score = (int)map.get(name).charAt(index);
-            int zero  = (int) '0';
-            return score - zero;
-            //return ((int) map.get(name).charAt(index) - (int) '0');
-        }
-        else
-            return SCORE_NOT_ACCESSIBLE;
+            ret = ((int) map.get(name).charAt(index) - (int) '0');
+        return ret;
     }
 }
