@@ -26,7 +26,10 @@ import android.widget.Button;
 /**
  * Created by louis on 17/01/16.
  */
-public class MainActivity extends FragmentActivity implements View.OnClickListener, LevelFragment.OnFragmentCreatedListener, ViewPager.OnPageChangeListener
+public class MainActivity extends FragmentActivity
+        implements View.OnClickListener,
+        MainFragment.OnFragmentCreatedListener, LevelFragment.OnFragmentCreatedListener,
+        ViewPager.OnPageChangeListener
 {
     // activities
     public static final int FRAGMENT_ONECOLOR = 0;
@@ -41,6 +44,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     CollectionPagerAdapter _CollectionPagerAdapter;
     ViewPager _ViewPager;
     View _LevelViews[] = new View[FRAGMENTS_NB - 1];
+    View _mainView = null;
 
     // stored score
     public Gamer _gamer;
@@ -59,6 +63,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         public int absoluteButtonIndex;
     };
 
+    // here are the levels, stored by fragment
+    // (name, button id, index)
     public final Level _levels[][] = new Level[][]
     {
         {
@@ -133,26 +139,30 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     public void onFragmentCreated(int fragmentIndex, View fragmentView)
     {
-        if (fragmentIndex>0 && fragmentIndex<FRAGMENTS_NB)
-        {
+        if (fragmentIndex==FRAGMENT_ONECOLOR)
+            _mainView = fragmentView;
+        else if (fragmentIndex>FRAGMENT_ONECOLOR && fragmentIndex<FRAGMENTS_NB)
             // keep fragment created view
             _LevelViews[fragmentIndex - 1] = fragmentView;
-        }
     }
 
     public void onPageScrollStateChanged (int state)
     {
-        //Log.i("onPageScrollStateChanged", "state is " + state);
+        // nothing
     }
 
     public void onPageScrolled (int position, float positionOffset, int positionOffsetPixels)
     {
+        // nothing
     }
 
     public void onPageSelected (int position)
     {
-        if (position>0 && position < FRAGMENTS_NB)
-            animateButtons(position);
+        // animation on selected page
+        if (position == FRAGMENT_ONECOLOR)
+            animateMainFragment();
+        else if (position > FRAGMENT_ONECOLOR && position < FRAGMENTS_NB)
+            animateLevelFragment(position);
     }
 
     private void hideSystemUI()
@@ -334,7 +344,34 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         }
     }
 
-    public void animateButtons(int fragmentIndex)
+    public void animateMainFragment()
+    {
+        if (_mainView != null)
+        {
+            View[] buttons = { _mainView.findViewById(R.id.buttonEasy),
+                    _mainView.findViewById(R.id.buttonMedium),
+                    _mainView.findViewById(R.id.buttonHard) };
+            int delay = 0;
+            for(View button : buttons)
+            {
+                if (button != null)
+                {
+                    Animation anim = new ScaleAnimation(
+                            0.0f, 1.0f, // Start and end values for the X axis scaling
+                            0.0f, 1.0f, // Start and end values for the Y axis scaling
+                            Animation.RELATIVE_TO_SELF, 0f, // Pivot point of X scaling
+                            Animation.RELATIVE_TO_SELF, 0f); // Pivot point of Y scaling
+                    anim.setFillAfter(true); // Needed to keep the result of the animation
+                    anim.setDuration(600 + delay);
+                    anim.setInterpolator(new OvershootInterpolator() /*DecelerateInterpolator(4f)*/);
+                    button.startAnimation(anim);
+                    delay += 35;
+                }
+            }
+        }
+    }
+
+    public void animateLevelFragment(int fragmentIndex)
     {
         int buttonIndex = 0;
 
@@ -348,35 +385,17 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 if (myFlat != null)
                 {
                     Animation anim = new ScaleAnimation(
-                            0.9f, 1.0f, // Start and end values for the X axis scaling
-                            0.9f, 1.0f, // Start and end values for the Y axis scaling
-                            Animation.RELATIVE_TO_SELF, 1f, // Pivot point of X scaling
-                            Animation.RELATIVE_TO_SELF, 1f); // Pivot point of Y scaling
+                            0.0f, 1.0f, // Start and end values for the X axis scaling
+                            0.0f, 1.0f, // Start and end values for the Y axis scaling
+                            Animation.RELATIVE_TO_SELF, 0f, // Pivot point of X scaling
+                            Animation.RELATIVE_TO_SELF, 0f); // Pivot point of Y scaling
                     anim.setFillAfter(true); // Needed to keep the result of the animation
-                    anim.setDuration(400 + buttonIndex * 35);
-                    anim.setInterpolator(new AnticipateOvershootInterpolator());
+                    anim.setDuration(200 + buttonIndex * 35);
+                    anim.setInterpolator(new OvershootInterpolator());
                     myFlat.startAnimation(anim);
                     buttonIndex++;
                 }
             }
-        }
-    }
-
-    public static void animateButton(View parentView, int viewId, int delay)
-    {
-        View view = parentView.findViewById(viewId);
-
-        if (view != null)
-        {
-            Animation anim = new ScaleAnimation(
-                    0.0f, 1.0f, // Start and end values for the X axis scaling
-                    0.0f, 1.0f, // Start and end values for the Y axis scaling
-                    Animation.RELATIVE_TO_SELF, 1f, // Pivot point of X scaling
-                    Animation.RELATIVE_TO_SELF, 1f); // Pivot point of Y scaling
-            anim.setFillAfter(true); // Needed to keep the result of the animation
-            anim.setDuration(1400 + delay * 35);
-            anim.setInterpolator(new DecelerateInterpolator(4f));
-            view.startAnimation(anim);
         }
     }
 
@@ -437,35 +456,53 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             return "page " + position;
         }
     }
+}
 
-    public static class MainFragment extends Fragment
+class MainFragment extends Fragment
+{
+    public static final String ARG_OBJECT = "main";
+    public OnFragmentCreatedListener listener;
+
+    public interface OnFragmentCreatedListener
     {
-        public static final String ARG_OBJECT = "object";
+        void onFragmentCreated(int fragmentIndex, View fragmentView);
+    }
 
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    @Override
+    public void onAttach(Activity activity)
+    {
+        super.onAttach(activity);
+        try
         {
-            View rootView = null;
-            Button button;
-            switch(getArguments().getInt(ARG_OBJECT))
-            {
-                case FRAGMENT_ONECOLOR:
-                    // fragment
-                    rootView = inflater.inflate(R.layout.activity_onecolor, container, false);
-
-                    // button callbacks
-                    ((Button)rootView.findViewById(R.id.buttonEasy)).setOnClickListener((MainActivity)getActivity());
-                    ((Button)rootView.findViewById(R.id.buttonMedium)).setOnClickListener((MainActivity)getActivity());
-                    ((Button)rootView.findViewById(R.id.buttonHard)).setOnClickListener((MainActivity) getActivity());
-
-                    // animate !
-                    MainActivity.animateButton(rootView, R.id.buttonEasy, 0);
-                    MainActivity.animateButton(rootView, R.id.buttonMedium, 10);
-                    MainActivity.animateButton(rootView, R.id.buttonHard, 20);
-                    break;
-            }
-            return rootView;
+            listener = (OnFragmentCreatedListener)(MainActivity)activity;
         }
+        catch (ClassCastException e)
+        {
+            throw new ClassCastException(activity.toString() + " must implement OnFragmentCreatedListener");
+        }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
+        View rootView = null;
+        Button button;
+        switch(getArguments().getInt(ARG_OBJECT))
+        {
+            case MainActivity.FRAGMENT_ONECOLOR:
+                // create fragment
+                rootView = inflater.inflate(R.layout.activity_onecolor, container, false);
+
+                // button callbacks
+                ((Button)rootView.findViewById(R.id.buttonEasy)).setOnClickListener((MainActivity) getActivity());
+                ((Button)rootView.findViewById(R.id.buttonMedium)).setOnClickListener((MainActivity) getActivity());
+                ((Button)rootView.findViewById(R.id.buttonHard)).setOnClickListener((MainActivity) getActivity());
+
+                // record view in activity
+                listener.onFragmentCreated(MainActivity.FRAGMENT_ONECOLOR, rootView);
+                break;
+        }
+        return rootView;
     }
 }
 
@@ -476,7 +513,7 @@ class LevelFragment extends Fragment
 
     public interface OnFragmentCreatedListener
     {
-        public void onFragmentCreated(int fragmentIndex, View fragmentView);
+        void onFragmentCreated(int fragmentIndex, View fragmentView);
     }
 
     @Override

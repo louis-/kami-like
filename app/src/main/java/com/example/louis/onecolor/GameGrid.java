@@ -451,4 +451,13 @@ public class GameGrid
             for (int j = 0; j < GRID_COLS; j++)
                 drawBox(canvas, i, j, _colors[_grid[i][j]]);
     }
+
+    void drawEnd(Canvas canvas)
+    {
+        _paint.setStyle(Paint.Style.FILL);
+        canvas.drawBitmap(_bmpReplay, buttonBarOffsetX + buttonReplayOffsetX, buttonBarOffsetY + buttonReplayOffsetY, _paint);
+
+        //
+        draw(canvas);
+    }
 }
