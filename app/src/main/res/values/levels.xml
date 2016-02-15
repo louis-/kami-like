@@ -171,4 +171,94 @@
         <integer name="level_18_star">7</integer>
         <integer name="level_18_pass">8</integer>
         <string name="level_18_grid">2222220203211300311021130031122332002330211122000211020020000002002002330311302233031130220002002002110200200021112200022332002330211300311221130031102222220203</string>
+
+        <string name="level_19_color_1">black</string>
+        <string name="level_19_color_2">darkred</string>
+        <string name="level_19_color_3">darkorange</string>
+        <string name="level_19_color_4">darkgreen"</string>
+        <string name="level_19_color_bkground">colorPrimaryDark</string>
+        <string name="level_19_color_commands">white</string>
+        <integer name="level_19_star">3</integer>
+        <integer name="level_19_pass">4</integer>
+        <string name="level_19_grid">0000000111011111111101000001110112220011000002000003332200000300000000033333322000000000200000222220000020000011002222201110000010111111101011100011101100000000</string>
+
+        <string name="level_20_color_1">black</string>
+        <string name="level_20_color_2">darkred</string>
+        <string name="level_20_color_3">darkorange</string>
+        <string name="level_20_color_4">darkgreen"</string>
+        <string name="level_20_color_bkground">colorPrimaryDark</string>
+        <string name="level_20_color_commands">white</string>
+        <integer name="level_20_star">3</integer>
+        <integer name="level_20_pass">4</integer>
+        <string name="level_20_grid">0000000110011111110001000001100112220011000002000003332200000300000000033333322000000000200000222220000020000011002222200110000010001111101001100011101100000000</string>
+
+        <string name="level_21_color_1">black</string>
+        <string name="level_21_color_2">darkred</string>
+        <string name="level_21_color_3">darkorange</string>
+        <string name="level_21_color_4">darkgreen"</string>
+        <string name="level_21_color_bkground">colorPrimaryDark</string>
+        <string name="level_21_color_commands">white</string>
+        <integer name="level_21_star">4</integer>
+        <integer name="level_21_pass">5</integer>
+        <string name="level_21_grid">0000000110012211110003000001100332220011000002000003332200000300000000033333322000000000200000222220000020000011002222200110000030001112203001100012201100000000</string>
+
+        <string name="level_22_color_1">black</string>
+        <string name="level_22_color_2">darkred</string>
+        <string name="level_22_color_3">darkorange</string>
+        <string name="level_22_color_4">darkgreen"</string>
+        <string name="level_22_color_bkground">colorPrimaryDark</string>
+        <string name="level_22_color_commands">white</string>
+        <integer name="level_22_star">4</integer>
+        <integer name="level_22_pass">5</integer>
+        <string name="level_22_grid">0111000220002122220000210002203333330022302103033030211333003022100330300211113311022222220110000102001110011201101000121100102212300222201033001000100330111110</string>
+
+        <string name="level_23_color_1">black</string>
+        <string name="level_23_color_2">darkred</string>
+        <string name="level_23_color_3">darkorange</string>
+        <string name="level_23_color_4">darkgreen"</string>
+        <string name="level_23_color_bkground">colorPrimaryDark</string>
+        <string name="level_23_color_commands">white</string>
+        <integer name="level_23_star">4</integer>
+        <integer name="level_23_pass">5</integer>
+        <string name="level_23_grid">0111000220002222220000210002203321330022302103033030211333003022100330333211113311022222220110030102001113011201101300121100132212000222201002221333130000111110</string>
+
+        <string name="level_24_color_1">black</string>
+        <string name="level_24_color_2">darkred</string>
+        <string name="level_24_color_3">darkorange</string>
+        <string name="level_24_color_4">darkgreen"</string>
+        <string name="level_24_color_bkground">colorPrimaryDark</string>
+        <string name="level_24_color_commands">white</string>
+        <integer name="level_24_star">3</integer>
+        <integer name="level_24_pass">4</integer>
+        <string name="level_24_grid">0000000000000000333000000030300222223030020002333002000200000201121110022122001000010000100331333010030100301003010030100301113110030000300003333330000000000000</string>
+
+        <string name="level_25_color_1">black</string>
+        <string name="level_25_color_2">darkred</string>
+        <string name="level_25_color_3">darkorange</string>
+        <string name="level_25_color_4">darkgreen"</string>
+        <string name="level_25_color_bkground">colorPrimaryDark</string>
+        <string name="level_25_color_commands">white</string>
+        <integer name="level_25_star">3</integer>
+        <integer name="level_25_pass">4</integer>
+        <string name="level_25_grid">0111112222333001200231300122223130010000010031333322223100032102333333211111000020020000002002000000203333022222220302020030111122003333010000001001000000111100</string>
+
+        <string name="level_26_color_1">black</string>
+        <string name="level_26_color_2">darkred</string>
+        <string name="level_26_color_3">darkorange</string>
+        <string name="level_26_color_4">darkgreen"</string>
+        <string name="level_26_color_bkground">colorPrimaryDark</string>
+        <string name="level_26_color_commands">white</string>
+        <integer name="level_26_star">5</integer>
+        <integer name="level_26_pass">6</integer>
+        <string name="level_26_grid">0000000000222033330021113113002120331300222000100010000222221333021102111312212203031001100333100333011110031301000003130133300313011131101000303011100033300000</string>
+
+        <string name="level_27_color_1">black</string>
+        <string name="level_27_color_2">darkred</string>
+        <string name="level_27_color_3">darkorange</string>
+        <string name="level_27_color_4">darkgreen"</string>
+        <string name="level_27_color_bkground">colorPrimaryDark</string>
+        <string name="level_27_color_commands">white</string>
+        <integer name="level_27_star">5</integer>
+        <integer name="level_27_pass">6</integer>
+        <string name="level_27_grid">2223330000202003033322211311033100030133312223212031202321203121112120302023202030202320201111232220102223111110010310011111221201302003121133333302000022222200</string>
 </resources>
