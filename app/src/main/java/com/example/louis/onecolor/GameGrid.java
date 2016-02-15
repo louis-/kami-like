@@ -40,7 +40,8 @@ public class GameGrid
     // game status
     public static final int GAME_NOT_FINISHED = 0;
     public static final int GAME_WON_PASSED = 1;
-    public static final int GAME_WON_STAR = 2;
+    public static final int GAME_WON_NOT_PASSED = 2;
+    public static final int GAME_WON_STAR = 3;
 
     // geometry (all in DP)
     //
@@ -135,10 +136,12 @@ public class GameGrid
     public int _commandsColor;
     public int _nbColors;
     private Paint _paint;
-    private Bitmap _buttonReplay;
-    private Bitmap _buttonClear;
-    private Bitmap _star;
-    private VectorDrawable _starDrawable;
+    private Bitmap _bmpReplay;
+    private Bitmap _bmpClear;
+    private Bitmap _bmpStar;
+    private VectorDrawable _drawableReplay;
+    private VectorDrawable _drawableClear;
+    private VectorDrawable _drawableStar;
 
     private static float densityDpi = 1;
 
@@ -157,9 +160,9 @@ public class GameGrid
         _grid = new int[GRID_LINES][GRID_COLS];
         _paint = new Paint();
         _colors = new int [COLORS_MAX];
-        _buttonReplay = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_replay_black_48dp);
-        _buttonClear = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_clear_black_48dp);
-        _starDrawable = (VectorDrawable)context.getResources().getDrawable(R.drawable.ic_star_24dp);
+        _drawableReplay = (VectorDrawable)context.getResources().getDrawable(R.drawable.ic_replay_24dp);
+        _drawableClear = (VectorDrawable)context.getResources().getDrawable(R.drawable.ic_clear_24dp);
+        _drawableStar = (VectorDrawable)context.getResources().getDrawable(R.drawable.ic_star_24dp);
     }
 
     public static void setDensityDpi(float densityDpi)
@@ -212,12 +215,27 @@ public class GameGrid
         turnStarImgOffsetX = buttonBarWidth + dpToPx(TURN_STAR_IMG_OFFSET_LEFT_DP);
         turnStarImgOffsetY = dpToPx(TURN_STAR_IMG_OFFSET_TOP_DP);
 
-        int starSize = dpToPx(TURN_STAR_IMG_SIZE_DP);
-        _star = Bitmap.createBitmap(starSize, starSize, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(_star);
-        _starDrawable.setBounds(0, 0, starSize, starSize);
-        DrawableCompat.setTint(_starDrawable, mColor);
-        _starDrawable.draw(canvas);
+        int sizeBmp = dpToPx(TURN_STAR_IMG_SIZE_DP);
+        _bmpStar = bitmapFromVector(_drawableStar, sizeBmp, sizeBmp, _commandsColor);
+
+        sizeBmp = dpToPx(BUTTONCLEAR_SIZE_DP);
+        _bmpClear = bitmapFromVector(_drawableClear, sizeBmp, sizeBmp, _commandsColor);
+
+        sizeBmp = dpToPx(BUTTONREPLAY_SIZE_DP);
+        _bmpReplay = bitmapFromVector(_drawableReplay, sizeBmp, sizeBmp, _commandsColor);
+    }
+
+    private Bitmap bitmapFromVector(VectorDrawable drawable, int w, int h, int color)
+    {
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        if (bmp != null)
+        {
+            Canvas canvas = new Canvas(bmp);
+            drawable.setBounds(0, 0, w, h);
+            DrawableCompat.setTint(drawable, color);
+            drawable.draw(canvas);
+        }
+        return bmp;
     }
 
     public void playAt(float pixelX, float pixelY, int colrep)
@@ -286,7 +304,7 @@ public class GameGrid
                 else if (_currentTurn < _turnsForPass)
                     _gameStatus = GAME_WON_PASSED;
                 else
-                    _gameStatus = GAME_NOT_FINISHED;
+                    _gameStatus = GAME_WON_NOT_PASSED;
             }
 
             // turn management
@@ -374,8 +392,8 @@ public class GameGrid
     {
         // command buttons
         _paint.setStyle(Paint.Style.FILL);
-        canvas.drawBitmap(_buttonReplay, buttonBarOffsetX + buttonReplayOffsetX, buttonBarOffsetY + buttonReplayOffsetY, _paint);
-        canvas.drawBitmap(_buttonClear, buttonBarOffsetX + buttonClearOffsetX, buttonBarOffsetY + buttonClearOffsetY, _paint);
+        canvas.drawBitmap(_bmpReplay, buttonBarOffsetX + buttonReplayOffsetX, buttonBarOffsetY + buttonReplayOffsetY, _paint);
+        canvas.drawBitmap(_bmpClear, buttonBarOffsetX + buttonClearOffsetX, buttonBarOffsetY + buttonClearOffsetY, _paint);
 
         // turns text
         _paint.setColor(_commandsColor);
@@ -386,12 +404,12 @@ public class GameGrid
         if (_won && (_currentTurn <= _turnsForStar))
         {
             canvas.drawText("/" + _turnsForStar, buttonBarOffsetX + turnStarTextOffsetX, buttonBarOffsetY + turnStarTextOffsetY, _paint);
-            canvas.drawBitmap(_star, buttonBarOffsetX + turnStarImgOffsetX, buttonBarOffsetY + turnStarImgOffsetY, _paint);
+            canvas.drawBitmap(_bmpStar, buttonBarOffsetX + turnStarImgOffsetX, buttonBarOffsetY + turnStarImgOffsetY, _paint);
         }
         else if (_currentTurn < _turnsForStar)
         {
             canvas.drawText("/" + _turnsForStar, buttonBarOffsetX + turnStarTextOffsetX, buttonBarOffsetY + turnStarTextOffsetY, _paint);
-            canvas.drawBitmap(_star, buttonBarOffsetX + turnStarImgOffsetX, buttonBarOffsetY + turnStarImgOffsetY, _paint);
+            canvas.drawBitmap(_bmpStar, buttonBarOffsetX + turnStarImgOffsetX, buttonBarOffsetY + turnStarImgOffsetY, _paint);
         }
         else
         {

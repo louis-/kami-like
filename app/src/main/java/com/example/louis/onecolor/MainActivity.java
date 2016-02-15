@@ -253,6 +253,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 break;
             default:
             case GameGrid.GAME_NOT_FINISHED:
+            case GameGrid.GAME_WON_NOT_PASSED:
                 gameScore = Gamer.SCORE_NOT_PASSED;
                 buttonState = FlatButton.STATE_NORMAL;
                 break;
