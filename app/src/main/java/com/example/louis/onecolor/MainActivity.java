@@ -374,10 +374,10 @@ public class MainActivity extends FragmentActivity
                             Animation.RELATIVE_TO_SELF, 0f, // Pivot point of X scaling
                             Animation.RELATIVE_TO_SELF, 0f); // Pivot point of Y scaling
                     anim.setFillAfter(true); // Needed to keep the result of the animation
-                    anim.setDuration(600 + delay);
-                    anim.setInterpolator(new OvershootInterpolator() /*DecelerateInterpolator(4f)*/);
+                    anim.setDuration(2000 + delay);
+                    anim.setInterpolator(new DecelerateInterpolator(4f));
                     button.startAnimation(anim);
-                    delay += 35;
+                    delay += 100;
                 }
             }
         }
@@ -402,8 +402,8 @@ public class MainActivity extends FragmentActivity
                             Animation.RELATIVE_TO_SELF, 0f, // Pivot point of X scaling
                             Animation.RELATIVE_TO_SELF, 0f); // Pivot point of Y scaling
                     anim.setFillAfter(true); // Needed to keep the result of the animation
-                    anim.setDuration(200 + buttonIndex * 35);
-                    anim.setInterpolator(new OvershootInterpolator());
+                    anim.setDuration(1000 + buttonIndex * 50);
+                    anim.setInterpolator(new DecelerateInterpolator(4f) /*new OvershootInterpolator()*/);
                     myFlat.startAnimation(anim);
                     buttonIndex++;
                 }
@@ -499,20 +499,19 @@ class MainFragment extends Fragment
     {
         View rootView = null;
         Button button;
-        switch(getArguments().getInt(ARG_OBJECT))
+
+        if (getArguments().getInt(ARG_OBJECT) == MainActivity.FRAGMENT_ONECOLOR)
         {
-            case MainActivity.FRAGMENT_ONECOLOR:
-                // create fragment
-                rootView = inflater.inflate(R.layout.activity_onecolor, container, false);
+            // create fragment
+            rootView = inflater.inflate(R.layout.activity_onecolor, container, false);
 
-                // button callbacks
-                ((Button)rootView.findViewById(R.id.buttonEasy)).setOnClickListener((MainActivity) getActivity());
-                ((Button)rootView.findViewById(R.id.buttonMedium)).setOnClickListener((MainActivity) getActivity());
-                ((Button)rootView.findViewById(R.id.buttonHard)).setOnClickListener((MainActivity) getActivity());
+            // button callbacks
+            ((Button)rootView.findViewById(R.id.buttonEasy)).setOnClickListener((MainActivity) getActivity());
+            ((Button)rootView.findViewById(R.id.buttonMedium)).setOnClickListener((MainActivity) getActivity());
+            ((Button)rootView.findViewById(R.id.buttonHard)).setOnClickListener((MainActivity) getActivity());
 
-                // record view in activity
-                listener.onFragmentCreated(MainActivity.FRAGMENT_ONECOLOR, rootView);
-                break;
+            // record view in activity
+            listener.onFragmentCreated(MainActivity.FRAGMENT_ONECOLOR, rootView);
         }
         return rootView;
     }
