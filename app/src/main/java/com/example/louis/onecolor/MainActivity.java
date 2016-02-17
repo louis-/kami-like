@@ -37,7 +37,8 @@ public class MainActivity extends FragmentActivity
     public static final int FRAGMENT_EASY2 = 2;
     public static final int FRAGMENT_EASY3 = 3;
     public static final int FRAGMENT_EASY4 = 4;
-    public static final int FRAGMENTS_NB = 5;
+    public static final int FRAGMENT_EASY5 = 5;
+    public static final int FRAGMENTS_NB = 6;
     public static final int DEFAULT_FRAGMENT_AT_STARTUP = FRAGMENT_ONECOLOR;
 
     // activities in a pager
@@ -110,6 +111,17 @@ public class MainActivity extends FragmentActivity
             new Level("level_34", R.id.easy_34, 33),
             new Level("level_35", R.id.easy_35, 34),
             new Level("level_36", R.id.easy_36, 35)
+        },
+        {
+            new Level("level_37", R.id.easy_37, 36),
+            new Level("level_38", R.id.easy_38, 37),
+            new Level("level_39", R.id.easy_39, 38),
+            new Level("level_40", R.id.easy_40, 39),
+            new Level("level_41", R.id.easy_41, 40),
+            new Level("level_42", R.id.easy_42, 41),
+            new Level("level_43", R.id.easy_43, 42),
+            new Level("level_44", R.id.easy_44, 43),
+            new Level("level_45", R.id.easy_45, 44)
         }
     };
 
@@ -570,6 +582,15 @@ class LevelFragment extends Fragment
                 ((MainActivity)getActivity()).refreshButtonsState(rootView, MainActivity.FRAGMENT_EASY4);
                 // record view in activity
                 listener.onFragmentCreated(MainActivity.FRAGMENT_EASY4, rootView);
+                break;
+
+            case MainActivity.FRAGMENT_EASY5:
+                // create fragment
+                rootView = inflater.inflate(R.layout.activity_easy_5, container, false);
+                // set buttons state
+                ((MainActivity)getActivity()).refreshButtonsState(rootView, MainActivity.FRAGMENT_EASY5);
+                // record view in activity
+                listener.onFragmentCreated(MainActivity.FRAGMENT_EASY5, rootView);
                 break;
         }
         return rootView;
