@@ -43,6 +43,9 @@ public class GameGrid
     public static final int GAME_WON_NOT_PASSED = 2;
     public static final int GAME_WON_STAR = 3;
 
+    // draw options
+    public static final boolean DRAW_ROUND = false;
+
     // geometry (all in DP)
     //
 
@@ -53,10 +56,10 @@ public class GameGrid
     public static final float GRID_MARGIN_BOTTOM_DP = 0;
 
     // grid boxes (offsets from boxes)
-    public static final float BOX_MARGIN_LEFT_DP = 4;
-    public static final float BOX_MARGIN_TOP_DP = 4;
-    public static final float BOX_MARGIN_RIGHT_DP = 4;
-    public static final float BOX_MARGIN_BOTTOM_DP = 4;
+    public static final float BOX_MARGIN_LEFT_DP = 1;
+    public static final float BOX_MARGIN_TOP_DP = 1;
+    public static final float BOX_MARGIN_RIGHT_DP = 1;
+    public static final float BOX_MARGIN_BOTTOM_DP = 1;
 
     // buttonbar (offsets from screen)
     public static final float BUTTONBAR_HEIGHT_INCLUDING_MARGINS_DP = 96;
@@ -383,8 +386,12 @@ public class GameGrid
         // fill
         _paint.setStyle(Paint.Style.FILL);
         _paint.setColor(color);
-        //canvas.drawRect(x, y, x + boxWidth, y + boxHeight, _paint);
-        canvas.drawCircle(x + boxWidth/2, y+boxHeight/2,  boxWidth/2, _paint);
+
+        // box itself (round or square)
+        if (DRAW_ROUND)
+            canvas.drawCircle(x + boxWidth/2, y+boxHeight/2,  boxWidth/2, _paint);
+        else
+            canvas.drawRect(x, y, x + boxWidth, y + boxHeight, _paint);
     }
 
     //
