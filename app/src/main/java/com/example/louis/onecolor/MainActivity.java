@@ -1,11 +1,9 @@
 package com.example.louis.onecolor;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +15,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.WindowManager;
 import android.view.animation.Animation;
-import android.view.animation.AnticipateOvershootInterpolator;
 import android.view.animation.DecelerateInterpolator;
-import android.view.animation.OvershootInterpolator;
 import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 
@@ -371,8 +367,8 @@ public class MainActivity extends FragmentActivity
                     Animation anim = new ScaleAnimation(
                             0.0f, 1.0f, // Start and end values for the X axis scaling
                             0.0f, 1.0f, // Start and end values for the Y axis scaling
-                            Animation.RELATIVE_TO_SELF, 0f, // Pivot point of X scaling
-                            Animation.RELATIVE_TO_SELF, 0f); // Pivot point of Y scaling
+                            Animation.RELATIVE_TO_SELF, 0.5f, // Pivot point of X scaling
+                            Animation.RELATIVE_TO_SELF, 0.5f); // Pivot point of Y scaling
                     anim.setFillAfter(true); // Needed to keep the result of the animation
                     anim.setDuration(2000 + delay);
                     anim.setInterpolator(new DecelerateInterpolator(4f));
@@ -399,8 +395,8 @@ public class MainActivity extends FragmentActivity
                     Animation anim = new ScaleAnimation(
                             0.0f, 1.0f, // Start and end values for the X axis scaling
                             0.0f, 1.0f, // Start and end values for the Y axis scaling
-                            Animation.RELATIVE_TO_SELF, 0f, // Pivot point of X scaling
-                            Animation.RELATIVE_TO_SELF, 0f); // Pivot point of Y scaling
+                            Animation.RELATIVE_TO_SELF, 0.5f, // Pivot point of X scaling
+                            Animation.RELATIVE_TO_SELF, 0.5f); // Pivot point of Y scaling
                     anim.setFillAfter(true); // Needed to keep the result of the animation
                     anim.setDuration(1000 + buttonIndex * 50);
                     anim.setInterpolator(new DecelerateInterpolator(4f) /*new OvershootInterpolator()*/);
@@ -420,7 +416,7 @@ public class MainActivity extends FragmentActivity
     }
 
     //
-    public static class CollectionPagerAdapter extends FragmentPagerAdapter/*FragmentStatePagerAdapter*/
+    public static class CollectionPagerAdapter extends FragmentPagerAdapter
     {
         //
         public CollectionPagerAdapter(FragmentManager fm)
