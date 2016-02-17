@@ -36,10 +36,9 @@ public class GameActivity extends Activity implements SurfaceHolder.Callback
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         // full screen window
+        setContentView(R.layout.activity_game);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        setContentView(R.layout.activity_game);
 
         //
         SurfaceView surfaceView = (SurfaceView)findViewById(R.id.surfaceView);

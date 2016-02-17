@@ -27,7 +27,7 @@ public class MainActivity extends FragmentActivity
         MainFragment.OnFragmentCreatedListener, LevelFragment.OnFragmentCreatedListener,
         ViewPager.OnPageChangeListener
 {
-    // activities
+    // fragments indexes
     public static final int FRAGMENT_ONECOLOR = 0;
     public static final int FRAGMENT_EASY1 = 1;
     public static final int FRAGMENT_EASY2 = 2;
@@ -37,10 +37,14 @@ public class MainActivity extends FragmentActivity
     public static final int FRAGMENTS_NB = 6;
     public static final int DEFAULT_FRAGMENT_AT_STARTUP = FRAGMENT_ONECOLOR;
 
-    // activities in a pager
+    // fragments in a pager
     CollectionPagerAdapter _CollectionPagerAdapter;
     ViewPager _ViewPager;
+
+    // rootviews associated with fragments
     View _LevelViews[] = new View[FRAGMENTS_NB - 1];
+
+    // main view associated to FRAGMENT_ONECOLOR
     View _mainView = null;
 
     // stored score

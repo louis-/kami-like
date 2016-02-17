@@ -83,11 +83,23 @@ public class GameGridDb
 
     private int getColor(String resName)
     {
-        int id = _context.getResources().getIdentifier(resName, "color", _context.getPackageName());
-        if (id != 0)
-            return _context.getResources().getColor(id);
-        else
-            return 0;
+        int color = 0;
+        int idRes;
+
+        try
+        {
+            // try a system color like "white" or "@color/material_grey_100"
+            color = Color.parseColor(resName);
+        }
+        catch(IllegalArgumentException il)
+        {
+            // no, try an entry in colors.xml file
+            idRes = _context.getResources().getIdentifier(resName, "color", _context.getPackageName());
+            if (idRes != 0)
+                color = _context.getResources().getColor(idRes);
+        }
+
+        return color;
     }
 
     private void showToast(String msg)
