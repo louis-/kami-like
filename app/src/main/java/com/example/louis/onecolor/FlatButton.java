@@ -9,6 +9,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.VectorDrawable;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
@@ -115,12 +116,14 @@ public class FlatButton extends View
         Canvas canvas = new Canvas(star);
         starDrawable = (VectorDrawable)context.getDrawable(R.drawable.ic_star_24dp);
         starDrawable.setBounds(0, 0, starSize, starSize);
+        DrawableCompat.setTint(starDrawable, labelColor);
         starDrawable.draw(canvas);
 
         starOutline = Bitmap.createBitmap(starSize, starSize, Bitmap.Config.ARGB_8888);
         canvas = new Canvas(starOutline);
         starOutlineDrawable = (VectorDrawable)context.getDrawable(R.drawable.ic_star_outline_24dp);
         starOutlineDrawable.setBounds(0, 0, starSize, starSize);
+        DrawableCompat.setTint(starOutlineDrawable, labelColor);
         starOutlineDrawable.draw(canvas);
     }
 

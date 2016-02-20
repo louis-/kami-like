@@ -19,7 +19,7 @@ public class Gamer
     public static final int SCORE_PASSED = 2;
     public static final int SCORE_STAR = 3;
 
-    public static final boolean DBG_ALL_ACCESSIBLE = true;
+    public static final boolean DBG_ALL_ACCESSIBLE = false;
 
     //
     private String name = GAMER_DEFAULT_NAME;

@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+              android:background="@color/material_blue_grey_800">
 
     <TextView
         android:layout_width="wrap_content"
@@ -11,7 +12,7 @@
         android:text="Easy 3"
         android:id="@+id/textEasy3"
         android:layout_gravity="center_horizontal"
-        android:textColor="@color/material_blue_grey_800"
+        android:textColor="@color/material_grey_100"
         android:textSize="48dp"
         android:typeface="normal"
         android:singleLine="false"
@@ -19,21 +20,7 @@
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_gravity="center_horizontal" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Choose a level:"
-        android:id="@+id/textChooseALevel3"
-        android:layout_gravity="center_horizontal"
-        android:textStyle="italic" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="78dp"
         android:layout_gravity="center_horizontal" />
 
     <LinearLayout
@@ -49,8 +36,8 @@
             android:layout_margin="5dp"
             custom:label="19"
             custom:labelsize="40sp"
-            custom:bgcolor="@color/darkblue"
-            custom:labelcolor="@color/white"
+            custom:bgcolor="@color/material_grey_100"
+            custom:labelcolor="@color/material_grey_800"
             android:layout_gravity="center_horizontal" />
 
         <com.example.louis.onecolor.FlatButton
@@ -60,8 +47,8 @@
             android:layout_margin="5dp"
             custom:label="20"
             custom:labelsize="40sp"
-            custom:bgcolor="@color/darkblue"
-            custom:labelcolor="@color/white"
+            custom:bgcolor="@color/material_grey_100"
+            custom:labelcolor="@color/material_grey_800"
             android:layout_gravity="center_horizontal" />
 
         <com.example.louis.onecolor.FlatButton
@@ -71,8 +58,8 @@
             android:layout_margin="5dp"
             custom:label="21"
             custom:labelsize="40sp"
-            custom:bgcolor="@color/darkblue"
-            custom:labelcolor="@color/white"
+            custom:bgcolor="@color/material_grey_100"
+            custom:labelcolor="@color/material_grey_800"
             android:layout_gravity="center_horizontal" />
     </LinearLayout>
 
@@ -88,8 +75,8 @@
             android:layout_margin="5dp"
             custom:label="22"
             custom:labelsize="40sp"
-            custom:bgcolor="@color/darkblue"
-            custom:labelcolor="@color/white"
+            custom:bgcolor="@color/material_grey_100"
+            custom:labelcolor="@color/material_grey_800"
             android:layout_gravity="center_horizontal" />
 
         <com.example.louis.onecolor.FlatButton
@@ -99,8 +86,8 @@
             android:layout_margin="5dp"
             custom:label="23"
             custom:labelsize="40sp"
-            custom:bgcolor="@color/darkblue"
-            custom:labelcolor="@color/white"
+            custom:bgcolor="@color/material_grey_100"
+            custom:labelcolor="@color/material_grey_800"
             android:layout_gravity="center_horizontal" />
 
         <com.example.louis.onecolor.FlatButton
@@ -110,8 +97,8 @@
             android:layout_margin="5dp"
             custom:label="24"
             custom:labelsize="40sp"
-            custom:bgcolor="@color/darkblue"
-            custom:labelcolor="@color/white"
+            custom:bgcolor="@color/material_grey_100"
+            custom:labelcolor="@color/material_grey_800"
             android:layout_gravity="center_horizontal" />
     </LinearLayout>
 
@@ -127,8 +114,8 @@
             android:layout_margin="5dp"
             custom:label="25"
             custom:labelsize="40sp"
-            custom:bgcolor="@color/darkblue"
-            custom:labelcolor="@color/white"
+            custom:bgcolor="@color/material_grey_100"
+            custom:labelcolor="@color/material_grey_800"
             android:layout_gravity="center_horizontal" />
 
         <com.example.louis.onecolor.FlatButton
@@ -138,8 +125,8 @@
             android:layout_margin="5dp"
             custom:label="26"
             custom:labelsize="40sp"
-            custom:bgcolor="@color/darkblue"
-            custom:labelcolor="@color/white"
+            custom:bgcolor="@color/material_grey_100"
+            custom:labelcolor="@color/material_grey_800"
             android:layout_gravity="center_horizontal" />
 
         <com.example.louis.onecolor.FlatButton
@@ -149,8 +136,8 @@
             android:layout_margin="5dp"
             custom:label="27"
             custom:labelsize="40sp"
-            custom:bgcolor="@color/darkblue"
-            custom:labelcolor="@color/white"
+            custom:bgcolor="@color/material_grey_100"
+            custom:labelcolor="@color/material_grey_800"
             android:layout_gravity="center_horizontal" />
     </LinearLayout>
 

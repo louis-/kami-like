@@ -374,10 +374,10 @@ public class MainActivity extends FragmentActivity
                             Animation.RELATIVE_TO_SELF, 0.5f, // Pivot point of X scaling
                             Animation.RELATIVE_TO_SELF, 0.5f); // Pivot point of Y scaling
                     anim.setFillAfter(true); // Needed to keep the result of the animation
-                    anim.setDuration(2000 + delay);
-                    anim.setInterpolator(new DecelerateInterpolator(4f));
+                    anim.setDuration(1000 + delay);
+                    anim.setInterpolator(new DecelerateInterpolator(3f));
                     button.startAnimation(anim);
-                    delay += 100;
+                    delay += 50;
                 }
             }
         }
@@ -403,7 +403,7 @@ public class MainActivity extends FragmentActivity
                             Animation.RELATIVE_TO_SELF, 0.5f); // Pivot point of Y scaling
                     anim.setFillAfter(true); // Needed to keep the result of the animation
                     anim.setDuration(1000 + buttonIndex * 50);
-                    anim.setInterpolator(new DecelerateInterpolator(4f) /*new OvershootInterpolator()*/);
+                    anim.setInterpolator(new DecelerateInterpolator(3f) /*new OvershootInterpolator()*/);
                     myFlat.startAnimation(anim);
                     buttonIndex++;
                 }
