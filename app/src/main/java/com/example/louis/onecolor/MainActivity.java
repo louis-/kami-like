@@ -68,6 +68,7 @@ public class MainActivity extends FragmentActivity
     // (name, button id, index)
     public final Level _levels[][] = new Level[][]
     {
+        // EASY_1
         {
             new Level("level_1", R.id.easy_1, 0),
             new Level("level_2", R.id.easy_2, 1),
@@ -79,6 +80,7 @@ public class MainActivity extends FragmentActivity
             new Level("level_8", R.id.easy_8, 7),
             new Level("level_9", R.id.easy_9, 8)
         },
+        // EASY_2
         {
             new Level("level_10", R.id.easy_10, 9),
             new Level("level_11", R.id.easy_11, 10),
@@ -90,6 +92,7 @@ public class MainActivity extends FragmentActivity
             new Level("level_17", R.id.easy_17, 16),
             new Level("level_18", R.id.easy_18, 17)
         },
+        // EASY_3
         {
             new Level("level_19", R.id.easy_19, 18),
             new Level("level_20", R.id.easy_20, 19),
@@ -101,6 +104,7 @@ public class MainActivity extends FragmentActivity
             new Level("level_26", R.id.easy_26, 25),
             new Level("level_27", R.id.easy_27, 26)
         },
+        // EASY_4
         {
             new Level("level_28", R.id.easy_28, 27),
             new Level("level_29", R.id.easy_29, 28),
@@ -112,6 +116,7 @@ public class MainActivity extends FragmentActivity
             new Level("level_35", R.id.easy_35, 34),
             new Level("level_36", R.id.easy_36, 35)
         },
+        // EASY_5
         {
             new Level("level_37", R.id.easy_37, 36),
             new Level("level_38", R.id.easy_38, 37),

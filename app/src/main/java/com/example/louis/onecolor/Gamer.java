@@ -83,7 +83,7 @@ public class Gamer
                 map.put(name, buffer.toString());
 
                 // store
-                if (DBG_ALL_ACCESSIBLE)
+                if (!DBG_ALL_ACCESSIBLE)
                 {
                     SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPref.edit();
