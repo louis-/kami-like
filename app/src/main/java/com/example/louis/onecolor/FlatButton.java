@@ -30,7 +30,10 @@ public class FlatButton extends View
     public static final int STATE_PASSED = 1;
     public static final int STATE_STAR = 2;
 
+    // star vectors
     public static final int DEF_STARSIZE_DP = 32;
+    public static final int STAR_RESOURCE = R.drawable.ic_star_24dp;
+    public static final int PASSED_RESOURCE = R.drawable.ic_star_half_24dp;
 
     // state
     public int getState() { return state; }
@@ -82,10 +85,10 @@ public class FlatButton extends View
 
     //paint for drawing custom view
     private Paint paint;
-    private Bitmap star;
-    private Bitmap starOutline;
+    private Bitmap starBitmap;
+    private Bitmap passedBitmap;
     private VectorDrawable starDrawable;
-    private VectorDrawable starOutlineDrawable;
+    private VectorDrawable passedDrawable;
 
     public FlatButton(Context context, AttributeSet attrs)
     {
@@ -110,21 +113,21 @@ public class FlatButton extends View
             a.recycle();
         }
 
-        // star and star outline
+        // star and passed bitmaps
         int starSize = dp_to_pixels(DEF_STARSIZE_DP);
-        star = Bitmap.createBitmap(starSize, starSize, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(star);
-        starDrawable = (VectorDrawable)context.getDrawable(R.drawable.ic_star_24dp);
+        starBitmap = Bitmap.createBitmap(starSize, starSize, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(starBitmap);
+        starDrawable = (VectorDrawable)context.getDrawable(STAR_RESOURCE);
         starDrawable.setBounds(0, 0, starSize, starSize);
         DrawableCompat.setTint(starDrawable, labelColor);
         starDrawable.draw(canvas);
 
-        starOutline = Bitmap.createBitmap(starSize, starSize, Bitmap.Config.ARGB_8888);
-        canvas = new Canvas(starOutline);
-        starOutlineDrawable = (VectorDrawable)context.getDrawable(R.drawable.ic_star_outline_24dp);
-        starOutlineDrawable.setBounds(0, 0, starSize, starSize);
-        DrawableCompat.setTint(starOutlineDrawable, labelColor);
-        starOutlineDrawable.draw(canvas);
+        passedBitmap = Bitmap.createBitmap(starSize, starSize, Bitmap.Config.ARGB_8888);
+        canvas = new Canvas(passedBitmap);
+        passedDrawable = (VectorDrawable)context.getDrawable(PASSED_RESOURCE);
+        passedDrawable.setBounds(0, 0, starSize, starSize);
+        DrawableCompat.setTint(passedDrawable, labelColor);
+        passedDrawable.draw(canvas);
     }
 
     public FlatButton(Context context)
@@ -158,9 +161,9 @@ public class FlatButton extends View
 
         // star or not
         if (state == STATE_STAR)
-            canvas.drawBitmap(star, canvas.getWidth() - dp_to_pixels(DEF_STARSIZE_DP), canvas.getHeight() - dp_to_pixels(DEF_STARSIZE_DP), paint);
+            canvas.drawBitmap(starBitmap, canvas.getWidth() - dp_to_pixels(DEF_STARSIZE_DP), canvas.getHeight() - dp_to_pixels(DEF_STARSIZE_DP), paint);
         else if (state == STATE_PASSED)
-            canvas.drawBitmap(starOutline, canvas.getWidth() - dp_to_pixels(DEF_STARSIZE_DP), canvas.getHeight() - dp_to_pixels(DEF_STARSIZE_DP), paint);
+            canvas.drawBitmap(passedBitmap, canvas.getWidth() - dp_to_pixels(DEF_STARSIZE_DP), canvas.getHeight() - dp_to_pixels(DEF_STARSIZE_DP), paint);
     }
 
     private int dp_to_pixels(int dp)
