@@ -11,6 +11,8 @@ import android.graphics.drawable.VectorDrawable;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 import android.widget.Toast;
 
 import java.util.ArrayList;

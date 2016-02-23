@@ -17,6 +17,9 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -124,7 +127,7 @@ public class GameActivity extends Activity implements SurfaceHolder.Callback
                     // play
                     _grid.playAt(x, y, _grid._currentColor);
                     // then refresh view
-                    surfaceCreated(((SurfaceView) findViewById(R.id.surfaceView)).getHolder());
+                    surfaceCreated(((SurfaceView)findViewById(R.id.surfaceView)).getHolder());
                     // game won
                     if (_grid._gameStatus == GameGrid.GAME_WON_STAR)
                     {
