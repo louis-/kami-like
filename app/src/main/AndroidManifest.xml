@@ -19,8 +19,7 @@ com.example.louis.onecolor.MainActivity.FlatButton
             </intent-filter>
         </activity>
         <activity android:name=".GameActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

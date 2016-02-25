@@ -113,6 +113,22 @@ public class GameActivity extends Activity implements SurfaceHolder.Callback
         }
     }
 
+    private void waitThenFinish(final int waitMs)
+    {
+        new Thread(new Runnable()
+        {
+            public void run()
+            {
+                // wait
+                try { Thread.sleep(waitMs); }
+                catch(InterruptedException ie) { }
+
+                // then finish
+                finish();
+            }
+        }).start();
+    }
+
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
@@ -131,27 +147,39 @@ public class GameActivity extends Activity implements SurfaceHolder.Callback
                     // game won
                     if (_grid._gameStatus == GameGrid.GAME_WON_STAR)
                     {
+                        // transmit result to MainActivity
                         Intent intent = getIntent();
                         intent.putExtra("GameLevel", _level);
                         intent.putExtra("GameResult", GameGrid.GAME_WON_STAR);
                         setResult(RESULT_OK, intent);
-                        finish();
+
+                        // splash and bye
+                        SplashDlg.run(getFragmentManager(), SplashDlg.SPLASH_STAR);
+                        waitThenFinish(2000);
                     }
                     else if (_grid._gameStatus == GameGrid.GAME_WON_PASSED)
                     {
+                        // transmit result to MainActivity
                         Intent intent = getIntent();
                         intent.putExtra("GameLevel", _level);
                         intent.putExtra("GameResult", GameGrid.GAME_WON_PASSED);
                         setResult(RESULT_OK, intent);
-                        finish();
+
+                        // splash and bye
+                        SplashDlg.run(getFragmentManager(), SplashDlg.SPLASH_HALFSTAR);
+                        waitThenFinish(2000);
                     }
                     else if (_grid._gameStatus == GameGrid.GAME_WON_NOT_PASSED)
                     {
+                        // transmit result to MainActivity
                         Intent intent = getIntent();
                         intent.putExtra("GameLevel", _level);
                         intent.putExtra("GameResult", GameGrid.GAME_WON_NOT_PASSED);
                         setResult(RESULT_OK, intent);
-                        finish();
+
+                        // splash and bye
+                        SplashDlg.run(getFragmentManager(), SplashDlg.SPLASH_FAILED);
+                        waitThenFinish(2000);
                     }
                     break;
                 case GameGrid.PRESS_CLEAR:
