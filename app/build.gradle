@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'onecolor'
+            keyPassword 'qqoap8ck'
+            storeFile file('/home/louis/AndroidStudioProjects/keystore/onecolor.jks')
+            storePassword 'qqoap8ck'
+        }
+    }
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
     defaultConfig {
