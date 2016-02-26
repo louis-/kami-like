@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.louis.onecolor">
-com.example.louis.onecolor.MainActivity.FlatButton
+    package="com.lrubstudio.onecolor">
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +9,7 @@ com.example.louis.onecolor.MainActivity.FlatButton
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="com.lrubstudio.onecolor.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait">
@@ -18,7 +18,7 @@ com.example.louis.onecolor.MainActivity.FlatButton
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GameActivity"
+        <activity android:name="com.lrubstudio.onecolor.GameActivity"
             android:screenOrientation="portrait" />
     </application>
 

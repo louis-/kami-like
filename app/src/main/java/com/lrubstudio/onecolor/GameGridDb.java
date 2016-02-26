@@ -1,12 +1,8 @@
-package com.example.louis.onecolor;
+package com.lrubstudio.onecolor;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.widget.Toast;
-
-import java.lang.reflect.Field;
 
 /**
  * Created by louis on 15/01/16.

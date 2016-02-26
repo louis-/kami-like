@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
 
-        <com.example.louis.onecolor.FlatButton
+        <com.lrubstudio.onecolor.FlatButton
             android:id="@+id/easy_10"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -40,7 +40,7 @@
             custom:labelcolor="@color/material_grey_800"
             android:layout_gravity="center_horizontal" />
 
-        <com.example.louis.onecolor.FlatButton
+        <com.lrubstudio.onecolor.FlatButton
             android:id="@+id/easy_11"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -51,7 +51,7 @@
             custom:labelcolor="@color/material_grey_800"
             android:layout_gravity="center_horizontal" />
 
-        <com.example.louis.onecolor.FlatButton
+        <com.lrubstudio.onecolor.FlatButton
             android:id="@+id/easy_12"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -68,7 +68,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
-        <com.example.louis.onecolor.FlatButton
+        <com.lrubstudio.onecolor.FlatButton
             android:id="@+id/easy_13"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -79,7 +79,7 @@
             custom:labelcolor="@color/material_grey_800"
             android:layout_gravity="center_horizontal" />
 
-        <com.example.louis.onecolor.FlatButton
+        <com.lrubstudio.onecolor.FlatButton
             android:id="@+id/easy_14"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -90,7 +90,7 @@
             custom:labelcolor="@color/material_grey_800"
             android:layout_gravity="center_horizontal" />
 
-        <com.example.louis.onecolor.FlatButton
+        <com.lrubstudio.onecolor.FlatButton
             android:id="@+id/easy_15"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -107,7 +107,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
-        <com.example.louis.onecolor.FlatButton
+        <com.lrubstudio.onecolor.FlatButton
             android:id="@+id/easy_16"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -118,7 +118,7 @@
             custom:labelcolor="@color/material_grey_800"
             android:layout_gravity="center_horizontal" />
 
-        <com.example.louis.onecolor.FlatButton
+        <com.lrubstudio.onecolor.FlatButton
             android:id="@+id/easy_17"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -129,7 +129,7 @@
             custom:labelcolor="@color/material_grey_800"
             android:layout_gravity="center_horizontal" />
 
-        <com.example.louis.onecolor.FlatButton
+        <com.lrubstudio.onecolor.FlatButton
             android:id="@+id/easy_18"
             android:layout_width="80dp"
             android:layout_height="80dp"
