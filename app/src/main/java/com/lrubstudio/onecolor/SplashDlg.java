@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.BounceInterpolator;
 import android.view.animation.DecelerateInterpolator;
@@ -45,20 +46,6 @@ public class SplashDlg extends DialogFragment
         // before hiding the navigation bar, because otherwise getWindow() would raise a
         // NullPointerException since the window was not yet created.
         fragmentManager.executePendingTransactions();
-
-        // Hide the navigation bar. It is important to do this after show() was called.
-        // If we would do this in onCreateDialog(), we would get a requestFeature()
-        // error.
-        /*
-        dlg.getDialog().getWindow().getDecorView().setSystemUiVisibility(
-                dlg.getActivity().getWindow().getDecorView().getSystemUiVisibility()
-        );
-
-        // Make the dialogs window focusable again.
-        dlg.getDialog().getWindow().clearFlags(
-                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-        );
-        */
     }
 
     @Override
@@ -88,24 +75,24 @@ public class SplashDlg extends DialogFragment
                 img.setImageResource(R.drawable.ic_star_300dp);
                 anim = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 anim.setFillAfter(true);
-                anim.setDuration(800);
+                anim.setDuration(500);
                 anim.setInterpolator(new BounceInterpolator());
                 img.startAnimation(anim);
                 break;
             case SPLASH_HALFSTAR:
                 img.setImageResource(R.drawable.ic_star_half_300dp);
-                anim = new ScaleAnimation(0.8f, 1.0f, 0.8f, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                anim = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 anim.setFillAfter(true);
-                anim.setDuration(1000);
-                anim.setInterpolator(new DecelerateInterpolator(1.f));
+                anim.setDuration(300);
+                anim.setInterpolator(new AccelerateInterpolator(3.f));
                 img.startAnimation(anim);
                 break;
             case SPLASH_FAILED:
                 img.setImageResource(R.drawable.ic_cancel_300dp);
-                anim = new ScaleAnimation(0.8f, 1.0f, 0.8f, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                anim = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 anim.setFillAfter(true);
-                anim.setDuration(1000);
-                anim.setInterpolator(new DecelerateInterpolator(1.f));
+                anim.setDuration(300);
+                anim.setInterpolator(new AccelerateInterpolator(3.f));
                 img.startAnimation(anim);
                 break;
         }

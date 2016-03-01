@@ -14,8 +14,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.WindowManager;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
+import android.view.animation.BounceInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.view.animation.OvershootInterpolator;
 import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 
@@ -379,10 +382,11 @@ public class MainActivity extends FragmentActivity
                             Animation.RELATIVE_TO_SELF, 0.5f, // Pivot point of X scaling
                             Animation.RELATIVE_TO_SELF, 0.5f); // Pivot point of Y scaling
                     anim.setFillAfter(true); // Needed to keep the result of the animation
-                    anim.setDuration(1000 + delay);
-                    anim.setInterpolator(new DecelerateInterpolator(3f));
+                    anim.setDuration(300 + delay);
+                    anim.setStartOffset(delay);
+                    anim.setInterpolator(new BounceInterpolator() /*new AccelerateInterpolator(3f)*/);
                     button.startAnimation(anim);
-                    delay += 50;
+                    delay += 30;
                 }
             }
         }
@@ -404,11 +408,12 @@ public class MainActivity extends FragmentActivity
                     Animation anim = new ScaleAnimation(
                             0.0f, 1.0f, // Start and end values for the X axis scaling
                             0.0f, 1.0f, // Start and end values for the Y axis scaling
-                            Animation.RELATIVE_TO_SELF, 0.5f, // Pivot point of X scaling
-                            Animation.RELATIVE_TO_SELF, 0.5f); // Pivot point of Y scaling
+                            Animation.RELATIVE_TO_SELF, 0.0f, // Pivot point of X scaling
+                            Animation.RELATIVE_TO_SELF, 0.0f); // Pivot point of Y scaling
                     anim.setFillAfter(true); // Needed to keep the result of the animation
-                    anim.setDuration(1000 + buttonIndex * 50);
-                    anim.setInterpolator(new DecelerateInterpolator(3f) /*new OvershootInterpolator()*/);
+                    anim.setDuration(300);
+                    anim.setStartOffset(buttonIndex * 30);
+                    anim.setInterpolator(new BounceInterpolator() /*new AccelerateInterpolator(3f)*/ /* new OvershootInterpolator(3.0f) */);
                     myFlat.startAnimation(anim);
                     buttonIndex++;
                 }
