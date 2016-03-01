@@ -1,4 +1,4 @@
-package com.example.louis.onecolor;
+package com.lrubstudio.onecolor;
 
 import android.content.Context;
 import android.content.SharedPreferences;

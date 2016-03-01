@@ -1,4 +1,4 @@
-package com.example.louis.onecolor;
+package com.lrubstudio.onecolor;
 
 import org.junit.Test;
 

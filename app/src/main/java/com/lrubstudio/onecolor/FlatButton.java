@@ -1,4 +1,4 @@
-package com.example.louis.onecolor;
+package com.lrubstudio.onecolor;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -7,13 +7,11 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.graphics.RectF;
 import android.graphics.drawable.VectorDrawable;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
-import android.widget.Toast;
 
 /**
  * Created by louis on 22/01/16.
